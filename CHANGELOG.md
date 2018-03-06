@@ -1,7 +1,7 @@
-# Sensu Go cookbook changelog
+# Change Log
+This project adheres to [Semantic Versioning](http://semver.org/).
 
-This file is used to track changes made in recent versions of the Sensu Go
-cookbook. 
+This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
 Created repo with initial commit (@mbbroberg)
