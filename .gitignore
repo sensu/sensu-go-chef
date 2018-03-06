@@ -9,3 +9,5 @@ bin/*
 .kitchen.local.yml
 
 .delivery
+
+Gemfile.lock
