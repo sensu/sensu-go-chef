@@ -29,7 +29,7 @@ property :agent_id, String, name_property: true
 property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/nightly'
 property :config_home, String, default: '/etc/sensu'
-property :config, Hash, default: { "agent-id": '',
+property :config, Hash, default: { "agent-id": node['hostname'],
                                    "organization": 'default',
                                    "environment": 'default',
                                    "backend-url": ['ws://127.0.0.1:8081'],
@@ -77,10 +77,8 @@ EOH
   end
 
   # render template at /etc/sensu/agent.yml
-  agent_config = new_resource.config.dup
-  agent_config['agent-id'] = new_resource.agent_id
   file ::File.join(new_resource.config_home, 'agent.yml') do
-    content(agent_config.to_yaml)
+    content(new_resource.config.to_yaml)
   end
 
   service 'sensu-agent' do
