@@ -29,11 +29,6 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
 
-- name: amazonlinux
-  driver:
-    image: dokken/amazonlinux
-    pid_one_command: /sbin/init
-
 - name: debian-8
   driver:
     image: dokken/debian-8
