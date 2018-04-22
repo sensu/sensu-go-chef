@@ -20,13 +20,15 @@ if os.name == 'debian' || os.name == 'ubuntu'
   end
 end
 
-describe package('sensu-backend') do
-  it { should be_installed }
-end
+%w(sensu-backend sensu-agent).each do |pkg|
+  describe package(pkg) do
+    it { should be_installed }
+  end
 
-describe service('sensu-backend') do
-  it { should be_installed }
-  # Ubuntu 14.04: Sensu pkg ships an init script, init provider doesn't support enable
-  it { should be_enabled unless os.release.to_f == 14.04 }
-  it { should be_running }
+  describe service(pkg) do
+    it { should be_installed }
+    # Ubuntu 14.04: Sensu pkg ships an init script, init provider doesn't support enable
+    it { should be_enabled unless os.release.to_f == 14.04 }
+    it { should be_running }
+  end
 end
