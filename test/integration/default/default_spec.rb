@@ -13,8 +13,8 @@ if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
   end
 end
 
-if os.family == 'debian'
-  describe apt('https://packagecloud.io/sensu/nightly/ubuntu') do
+if os.name == 'debian' || os.name == 'ubuntu'
+  describe apt("https://packagecloud.io/sensu/nightly/#{os.name}") do
     it { should exist }
     it { should be_enabled }
   end
@@ -26,6 +26,7 @@ end
 
 describe service('sensu-backend') do
   it { should be_installed }
-  it { should be_enabled }
+  # Ubuntu 14.04: Sensu pkg ships an init script, init provider doesn't support enable
+  it { should be_enabled unless os.release.to_f == 14.04 }
   it { should be_running }
 end

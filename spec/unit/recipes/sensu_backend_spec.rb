@@ -56,7 +56,7 @@ RSpec.shared_examples 'sensu_backend' do |platform, version|
     end
 
     it 'enables and starts sensu-backend service' do
-      expect(chef_run).to enable_service('sensu-backend')
+      expect(chef_run).to enable_service('sensu-backend') unless version == '14.04'
       expect(chef_run).to start_service('sensu-backend')
     end
   end
