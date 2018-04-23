@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go-chef
+# Cookbook Name:: sensu-go
 # Recipe:: default
 #
 # Copyright:: 2018 Sensu, Inc.

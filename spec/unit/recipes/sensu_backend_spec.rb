@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go-chef
+# Cookbook Name:: sensu-go
 # Spec:: sensu_backend
 #
 

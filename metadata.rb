@@ -1,4 +1,4 @@
-name 'sensu-go-chef'
+name 'sensu-go'
 maintainer 'Sensu Community'
 maintainer_email 'support@sensuapp.com'
 license 'MIT'
