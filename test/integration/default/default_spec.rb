@@ -32,3 +32,12 @@ end
     it { should be_running }
   end
 end
+
+describe package('sensu-cli') do
+  it { should be_installed }
+end
+
+describe command('sensuctl user list') do
+  its('stdout') { should match /Username/ }
+  its('exit_status') { should eq 0 }
+end
