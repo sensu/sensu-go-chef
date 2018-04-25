@@ -33,43 +33,14 @@ property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
 action :install do
   packagecloud_repo new_resource.repo do
     type value_for_platform_family(
-      %w(rhel fedora amazon) => 'rpm',
-      'default' => 'deb'
-    )
+           %w(rhel fedora amazon) => 'rpm',
+           'default' => 'deb'
+         )
   end
 
   package 'sensu-backend' do
     action :install
     version new_resource.version unless new_resource.version == 'latest'
-  end
-
-  # TODO: Remove this sad monkey patch if upstream PR is accepted
-  # https://github.com/sensu/sensu-go/pull/1354
-  if node['init_package'] == 'init'
-    sensu_backend_init = '/etc/init.d/sensu-backend'
-    ruby_block "Patch SYSV init runlevel file #{sensu_backend_init}" do # ~FC014
-      block do
-        f = Chef::Util::FileEdit.new(sensu_backend_init)
-        f.search_file_replace_line(%r{^PATH=\/.*\:.*bin}, <<-EOH
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          sensu-backend
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start sensu-backend
-# Description:       Enable the Sensu Backend service
-### END INIT INFO
-
-PATH=/sbin:/usr/sbin:/bin:/usr/bin
-EOH
-                                  )
-        f.write_file
-      end
-      only_if { ::File.exist?(sensu_backend_init) }
-      not_if { !::File.foreach(sensu_backend_init).grep(/BEGIN INIT/).empty? }
-    end
   end
 
   # render template at /etc/sensu/backend.yml

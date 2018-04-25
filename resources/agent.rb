@@ -47,35 +47,6 @@ action :install do
     version new_resource.version unless new_resource.version == 'latest'
   end
 
-  # TODO: Remove this sad monkey patch if upstream PR is accepted
-  # https://github.com/sensu/sensu-go/pull/1354
-  if node['init_package'] == 'init'
-    sensu_agent_init = '/etc/init.d/sensu-agent'
-    ruby_block "Patch SYSV init runlevel file #{sensu_agent_init}" do # ~FC014
-      block do
-        f = Chef::Util::FileEdit.new(sensu_agent_init)
-        f.search_file_replace_line(%r{^PATH=\/.*\:.*bin}, <<-EOH
-#!/bin/sh
-### BEGIN INIT INFO
-# Provides:          sensu-agent
-# Required-Start:    $remote_fs $syslog
-# Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start sensu-agent
-# Description:       Enable the Sensu Agent service
-### END INIT INFO
-
-PATH=/sbin:/usr/sbin:/bin:/usr/bin
-EOH
-                                  )
-        f.write_file
-      end
-      only_if { ::File.exist?(sensu_agent_init) }
-      not_if { !::File.foreach(sensu_agent_init).grep(/BEGIN INIT/).empty? }
-    end
-  end
-
   # render template at /etc/sensu/agent.yml
   file ::File.join(new_resource.config_home, 'agent.yml') do
     content(new_resource.config.to_yaml)
