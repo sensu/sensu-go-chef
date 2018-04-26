@@ -7,14 +7,13 @@ provisioner:
 
 verifier:
   name: inspec
-  format: doc
 
 platforms:
   - name: ubuntu-16.04
-  - name: centos-7.2
+  - name: centos-7
 
 suites:
   - name: default
     run_list:
-      - recipe[sensu-go-chef::default]
+      - recipe[sensu_test::default]
     attributes:

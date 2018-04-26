@@ -1,25 +1,34 @@
 #
-# Cookbook Name:: sensu-go-chef
+# Cookbook Name:: sensu-go
 # Spec:: default
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
-
-describe port(80) do
-  it { should_not be_listening }
+if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
+  describe yum.repo('sensu_nightly') do
+    it { should exist }
+    it { should be_enabled }
+  end
 end
 
-describe port(443) do
-  it { should be_listening }
-  its('protocols') { should include 'tcp' }
+if os.name == 'debian' || os.name == 'ubuntu'
+  describe apt("https://packagecloud.io/sensu/nightly/#{os.name}") do
+    it { should exist }
+    it { should be_enabled }
+  end
 end
 
-describe sshd_config do
-  its('Ciphers') { should eq('chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr') }
-end
+%w(sensu-backend sensu-agent).each do |pkg|
+  describe package(pkg) do
+    it { should be_installed }
+  end
 
-describe yaml('.kitchen.yml') do
-  its('driver.name') { should eq('vagrant') }
+  describe service(pkg) do
+    it { should be_installed }
+    # Ubuntu 14.04: Sensu pkg ships an init script, init provider doesn't support enable
+    it { should be_enabled unless os.release.to_f == 14.04 }
+    it { should be_running }
+  end
 end

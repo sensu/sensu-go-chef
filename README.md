@@ -1,4 +1,4 @@
-# sensu-go-chef
+# sensu-go
 
 [Under Construction] Chef Cookbook for The Sensu Go project
 

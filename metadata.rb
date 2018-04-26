@@ -1,4 +1,4 @@
-name 'sensu-go-chef'
+name 'sensu-go'
 maintainer 'Sensu Community'
 maintainer_email 'support@sensuapp.com'
 license 'MIT'
@@ -26,3 +26,5 @@ end
 
 issues_url 'https://github.com/sensu/sensu-go-chef/issues'
 source_url 'https://github.com/sensu/sensu-go-chef'
+
+depends 'packagecloud'
