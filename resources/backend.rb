@@ -35,7 +35,7 @@ action :install do
     type value_for_platform_family(
            %w(rhel fedora amazon) => 'rpm',
            'default' => 'deb'
-         )
+    )
   end
 
   package 'sensu-backend' do
