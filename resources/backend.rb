@@ -33,8 +33,8 @@ property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
 action :install do
   packagecloud_repo new_resource.repo do
     type value_for_platform_family(
-           %w(rhel fedora amazon) => 'rpm',
-           'default' => 'deb'
+      %w(rhel fedora amazon) => 'rpm',
+      'default' => 'deb'
     )
   end
 
