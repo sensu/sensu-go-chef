@@ -41,3 +41,9 @@ describe command('sensuctl user list') do
   its('stdout') { should match /Username/ }
   its('exit_status') { should eq 0 }
 end
+
+describe command('sensuctl check list') do
+  its('stdout') { should match /cron/ }
+  its('stdout') { should match /dad_jokes/ }
+  its('exit_status') { should eq 0 }
+end
