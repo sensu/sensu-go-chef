@@ -42,8 +42,7 @@ describe command('sensuctl user list') do
   its('exit_status') { should eq 0 }
 end
 
-describe command('sensuctl check list') do
-  its('stdout') { should match /cron/ }
-  its('stdout') { should match /dad_jokes/ }
-  its('exit_status') { should eq 0 }
+describe json('/etc/sensu/checks/cron.json') do
+  its(%w(spec name)) { should eq 'cron' }
+  its(%w(spec subscriptions)) { should include 'dad_jokes' }
 end

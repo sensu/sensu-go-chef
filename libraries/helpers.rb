@@ -52,6 +52,7 @@ module SensuCookbook
       a['organization'] = new_resource.organization if new_resource.organization
       a['sha512'] = new_resource.sha512
       a['url'] = new_resource.url
+      a
     end
   end
 end

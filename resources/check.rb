@@ -29,9 +29,9 @@ property :config_home, String, default: '/etc/sensu'
 
 property :check_hooks, Array
 property :command, String, default: '/bin/true', required: true
-property :cron, String, default: '* * * * *'
+property :cron, String
 property :environment, String, default: 'default'
-property :handlers, Array, default: ['default'], required: true
+property :handlers, Array, default: [], required: true
 property :high_flap_threshold, Integer
 property :interval, Integer
 property :low_flap_threshold, Integer
@@ -43,7 +43,7 @@ property :round_robin, [true, false]
 property :runtime_assets, Array
 property :stdin, [true, false], default: false
 property :subdue, Hash
-property :subscriptions, Array, default: ['default'], required: true
+property :subscriptions, Array, default: [], required: true
 property :timeout, Integer
 property :ttl, Integer
 

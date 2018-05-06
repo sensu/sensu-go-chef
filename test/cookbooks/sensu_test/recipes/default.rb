@@ -8,6 +8,7 @@ end
 
 sensu_check 'cron' do
   command '/bin/true'
+  cron '@hourly'
   subscriptions ['dad_jokes']
   action :create
 end
