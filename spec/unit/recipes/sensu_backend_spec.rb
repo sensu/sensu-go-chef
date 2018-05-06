@@ -35,6 +35,8 @@ RSpec.shared_examples 'sensu_backend' do |platform, version|
       ).converge(described_recipe)
     end
 
+    include_context 'common_stubs'
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end

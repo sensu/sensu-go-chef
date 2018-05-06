@@ -20,3 +20,12 @@ sensu_check 'cron' do
                        { begin: '11:00 PM', end: '1:00 AM' }] })
   action :create
 end
+
+assets = data_bag_item('sensu', 'assets')
+assets.each do |name, property|
+  next if name == 'id'
+  sensu_asset name do
+    url property['url']
+    sha512 property['checksum']
+  end
+end

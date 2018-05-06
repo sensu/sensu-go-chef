@@ -41,18 +41,22 @@ module SensuCookbook
       spec['ttl'] = new_resource.ttl if new_resource.ttl
 
       c = {}
-      c['type'] = type_from_name.capitalize
+      c['type'] = type_from_name
       c['spec'] = spec
       c
     end
 
     def asset_from_resource
+      spec = {}
+      spec['name'] = new_resource.name
+      spec['metadata'] = new_resource.metadata if new_resource.metadata
+      spec['organization'] = new_resource.organization if new_resource.organization
+      spec['sha512'] = new_resource.sha512
+      spec['url'] = new_resource.url
+
       a = {}
-      a['name'] = new_resource.name
-      a['metadata'] = new_resource.metadata if new_resource.metadata
-      a['organization'] = new_resource.organization if new_resource.organization
-      a['sha512'] = new_resource.sha512
-      a['url'] = new_resource.url
+      a['type'] = type_from_name
+      a['spec'] = spec
       a
     end
   end
