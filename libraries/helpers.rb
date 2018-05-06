@@ -44,5 +44,14 @@ module SensuCookbook
       c['spec'] = spec
       c
     end
+
+    def asset_from_resource
+      a = {}
+      a['name'] = new_resource.name
+      a['metadata'] = new_resource.metadata if new_resource.metadata
+      a['organization'] = new_resource.organization if new_resource.organization
+      a['sha512'] = new_resource.sha512
+      a['url'] = new_resource.url
+    end
   end
 end
