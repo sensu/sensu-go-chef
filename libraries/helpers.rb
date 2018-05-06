@@ -22,6 +22,7 @@ module SensuCookbook
       spec['command'] = new_resource.command
       spec['cron'] = new_resource.cron
       spec['environment'] = new_resource.environment
+      spec['extended_attributes'] = new_resource.extended_attributes if new_resource.extended_attributes
       spec['handlers'] = new_resource.handlers
       spec['high_flap_threshold'] = new_resource.high_flap_threshold if new_resource.high_flap_threshold
       spec['interval'] = new_resource.interval if new_resource.interval

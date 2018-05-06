@@ -31,6 +31,7 @@ property :check_hooks, Array
 property :command, String, default: '/bin/true', required: true
 property :cron, String
 property :environment, String, default: 'default'
+property :extended_attributes, Hash
 property :handlers, Array, default: [], required: true
 property :high_flap_threshold, Integer
 property :interval, Integer
