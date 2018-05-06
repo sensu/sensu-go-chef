@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: sensu-go
-# Spec:: sensu_agent
+# Spec:: sensu_check
 #
 
 # Copyright:: 2018 Sensu, Inc.
@@ -24,14 +24,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-RSpec.shared_examples 'sensu_agent' do |platform, version|
+RSpec.shared_examples 'sensu_check' do |platform, version|
   context "when run on #{platform} #{version}" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         os: 'linux',
         platform: platform,
         version: version,
-        step_into: ['sensu_agent']
+        step_into: ['sensu_check']
       ).converge(described_recipe)
     end
 
@@ -39,25 +39,20 @@ RSpec.shared_examples 'sensu_agent' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'creates sensu agent resources' do
-      expect(chef_run).to install_sensu_backend('default')
+    it 'creates sensu check resources' do
+      expect(chef_run).to create_sensu_check('cron')
     end
 
-    it 'adds sensu packagecloud repo' do
-      expect(chef_run).to add_packagecloud_repo('sensu/nightly')
+    it 'creates sensu checks object storage' do
+      expect(chef_run).to create_directory('/etc/sensu/checks')
     end
 
-    it 'writes the agent config file' do
-      expect(chef_run).to create_file('/etc/sensu/agent.yml')
+    it 'creates the check object file' do
+      expect(chef_run).to create_file('/etc/sensu/checks/cron.json')
     end
 
-    it 'installs package sensu-agent' do
-      expect(chef_run).to install_package('sensu-agent')
-    end
-
-    it 'enables and starts sensu-agent service' do
-      expect(chef_run).to enable_service('sensu-agent') unless version == '14.04'
-      expect(chef_run).to start_service('sensu-agent')
+    it 'creates the cron sensu check' do
+      expect(chef_run).to run_execute('sensuctl create -f /etc/sensu/checks/cron.json')
     end
   end
 end
