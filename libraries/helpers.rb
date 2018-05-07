@@ -94,5 +94,20 @@ module SensuCookbook
       f['spec'] = spec
       f
     end
+
+    def mutator_from_resource
+      spec = {}
+      spec['name'] = new_resource.name
+      spec['command'] = new_resource.command
+      spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
+      spec['environment'] = new_resource.environment
+      spec['organization'] = new_resource.organization if new_resource.organization
+      spec['timeout'] = new_resource.timeout if new_resource.timeout
+
+      m = {}
+      m['type'] = type_from_name
+      m['spec'] = spec
+      m
+    end
   end
 end

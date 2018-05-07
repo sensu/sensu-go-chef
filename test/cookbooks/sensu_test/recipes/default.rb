@@ -94,3 +94,8 @@ sensu_filter 'nine_to_fiver' do
     'hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17',
   ]
 end
+
+sensu_mutator 'example-mutator' do
+  command 'example_mutator.rb'
+  timeout 60
+end

@@ -66,3 +66,11 @@ end
     its(%w(spec url)) { should match URI.regexp }
   end
 end
+
+describe json('/etc/sensu/mutators/example-mutator.json') do
+  its(%w(type)) { should eq 'mutator' }
+  its(%w(spec name)) { should eq 'example-mutator' }
+  its(%w(spec timeout)) { should eq 60 }
+  its(%w(spec environment)) { should eq 'default' }
+  its(%w(spec organization)) { should eq 'default' }
+end
