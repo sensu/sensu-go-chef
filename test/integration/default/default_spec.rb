@@ -43,7 +43,7 @@ describe command('sensuctl user list') do
 end
 
 describe json('/etc/sensu/checks/cron.json') do
-  its(%w(type)) { should eq 'Check' }
+  its(%w(type)) { should eq 'check' }
   its(%w(spec name)) { should eq 'cron' }
   its(%w(spec cron)) { should eq '@hourly' }
   its(%w(spec environment)) { should eq 'default' }
@@ -56,4 +56,13 @@ describe json('/etc/sensu/checks/cron.json') do
   its(['spec', 'subdue', 'days', 'all', 0, 'end']) { should eq '11:59 PM' }
   its(['spec', 'subdue', 'days', 'all', 1, 'begin']) { should eq '11:00 PM' }
   its(['spec', 'subdue', 'days', 'all', 1, 'end']) { should eq '1:00 AM' }
+end
+
+%w(http docker postgres).each do |p|
+  describe json("/etc/sensu/assets/sensu-plugins-#{p}.json") do
+    require 'uri'
+    its(%w(type)) { should eq 'asset' }
+    its(%w(spec name)) { should eq "sensu-plugins-#{p}" }
+    its(%w(spec url)) { should match URI.regexp }
+  end
 end
