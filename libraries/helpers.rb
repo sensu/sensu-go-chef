@@ -79,5 +79,20 @@ module SensuCookbook
       h['spec'] = spec
       h
     end
+
+    def filter_from_resource
+      spec = {}
+      spec['name'] = new_resource.name
+      spec['action'] = new_resource.filter_action
+      spec['environment'] = new_resource.environment if new_resource.environment
+      spec['organization'] = new_resource.organization if new_resource.organization
+      spec['statements'] = new_resource.statements
+      spec['when'] = new_resource.when if new_resource.when
+
+      f = {}
+      f['type'] = 'event_' + type_from_name
+      f['spec'] = spec
+      f
+    end
   end
 end

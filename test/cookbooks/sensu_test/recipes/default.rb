@@ -57,3 +57,40 @@ sensu_handler 'notify_the_world' do
   type 'set'
   handlers %w(slack tcp_handler udp_handler)
 end
+
+sensu_filter 'production_filter' do
+  filter_action 'allow'
+  statements [
+    "event.Entity.Environment == 'production'",
+  ]
+end
+
+sensu_filter 'development_filter' do
+  filter_action 'deny'
+  statements [
+    "event.Entity.Environment == 'production'",
+  ]
+end
+
+sensu_filter 'state_change_only' do
+  filter_action 'allow'
+  statements [
+    'event.Check.Occurrences == 1',
+  ]
+end
+
+sensu_filter 'filter_interval_60_hourly' do
+  filter_action 'allow'
+  statements [
+    'event.Check.Interval == 60',
+    'event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0',
+  ]
+end
+
+sensu_filter 'nine_to_fiver' do
+  filter_action 'allow'
+  statements [
+    'weekday(event.Timestamp) >= 1 && weekday(event.Timestamp) <= 5',
+    'hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17',
+  ]
+end
