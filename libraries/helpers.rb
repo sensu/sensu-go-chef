@@ -59,5 +59,25 @@ module SensuCookbook
       a['spec'] = spec
       a
     end
+
+    def handler_from_resource
+      spec = {}
+      spec['name'] = new_resource.name
+      spec['command'] = new_resource.command if new_resource.command
+      spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
+      spec['environment'] = new_resource.environment
+      spec['filters'] = new_resource.filters if new_resource.filters
+      spec['handlers'] = new_resource.handlers if new_resource.handlers
+      spec['mutator'] = new_resource.mutator if new_resource.mutator
+      spec['organization'] = new_resource.organization
+      spec['socket'] = new_resource.socket if new_resource.socket
+      spec['timeout'] = new_resource.timeout if new_resource.timeout
+      spec['type'] = new_resource.type
+
+      h = {}
+      h['type'] = type_from_name
+      h['spec'] = spec
+      h
+    end
   end
 end

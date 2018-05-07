@@ -29,3 +29,31 @@ assets.each do |name, property|
     sha512 property['checksum']
   end
 end
+
+sensu_handler 'slack' do
+  type 'pipe'
+  command 'handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'
+end
+
+sensu_handler 'tcp_handler' do
+  type 'tcp'
+  socket(
+    host: '127.0.0.1',
+    port: 4444
+  )
+  timeout 30
+end
+
+sensu_handler 'udp_handler' do
+  type 'udp'
+  socket(
+    host: '127.0.0.1',
+    port: 4444
+  )
+  timeout 30
+end
+
+sensu_handler 'notify_the_world' do
+  type 'set'
+  handlers %w(slack tcp_handler udp_handler)
+end
