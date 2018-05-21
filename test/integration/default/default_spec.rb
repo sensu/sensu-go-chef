@@ -63,7 +63,7 @@ end
     require 'uri'
     its(%w(type)) { should eq 'asset' }
     its(%w(spec name)) { should eq "sensu-plugins-#{p}" }
-    its(%w(spec url)) { should match URI.regexp }
+    its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
   end
 end
 
