@@ -60,7 +60,6 @@ namespace :integration do
 end
 
 desc 'Run all tests on Travis'
-task travis: ['style', 'spec'] # rubocop:disable all
+task travis: %w(style spec)
 
-# Default # rubocop:enable all
-task default: ['style', 'spec', 'integration:vagrant']
+task default: %w(style spec integration:vagrant)
