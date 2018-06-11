@@ -10,5 +10,6 @@ indent_style = space
 indent_size = 2
 
 # yaml
+[{*.yml, *.yaml}]
 indent_style = space
 indent_size = 2
