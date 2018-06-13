@@ -1,8 +1,14 @@
 # sensu-go
 [![Build Status](https://travis-ci.org/sensu/sensu-go-chef.svg?branch=master)](https://travis-ci.org/sensu/sensu-go-chef)
 [![Cookbook Version](https://img.shields.io/cookbook/v/sensu-go.svg)](https://supermarket.chef.io/cookbooks/sensu-go)
+[![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/badge)
+
 
 **[Under Construction]** Chef Cookbook for The Sensu Go project
+
+### Community
+
+Sensu is discussed in many places but typically the best place to get adhoc general help is through or community slack in `#chef` channel.
 
 ## Scope
 
@@ -179,15 +185,15 @@ The sensu_check resource is used to define check objects.
 * `low_flap_threshold` The flap detection low threshold, in percent
 * `organization` The Sensu RBAC organization that this check belongs to, default: *default*
 * `proxy_entity_id` The check ID, used to create a proxy entity for an external resource
-* `proxy_requests` 	A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry. 
+* `proxy_requests` 	A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
 * `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-specification)
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/) required at runtime for the execution of the `command`
 * `stdin` If the Sensu agent writes JSON serialized entity and check data to the command process' STDIN
 * `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-core/2.0/reference/checks/#subdue-attributes), which is a hash of days of the week
 * `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to, default *[]*
-* `timeout` The check execution duration timeout in seconds 
-* `ttl` The value in seconds until check results are considered stale 
+* `timeout` The check execution duration timeout in seconds
+* `ttl` The value in seconds until check results are considered stale
 
 #### Examples
 ```rb
@@ -214,7 +220,7 @@ end
 * `env_vars` an array of environment variables to use with command execution *only allowed if type is pipe*
 * `environment` the Sensu RBAC environment that this check belongs to, default: *default*
 * `filters` an array of Sensu event filter names to use
-* `handlers` an array of Sensu event handler names to use for events 
+* `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
 * `organization` the Sensu RBAC organization that this check belongs to, default: *default*
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
@@ -234,7 +240,7 @@ end
 ### sensu_filter
 Used to define filters for sensu checks
 #### Properties
-* `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny` 
+* `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
 * `environment` the Sensu RBAC environment that this check belongs to, default: *default*
 * `organization` the Sensu RBAC organization that this check belongs to, default: *default*
 * `statements` **required** filter statements to be compared with event data.
@@ -262,7 +268,7 @@ end
 ### sensu_mutator
 A handler can specify a mutator to transform event data. This resource can define named resources to be used by handlers.
 #### Properties
-* `command` **required** the command to run 
+* `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
 * `environment` the Sensu RBAC environment that this check belongs to, default: *default*
 * `organization` the Sensu RBAC organization that this check belongs to, default: *default*
