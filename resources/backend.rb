@@ -28,7 +28,7 @@ resource_name :sensu_backend
 property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/nightly'
 property :config_home, String, default: '/etc/sensu'
-property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
+property :config, Hash, default: { 'state-dir' => '/var/lib/sensu' }
 
 action :install do
   packagecloud_repo new_resource.repo do

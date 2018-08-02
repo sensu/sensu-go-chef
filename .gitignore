@@ -13,3 +13,5 @@ bin/*
 Gemfile.lock
 Berksfile.lock
 .envrc
+
+test/integration/nodes

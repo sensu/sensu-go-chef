@@ -1,9 +1,11 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["private_network", {type: "dhcp"}]
 
 provisioner:
-  name: chef_zero
+  name: nodes
 
 verifier:
   name: inspec
@@ -17,3 +19,15 @@ suites:
     run_list:
       - recipe[sensu_test::default]
     attributes:
+  - name: example-backend
+    driver:
+      name: vagrant
+      network:
+        - ["private_network", {type: "dhcp"}]
+        - ["forwarded_port", {guest: 8080, host: 8080}]
+        - ["forwarded_port", {guest: 8081, host: 8081}]
+    run_list:
+      - recipe[sensu_examples::backend]
+  - name: example-agent # Need a running example-backend.
+    run_list:
+      - recipe[sensu_examples::agent]

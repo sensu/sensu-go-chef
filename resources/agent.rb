@@ -29,10 +29,10 @@ property :agent_id, String, name_property: true
 property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/nightly'
 property :config_home, String, default: '/etc/sensu'
-property :config, Hash, default: { "agent-id": node['hostname'],
-                                   "organization": 'default',
-                                   "environment": 'default',
-                                   "backend-url": ['ws://127.0.0.1:8081'],
+property :config, Hash, default: { 'id' => node['hostname'],
+                                   'organization' => 'default',
+                                   'environment' => 'default',
+                                   'backend-url' => ['ws://127.0.0.1:8081'],
                                  }
 action :install do
   packagecloud_repo new_resource.repo do
