@@ -58,11 +58,11 @@ describe json('/etc/sensu/checks/cron.json') do
   its(['spec', 'subdue', 'days', 'all', 1, 'end']) { should eq '1:00 AM' }
 end
 
-%w(http docker postgres).each do |p|
-  describe json("/etc/sensu/assets/sensu-plugins-#{p}.json") do
+%w(check-plugins prometheus-collector).each do |asset|
+  describe json("/etc/sensu/assets/#{asset}.json") do
     require 'uri'
     its(%w(type)) { should eq 'asset' }
-    its(%w(spec name)) { should eq "sensu-plugins-#{p}" }
+    its(%w(spec name)) { should eq asset }
     its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
   end
 end

@@ -30,4 +30,5 @@ suites:
       - recipe[sensu_examples::backend]
   - name: example-agent # Need a running example-backend.
     run_list:
+      - recipe[sensu_examples::dummy_app]
       - recipe[sensu_examples::agent]

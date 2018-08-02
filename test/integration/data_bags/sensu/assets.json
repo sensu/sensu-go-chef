@@ -1,15 +1,11 @@
 {
-  "id":"assets",
-  "sensu-plugins-http": {
-    "url": "https://github.com/sensu-plugins/sensu-plugins-http/archive/2.9.0.tar.gz",
-    "checksum": "b57cacd2b479f41b5d002c037ac3005e7a655d1dfae93c457f0c19dde21fc992771b5d290a2cce9255578d9bd2fc88075646e3e0e02e3c01d8e1e274ae0b7376"
-  },
-  "sensu-plugins-docker": {
-    "url": "https://github.com/sensu-plugins/sensu-plugins-docker/archive/3.0.0.tar.gz",
-    "checksum": "96f71be5824ae50db8992ffdd1a94076170457cd9ca4f8563d739ffb07d65aca06c1d2ff5590b10f73089b300a74a3c5c255dcd9a4649487aa81a29e4f81c85c"
-  },
-  "sensu-plugins-postgres": {
-    "url": "https://github.com/sensu-plugins/sensu-plugins-postgres/archive/1.4.6.tar.gz",
-    "checksum": "b4369e69f3e3247b6f48596733da2f1a3c66fceebb60e6b00c70f404324876696fc8d2381206c47bd9d09227b2d6d3802f359e2ae349d71930bd0d45c0b3d554"
-  }
+    "id":"assets",
+    "check-plugins": {
+        "url": "https://github.com/portertech/sensu-plugins-go/releases/download/0.0.1/sensu-check-plugins.tar.gz",
+        "sha512": "4e6f621ebe652d3b0ba5d4dead8ddb2901ea03f846a1cb2e39ddb71b8d0daa83b54742671f179913ed6c350fc32446a22501339f60b8d4e0cdb6ade5ee77af16"
+    },
+    "prometheus-collector": {
+        "url": "https://github.com/portertech/sensu-prometheus-collector/releases/download/1.0.0/sensu-prometheus-collector.tar",
+        "sha512": "c1ec2f493f0ff9d83914e0a1bf3b2f6d424a51ffd9b5852d3dd04e592ebc56ab3d09635540677d6f78ea07138024f3d6a4f7f71e2cb744d7a565d4fa4077611c"
+    }
 }

@@ -26,7 +26,7 @@ assets.each do |name, property|
   next if name == 'id'
   sensu_asset name do
     url property['url']
-    sha512 property['checksum']
+    sha512 property['sha512']
   end
 end
 
