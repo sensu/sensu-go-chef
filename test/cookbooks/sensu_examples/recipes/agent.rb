@@ -1,8 +1,8 @@
 backend_ip = search(:node, 'recipes:sensu_examples\:\:backend')[0]['ipaddress']
 
-subscriptions = node["recipes"].map { |recipe|
-  recipe.gsub(/^.*::/, "")
-} + node["roles"] + ["all"]
+subscriptions = node['recipes'].map { |recipe|
+  recipe.gsub(/^.*::/, '')
+} + node['roles'] + ['all']
 
 sensu_agent 'default' do
   config({
