@@ -54,7 +54,7 @@ RSpec.shared_examples 'sensu_agent' do |platform, version|
     end
 
     it 'installs package sensu-agent' do
-      expect(chef_run).to install_package('sensu-agent')
+      expect(chef_run).to upgrade_package('sensu-agent')
     end
 
     it 'enables and starts sensu-agent service' do
