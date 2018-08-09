@@ -26,6 +26,7 @@ suites:
         - ["private_network", {type: "dhcp"}]
         - ["forwarded_port", {guest: 8080, host: 8080}]
         - ["forwarded_port", {guest: 8081, host: 8081}]
+        - ["forwarded_port", {guest: 3000, host: 3000}]
     run_list:
       - recipe[sensu_examples::backend]
   - name: example-agent # Need a running example-backend.
