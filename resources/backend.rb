@@ -39,8 +39,12 @@ action :install do
   end
 
   package 'sensu-backend' do
-    action :install
-    version new_resource.version unless new_resource.version == 'latest'
+    if new_resource.version == 'latest'
+      action :upgrade
+    else
+      action :install
+      version new_resource.version
+    end
   end
 
   # render template at /etc/sensu/backend.yml

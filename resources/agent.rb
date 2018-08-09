@@ -43,8 +43,12 @@ action :install do
   end
 
   package 'sensu-agent' do
-    action :install
-    version new_resource.version unless new_resource.version == 'latest'
+    if new_resource.version == 'latest'
+      action :upgrade
+    else
+      version new_resource.version
+      action :install
+    end
   end
 
   # render template at /etc/sensu/agent.yml
