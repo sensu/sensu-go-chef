@@ -25,6 +25,8 @@
 
 resource_name :sensu_agent
 
+include SensuCookbook::Helpers
+
 property :agent_id, String, name_property: true
 property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/nightly'
@@ -43,8 +45,12 @@ action :install do
   end
 
   package 'sensu-agent' do
-    action :install
-    version new_resource.version unless new_resource.version == 'latest'
+    if latest_version?(new_resource.version)
+      action :upgrade
+    else
+      version new_resource.version
+      action :install
+    end
   end
 
   # render template at /etc/sensu/agent.yml

@@ -24,5 +24,6 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ### Fixed
 - moved `CODEOWNERS` into the correct location (@majormoses)
 - updated development dependencies (@majormoses)
+- using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 [Unreleased]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...HEAD

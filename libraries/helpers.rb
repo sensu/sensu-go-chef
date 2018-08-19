@@ -109,5 +109,9 @@ module SensuCookbook
       m['spec'] = spec
       m
     end
+
+    def latest_version?(version)
+      version == 'latest' || version == :latest
+    end
   end
 end
