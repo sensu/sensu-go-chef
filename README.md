@@ -194,6 +194,8 @@ The sensu_check resource is used to define check objects.
 * `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to, default *[]*
 * `timeout` The check execution duration timeout in seconds
 * `ttl` The value in seconds until check results are considered stale
+* `output_metric_format` (optional) the metric format that the output of this check conforms to
+* `output_metric_handlers` (optional) an array of handlers for output metrics from this check
 
 #### Examples
 ```rb
