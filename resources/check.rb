@@ -47,6 +47,8 @@ property :subdue, Hash
 property :subscriptions, Array, default: [], required: true
 property :timeout, Integer
 property :ttl, Integer
+property :output_metric_format, String
+property :output_metric_handlers, Array
 
 action_class do
   include SensuCookbook::Helpers

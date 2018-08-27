@@ -39,6 +39,8 @@ module SensuCookbook
       spec['subscriptions'] = new_resource.subscriptions
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['ttl'] = new_resource.ttl if new_resource.ttl
+      spec['output_metric_format'] = new_resource.output_metric_format if new_resource.output_metric_format
+      spec['output_metric_handlers'] = new_resource.output_metric_handlers if new_resource.output_metric_handlers
 
       c = {}
       c['type'] = type_from_name
