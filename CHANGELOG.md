@@ -5,6 +5,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 ### Added
+- Adding `output_metric` settings to the `sensu_check` resource
 - new `.editorconfig` to help users who have editors that support [editor config](https://editorconfig.org/)
 - new PR and issue templates (@majormoses)
 - links to community slack (@majormoses)
