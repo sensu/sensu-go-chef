@@ -5,6 +5,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 ### Added
+- Adding `output_metric` settings to the `sensu_check` resource
 - new `.editorconfig` to help users who have editors that support [editor config](https://editorconfig.org/)
 - new PR and issue templates (@majormoses)
 - links to community slack (@majormoses)
@@ -18,7 +19,6 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Added skel files from Chef Partners cookbook generator (@thomasriley)
 
 ### Changed
-- Adding `output_metric` settings to the `sensu_check` resource
 - Updated contributing instruction (@majormoses)
 - use `@sensu/chef-cookbooks` for `CODEOWNERS` rather than individual users now that there is a team to refer to instead (@majormoses)
 
