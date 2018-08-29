@@ -4,8 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
+## [0.0.2] - 2018-08-29
 ### Added
 - Adding `output_metric` settings to the `sensu_check` resource
+
+## [0.0.1]
+### Added
 - new `.editorconfig` to help users who have editors that support [editor config](https://editorconfig.org/)
 - new PR and issue templates (@majormoses)
 - links to community slack (@majormoses)
@@ -27,4 +32,6 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - updated development dependencies (@majormoses)
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...HEAD
+[0.0.2]: https://github.com/sensu/sensu-go-chef/compare/0.0.1...0.0.2
+[0.0.1]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...0.0.1
