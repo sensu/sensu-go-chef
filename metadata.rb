@@ -4,7 +4,7 @@ maintainer_email 'support@sensuapp.com'
 license 'MIT'
 description 'Installs/Configures Sensu Go'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '0.0.1'
+version '0.0.2'
 
 chef_version '>= 12.5'
 
