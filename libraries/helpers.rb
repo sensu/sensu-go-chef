@@ -112,6 +112,19 @@ module SensuCookbook
       m
     end
 
+    def entity_from_resource
+      spec = {}
+      spec['id'] = new_resource.name
+      spec['subscriptions'] = new_resource.subscriptions
+      spec['organization'] = new_resource.organization
+      spec['environment'] = new_resource.environment
+
+      e = {}
+      e['type'] = type_from_name
+      e['spec'] = spec
+      e
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

@@ -99,3 +99,10 @@ sensu_mutator 'example-mutator' do
   command 'example_mutator.rb'
   timeout 60
 end
+
+sensu_entity 'example-entity' do
+  subscriptions ['example-entity']
+  organization 'test-organization'
+  environment 'test-entity'
+end
+
