@@ -23,7 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-resource_name :sensu_entity
+resource_name :sensu_organization
 
 action_class do
   include SensuCookbook::Helpers
@@ -31,10 +31,8 @@ end
 
 property :config_home, String, default: '/etc/sensu'
 
-property :subscriptions, Array
-property :organization, String, default: 'default'
-property :environment, String, default: 'default'
-property :class_, String
+property :description, String
+property :name, String
 
 action :create do
   directory object_dir do
@@ -43,7 +41,7 @@ action :create do
   end
 
   file object_file do
-    content JSON.generate(entity_from_resource)
+    content JSON.generate(organization_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file}]"
   end
 

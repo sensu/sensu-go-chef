@@ -118,6 +118,30 @@ module SensuCookbook
       spec['subscriptions'] = new_resource.subscriptions
       spec['organization'] = new_resource.organization
       spec['environment'] = new_resource.environment
+      spec['class'] = new_resource.class_
+
+      e = {}
+      e['type'] = type_from_name
+      e['spec'] = spec
+      e
+    end
+
+    def organization_from_resource
+      spec = {}
+      spec['description'] = new_resource.description
+      spec['name'] = new_resource.name
+
+      o = {}
+      o['type'] = type_from_name
+      o['spec'] = spec
+      o
+    end
+
+    def environment_from_resource
+      spec = {}
+      spec['description'] = new_resource.description
+      spec['name'] = new_resource.name
+      spec['organization'] = new_resource.organization
 
       e = {}
       e['type'] = type_from_name
