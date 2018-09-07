@@ -44,5 +44,4 @@ action :create do
   execute "execute[sensuctl user create #{new_resource.name} -p #{new_resource.password} -r #{new_resource.roles}]" do
     action :nothing
   end
-
 end

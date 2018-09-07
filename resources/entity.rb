@@ -50,5 +50,4 @@ action :create do
   execute "sensuctl create -f #{object_file}" do
     action :nothing
   end
-
 end

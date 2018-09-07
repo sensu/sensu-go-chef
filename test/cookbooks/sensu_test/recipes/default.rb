@@ -121,4 +121,3 @@ sensu_user 'example-user' do
   roles ['*']
   action :create
 end
-
