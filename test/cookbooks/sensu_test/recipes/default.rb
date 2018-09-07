@@ -116,3 +116,9 @@ sensu_entity 'example-entity' do
   class_ 'proxy'
 end
 
+sensu_user 'example-user' do
+  password 'very-secure-password'
+  roles ['*']
+  action :create
+end
+
