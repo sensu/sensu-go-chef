@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+- new `sensu_entity` resource (@mercul3s)
+- new `sensu_organization` resource (@mercul3s)
+- new `sensu_environment` resource (@mercul3s)
+- new `sensu_user` resource (@mercul3s)
 
 ## [0.0.2] - 2018-08-29
 ### Added
