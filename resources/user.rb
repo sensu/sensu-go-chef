@@ -31,7 +31,7 @@ end
 
 property :config_home, String, default: '/etc/sensu'
 
-property :password, String
+property :password, String, required: true
 property :roles, Array
 property :disabled, [true, false], default: false
 

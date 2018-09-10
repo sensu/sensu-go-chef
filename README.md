@@ -340,7 +340,8 @@ end
 An entity is a representation of anything that needs to be monitored. It can be either an `agent` or a `proxy`.
 
 #### Properties
-* `subscriptions` **required** An array of subscriptions
+* `subscriptions` An array of subscriptions. If no subscriptions are provided,
+it defaults to an entity-specific subscription list: `[entity:{ID}]`.
 * `class_` **required** the entity type, must be either `agent` or `proxy`.
 * `organization` the name of the organization the entity belongs to, defaults to `default`
 * `environment` the name of the environment the entity belongs to, defaults to `default`
@@ -363,7 +364,7 @@ A user represents a person or agent which interacts with Sensu.
 ```rb
 sensu_user 'example-user' do
   password 'very-secure-password'
-  roles ['*']
+  roles [read,update]
   action :create
 end
 ```
