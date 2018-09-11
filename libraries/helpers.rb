@@ -118,7 +118,7 @@ module SensuCookbook
       spec['subscriptions'] = new_resource.subscriptions
       spec['organization'] = new_resource.organization
       spec['environment'] = new_resource.environment
-      spec['class'] = new_resource.class_
+      spec['class'] = new_resource.entity_class
 
       e = {}
       e['type'] = type_from_name

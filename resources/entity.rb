@@ -34,7 +34,7 @@ property :config_home, String, default: '/etc/sensu'
 property :subscriptions, Array
 property :organization, String, default: 'default'
 property :environment, String, default: 'default'
-property :class_, String
+property :entity_class, String
 
 action :create do
   directory object_dir do

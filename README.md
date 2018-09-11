@@ -358,7 +358,8 @@ end
 A user represents a person or agent which interacts with Sensu.
 
 #### Properties
-* `password` **required** a password for the user.
+* `password` **required** a password for the user. **NOTE**: It is not secure or
+recommended to store passwords in plaintext in the recipe like  the example shows.
 * `roles` **required** An array of roles the user belongs to.
 
 ```rb
