@@ -43,11 +43,11 @@ action :create do
 
   file object_file do
     content new_resource.password
-    notifies :run, "execute[create_user]"
+    notifies :run, 'execute[create_user]'
   end
 
   execute 'create_user' do
-    command "sensuctl user create #{new_resource.name} -p $(cat #{object_file}) -r #{new_resource.roles.join(",")}"
+    command "sensuctl user create #{new_resource.name} -p $(cat #{object_file}) -r #{new_resource.roles.join(',')}"
     action :nothing
   end
 end
