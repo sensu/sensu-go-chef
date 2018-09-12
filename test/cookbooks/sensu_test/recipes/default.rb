@@ -115,4 +115,3 @@ sensu_entity 'example-entity' do
   subscriptions ['example-entity']
   entity_class 'proxy'
 end
-
