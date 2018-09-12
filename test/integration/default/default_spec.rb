@@ -74,3 +74,25 @@ describe json('/etc/sensu/mutators/example-mutator.json') do
   its(%w(spec environment)) { should eq 'default' }
   its(%w(spec organization)) { should eq 'default' }
 end
+
+describe json('/etc/sensu/entitys/example-entity.json') do
+  its(%w(type)) { should eq 'entity' }
+  its(%w(spec id)) { should eq 'example-entity' }
+  its(%w(spec subscriptions)) { should include 'example-entity' }
+  its(%w(spec class)) { should eq 'proxy' }
+  its(%w(spec environment)) { should eq 'default' }
+  its(%w(spec organization)) { should eq 'default' }
+end
+
+describe json('/etc/sensu/environments/test-env.json') do
+  its(%w(type)) { should eq 'environment' }
+  its(%w(spec name)) { should eq 'test-env' }
+  its(%w(spec organization)) { should eq 'test-org' }
+  its(%w(spec description)) { should eq 'test description' }
+end
+
+describe json('/etc/sensu/organizations/test-org.json') do
+  its(%w(type)) { should eq 'organization' }
+  its(%w(spec name)) { should eq 'test-org' }
+  its(%w(spec description)) { should eq 'test description' }
+end

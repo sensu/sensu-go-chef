@@ -304,6 +304,56 @@ sensu_asset 'asset_example' do
 end
 ```
 
+### sensu_organization
+An organization is a top-level resource for RBAC, and can contain multiple environemnts. Sensu ships with a `default` organization.
+#### Properties
+* `name` **required** the name of the organization.
+* `description` a description for the organization.
+
+#### Examples
+```rb
+sensu_organization 'example_organization do
+  description 'example description'
+  name 'example'
+  action :create
+end
+```
+
+### sensu_environment
+An environment contains a set of resources, and belongs to a single organization.
+#### Properties
+* `name` **required** the name of the environment.
+* `description` a description for the environment.
+* `organization` **required** the name of the organization the environment belongs to.
+
+#### Examples
+```rb
+sensu_environment 'example_environment' do
+  description 'example description'
+  name 'example'
+  organization 'example'
+  action :create
+end
+```
+
+### sensu_entity
+An entity is a representation of anything that needs to be monitored. It can be either an `agent` or a `proxy`.
+
+#### Properties
+* `subscriptions` An array of subscriptions. If no subscriptions are provided,
+it defaults to an entity-specific subscription list: `[entity:{ID}]`.
+* `class_` **required** the entity type, must be either `agent` or `proxy`.
+* `organization` the name of the organization the entity belongs to, defaults to `default`
+* `environment` the name of the environment the entity belongs to, defaults to `default`
+
+#### Examples
+```rb
+sensu_entity 'example-entity' do
+  subscriptions ['example-entity']
+  class_ 'proxy'
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

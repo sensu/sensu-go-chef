@@ -6,6 +6,17 @@ sensu_ctl 'default' do
   action [:install, :configure]
 end
 
+sensu_organization 'test-org' do
+  description 'test description'
+  action :create
+end
+
+sensu_environment 'test-env' do
+  description 'test description'
+  organization 'test-org'
+  action :create
+end
+
 sensu_check 'cron' do
   command '/bin/true'
   cron '@hourly'
@@ -98,4 +109,9 @@ end
 sensu_mutator 'example-mutator' do
   command 'example_mutator.rb'
   timeout 60
+end
+
+sensu_entity 'example-entity' do
+  subscriptions ['example-entity']
+  entity_class 'proxy'
 end

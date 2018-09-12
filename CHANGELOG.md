@@ -5,6 +5,11 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+### Added
+- new `sensu_entity` resource (@mercul3s)
+- new `sensu_organization` resource (@mercul3s)
+- new `sensu_environment` resource (@mercul3s)
+
 ## [0.0.2] - 2018-08-29
 ### Added
 - Adding `output_metric` settings to the `sensu_check` resource
