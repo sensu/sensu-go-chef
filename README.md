@@ -354,22 +354,6 @@ sensu_entity 'example-entity' do
 end
 ```
 
-### sensu_user
-A user represents a person or agent which interacts with Sensu.
-
-#### Properties
-* `password` **required** a password for the user. **NOTE**: It is not secure or
-recommended to store passwords in plaintext in the recipe like  the example shows.
-* `roles` **required** An array of roles the user belongs to.
-
-```rb
-sensu_user 'example-user' do
-  password 'very-secure-password'
-  roles [read,update]
-  action :create
-end
-```
-
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

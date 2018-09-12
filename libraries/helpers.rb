@@ -149,19 +149,6 @@ module SensuCookbook
       e
     end
 
-    def user_from_resource
-      spec = {}
-      spec['username'] = new_resource.name
-      spec['password'] = new_resource.password
-      spec['roles'] = new_resource.roles
-      spec['disabled'] = new_resource.disabled
-
-      u = {}
-      u['type'] = type_from_name
-      u['spec'] = spec
-      u
-    end
-
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

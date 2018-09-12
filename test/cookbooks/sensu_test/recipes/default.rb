@@ -116,14 +116,3 @@ sensu_entity 'example-entity' do
   entity_class 'proxy'
 end
 
-sensu_user 'example-user' do
-  password 'very-secure-password'
-  roles ['read-only']
-  action :create
-end
-
-sensu_user 'test-user' do
-  password 'test-password'
-  roles ['admin']
-  action :create
-end
