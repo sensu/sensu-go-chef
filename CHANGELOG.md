@@ -5,6 +5,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+## [0.0.3] - 2018-09-12
 ### Added
 - new `sensu_entity` resource (@mercul3s)
 - new `sensu_organization` resource (@mercul3s)
@@ -37,6 +38,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - updated development dependencies (@majormoses)
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...HEAD
+[0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/sensu/sensu-go-chef/compare/0.0.1...0.0.2
 [0.0.1]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...0.0.1
