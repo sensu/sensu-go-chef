@@ -29,7 +29,7 @@ include SensuCookbook::Helpers
 
 property :agent_id, String, name_property: true
 property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/nightly'
+property :repo, String, default: 'sensu/beta'
 property :config_home, String, default: '/etc/sensu'
 property :config, Hash, default: { "agent-id": node['hostname'],
                                    "organization": 'default',
