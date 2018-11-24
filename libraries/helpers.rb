@@ -126,22 +126,10 @@ module SensuCookbook
       e
     end
 
-    def organization_from_resource
+    def namespace_from_resource
       spec = {}
       spec['description'] = new_resource.description
       spec['name'] = new_resource.name
-
-      o = {}
-      o['type'] = type_from_name
-      o['spec'] = spec
-      o
-    end
-
-    def environment_from_resource
-      spec = {}
-      spec['description'] = new_resource.description
-      spec['name'] = new_resource.name
-      spec['organization'] = new_resource.organization
 
       e = {}
       e['type'] = type_from_name

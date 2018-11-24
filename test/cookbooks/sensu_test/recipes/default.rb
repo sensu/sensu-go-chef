@@ -6,14 +6,8 @@ sensu_ctl 'default' do
   action [:install, :configure]
 end
 
-sensu_organization 'test-org' do
+sensu_namespace 'test-org' do
   description 'test description'
-  action :create
-end
-
-sensu_environment 'test-env' do
-  description 'test description'
-  organization 'test-org'
   action :create
 end
 

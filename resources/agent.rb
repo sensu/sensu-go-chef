@@ -32,8 +32,7 @@ property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/beta'
 property :config_home, String, default: '/etc/sensu'
 property :config, Hash, default: { "agent-id": node['hostname'],
-                                   "organization": 'default',
-                                   "environment": 'default',
+                                   "namespace": 'default',
                                    "backend-url": ['ws://127.0.0.1:8081'],
                                  }
 action :install do

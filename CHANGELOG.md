@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Changed
+- *Breaking* `sensu_environment` is now `sensu_namespace` (@webframp)
+
+### Removed
+- `sensu_organization` resource removed to match upstream (@webframp)
 
 ## [0.0.3] - 2018-09-12
 ### Added
