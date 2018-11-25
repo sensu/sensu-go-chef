@@ -23,17 +23,16 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+include SensuCookbook::SensuMetadataProperties
 resource_name :sensu_handler
 
 property :config_home, String, default: '/etc/sensu'
 
 property :command, String # only allowed if type == pipe
 property :env_vars, Array
-property :environment, String, default: 'default'
 property :filters, Array
 property :handlers, Array
 property :mutator, String
-property :organization, String, default: 'default'
 property :socket, Hash # can only have host: string, port: int
 property :timeout, Integer
 property :type, String, equal_to: %w(pipe tcp udp set), required: true

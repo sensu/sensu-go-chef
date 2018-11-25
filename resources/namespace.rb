@@ -31,8 +31,6 @@ end
 
 property :config_home, String, default: '/etc/sensu'
 
-property :description, String
-
 action :create do
   directory object_dir do
     action :create
