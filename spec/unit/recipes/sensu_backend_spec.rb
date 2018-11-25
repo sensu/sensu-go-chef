@@ -46,7 +46,7 @@ RSpec.shared_examples 'sensu_backend' do |platform, version|
     end
 
     it 'adds sensu packagecloud repo' do
-      expect(chef_run).to add_packagecloud_repo('sensu/nightly')
+      expect(chef_run).to add_packagecloud_repo('sensu/beta')
     end
 
     it 'writes the backend config file' do
