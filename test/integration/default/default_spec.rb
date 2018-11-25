@@ -7,14 +7,14 @@
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
 if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
-  describe yum.repo('sensu_nightly') do
+  describe yum.repo('sensu_beta') do
     it { should exist }
     it { should be_enabled }
   end
 end
 
 if os.name == 'debian' || os.name == 'ubuntu'
-  describe apt("https://packagecloud.io/sensu/nightly/#{os.name}") do
+  describe apt("https://packagecloud.io/sensu/beta/#{os.name}") do
     it { should exist }
     it { should be_enabled }
   end
@@ -44,14 +44,14 @@ end
 
 describe json('/etc/sensu/checks/cron.json') do
   its(%w(type)) { should eq 'check' }
-  its(%w(spec name)) { should eq 'cron' }
+  its(%w(spec metadata name)) { should eq 'cron' }
+  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(spec metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(%w(spec cron)) { should eq '@hourly' }
-  its(%w(spec environment)) { should eq 'default' }
   its(%w(spec subscriptions)) { should include 'dad_jokes' }
   its(%w(spec subscriptions)) { should include 'production' }
   its(%w(spec handlers)) { should include 'pagerduty' }
   its(%w(spec handlers)) { should include 'email' }
-  its(%w(spec extended_attributes runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(['spec', 'subdue', 'days', 'all', 0, 'begin']) { should eq '12:00 AM' }
   its(['spec', 'subdue', 'days', 'all', 0, 'end']) { should eq '11:59 PM' }
   its(['spec', 'subdue', 'days', 'all', 1, 'begin']) { should eq '11:00 PM' }
@@ -62,37 +62,29 @@ end
   describe json("/etc/sensu/assets/sensu-plugins-#{p}.json") do
     require 'uri'
     its(%w(type)) { should eq 'asset' }
-    its(%w(spec name)) { should eq "sensu-plugins-#{p}" }
+    its(%w(spec metadata name)) { should eq "sensu-plugins-#{p}" }
+    its(%w(spec metadata namespace)) { should eq 'default' }
     its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
   end
 end
 
 describe json('/etc/sensu/mutators/example-mutator.json') do
   its(%w(type)) { should eq 'mutator' }
-  its(%w(spec name)) { should eq 'example-mutator' }
+  its(%w(spec metadata name)) { should eq 'example-mutator' }
+  its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec timeout)) { should eq 60 }
-  its(%w(spec environment)) { should eq 'default' }
-  its(%w(spec organization)) { should eq 'default' }
 end
 
 describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(type)) { should eq 'entity' }
-  its(%w(spec id)) { should eq 'example-entity' }
+  its(%w(spec metadata name)) { should eq 'example-entity' }
   its(%w(spec subscriptions)) { should include 'example-entity' }
-  its(%w(spec class)) { should eq 'proxy' }
+  its(%w(spec entity_class)) { should eq 'proxy' }
   its(%w(spec environment)) { should eq 'default' }
   its(%w(spec organization)) { should eq 'default' }
 end
 
-describe json('/etc/sensu/environments/test-env.json') do
-  its(%w(type)) { should eq 'environment' }
-  its(%w(spec name)) { should eq 'test-env' }
-  its(%w(spec organization)) { should eq 'test-org' }
-  its(%w(spec description)) { should eq 'test description' }
-end
-
-describe json('/etc/sensu/organizations/test-org.json') do
-  its(%w(type)) { should eq 'organization' }
+describe json('/etc/sensu/namespaces/test-org.json') do
+  its(%w(type)) { should eq 'namespace' }
   its(%w(spec name)) { should eq 'test-org' }
-  its(%w(spec description)) { should eq 'test description' }
 end
