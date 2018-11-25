@@ -59,7 +59,7 @@ sensu_check 'cron' do
   cron '@hourly'
   subscriptions %w(dad_jokes production)
   handlers %w(pagerduty email)
-  annotationss(runbook: 'https://www.xkcd.com/378/')
+  annotations(runbook: 'https://www.xkcd.com/378/')
   publish false
   ttl 100
   high_flap_threshold 60
@@ -306,7 +306,7 @@ end
 A Namespace partitions resources within Sensu, this replaces organizations/environments. The resource name is the namespace name.
 #### Examples
 ```rb
-sensu_environment 'example_environment' do
+sensu_namespace 'example_namespace' do
   action :create
 end
 ```
