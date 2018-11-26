@@ -190,7 +190,7 @@ The sensu_check resource is used to define check objects.
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
-* `proxy_entity_id` The check ID, used to create a proxy entity for an external resource
+* `proxy_entity_name` Used to create a proxy entity for an external resource
 * `proxy_requests` 	A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
 * `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-specification)

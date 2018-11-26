@@ -35,7 +35,7 @@ module SensuCookbook
       spec['high_flap_threshold'] = new_resource.high_flap_threshold if new_resource.high_flap_threshold
       spec['interval'] = new_resource.interval if new_resource.interval
       spec['low_flap_threshold'] = new_resource.low_flap_threshold if new_resource.low_flap_threshold
-      spec['proxy_entity_id'] = new_resource.proxy_entity_id if new_resource.proxy_entity_id
+      spec['proxy_entity_name'] = new_resource.proxy_entity_name if new_resource.proxy_entity_name
       spec['proxy_requests'] = new_resource.proxy_requests if new_resource.proxy_requests
       spec['publish'] = new_resource.publish if new_resource.publish
       spec['round_robin'] = new_resource.round_robin if new_resource.round_robin

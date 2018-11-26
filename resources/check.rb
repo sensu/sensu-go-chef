@@ -35,7 +35,7 @@ property :handlers, Array, default: [], required: true
 property :high_flap_threshold, Integer
 property :interval, Integer
 property :low_flap_threshold, Integer
-property :proxy_entity_id, String, regex: [/^[\w\.\-]+$/]
+property :proxy_entity_name, String, regex: [/^[\w\.\-]+$/]
 property :proxy_requests, Hash
 property :publish, [true, false]
 property :round_robin, [true, false]
