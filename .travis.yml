@@ -26,6 +26,7 @@ env:
   - INSTANCE=default-debian-9
   - INSTANCE=default-ubuntu-1404
   - INSTANCE=default-ubuntu-1604
+  - INSTANCE=default-ubuntu-1804
 
 # Ensure we make ChefDK's Ruby the default
 before_script:
