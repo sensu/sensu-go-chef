@@ -27,7 +27,7 @@ resource_name :sensu_agent
 
 include SensuCookbook::Helpers
 
-property :agent_id, String, name_property: true
+property :agent_name, String, name_property: true
 property :version, String, default: 'latest'
 property :repo, String, default: 'sensu/beta'
 property :config_home, String, default: '/etc/sensu'
