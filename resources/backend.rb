@@ -51,7 +51,7 @@ action :install do
 
   # render template at /etc/sensu/backend.yml
   file ::File.join(new_resource.config_home, 'backend.yml') do
-    content(new_resource.config.to_yaml)
+    content(stringify_keys(new_resource.config))
   end
 
   service 'sensu-backend' do

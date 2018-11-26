@@ -15,6 +15,10 @@ module SensuCookbook
       ::File.join(object_dir, new_resource.name) + '.json'
     end
 
+    def stringify_keys(h)
+      Hash[h.map { |k, v| [k.to_s, v] }].to_yaml
+    end
+
     # Get check properties from the resource
     # https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-attributes
     def check_from_resource
