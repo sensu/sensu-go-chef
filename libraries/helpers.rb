@@ -6,9 +6,8 @@ module SensuCookbook
     end
 
     # Pluralize object directory name
-    # gsub because English is weird
     def object_dir
-      ::File.join(new_resource.config_home, type_from_name).gsub('y', 'ie') + 's'
+      ::File.join(new_resource.config_home, type_from_name) + 's'
     end
 
     def object_file
