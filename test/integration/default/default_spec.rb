@@ -80,8 +80,10 @@ describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(spec metadata name)) { should eq 'example-entity' }
   its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(spec entity_class)) { should eq 'proxy' }
-  its(%w(spec environment)) { should eq 'default' }
-  its(%w(spec organization)) { should eq 'default' }
+  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(spec metadata labels environment)) { should eq 'production' }
+  its(%w(spec metadata labels region)) { should eq 'us-west-2' }
+  its(%w(spec metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
 end
 
 describe json('/etc/sensu/namespaces/test-org.json') do
