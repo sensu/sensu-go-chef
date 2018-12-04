@@ -8,16 +8,11 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Most resources now support metadata specific properties (@webframp)
 
 ### Changed
-- Switched to beta package repository as default (@webframp)
 - sensuctl cli args for asset updates now uses `--namespace`
 
-### Removed
-- `sensu_organization` resource removed to match upstream (@webframp)
-
-### Fixed
-- entity object file path from `/etc/sensu/entitys` to `/etc/sensu/entities` (@webframp)
-
 ### Breaking Changes
+- `sensu_organization` resource removed to match upstream (@webframp)
+- Switched to beta package repository as default (@webframp)
 - `sensu_environment` is now `sensu_namespace` (@webframp)
 - `extended_attributes` property renamed to `annotations` as part of metadata (@webframp)
 - Filter `statements` property renamed to `expressions` (@webframp)
