@@ -27,13 +27,12 @@ resource_name :sensu_agent
 
 include SensuCookbook::Helpers
 
-property :agent_id, String, name_property: true
+property :agent_name, String, name_property: true
 property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/nightly'
+property :repo, String, default: 'sensu/beta'
 property :config_home, String, default: '/etc/sensu'
-property :config, Hash, default: { "agent-id": node['hostname'],
-                                   "organization": 'default',
-                                   "environment": 'default',
+property :config, Hash, default: { "name": node['hostname'],
+                                   "namespace": 'default',
                                    "backend-url": ['ws://127.0.0.1:8081'],
                                  }
 action :install do
@@ -55,7 +54,7 @@ action :install do
 
   # render template at /etc/sensu/agent.yml
   file ::File.join(new_resource.config_home, 'agent.yml') do
-    content(new_resource.config.to_yaml)
+    content(stringify_keys(new_resource.config))
   end
 
   service 'sensu-agent' do

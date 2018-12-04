@@ -6,14 +6,7 @@ sensu_ctl 'default' do
   action [:install, :configure]
 end
 
-sensu_organization 'test-org' do
-  description 'test description'
-  action :create
-end
-
-sensu_environment 'test-env' do
-  description 'test description'
-  organization 'test-org'
+sensu_namespace 'test-org' do
   action :create
 end
 
@@ -22,7 +15,8 @@ sensu_check 'cron' do
   cron '@hourly'
   subscriptions %w(dad_jokes production)
   handlers %w(pagerduty email)
-  extended_attributes(runbook: 'https://www.xkcd.com/378/')
+  labels(environment: 'production', region: 'us-west-2')
+  annotations(runbook: 'https://www.xkcd.com/378/')
   publish false
   ttl 100
   high_flap_threshold 60
@@ -71,28 +65,28 @@ end
 
 sensu_filter 'production_filter' do
   filter_action 'allow'
-  statements [
+  expressions [
     "event.Entity.Environment == 'production'",
   ]
 end
 
 sensu_filter 'development_filter' do
   filter_action 'deny'
-  statements [
+  expressions [
     "event.Entity.Environment == 'production'",
   ]
 end
 
 sensu_filter 'state_change_only' do
   filter_action 'allow'
-  statements [
+  expressions [
     'event.Check.Occurrences == 1',
   ]
 end
 
 sensu_filter 'filter_interval_60_hourly' do
   filter_action 'allow'
-  statements [
+  expressions [
     'event.Check.Interval == 60',
     'event.Check.Occurrences == 1 || event.Check.Occurrences % 60 == 0',
   ]
@@ -100,7 +94,7 @@ end
 
 sensu_filter 'nine_to_fiver' do
   filter_action 'allow'
-  statements [
+  expressions [
     'weekday(event.Timestamp) >= 1 && weekday(event.Timestamp) <= 5',
     'hour(event.Timestamp) >= 9 && hour(event.Timestamp) <= 17',
   ]
@@ -114,4 +108,6 @@ end
 sensu_entity 'example-entity' do
   subscriptions ['example-entity']
   entity_class 'proxy'
+  labels(environment: 'production', region: 'us-west-2')
+  annotations(runbook: 'https://www.xkcd.com/378/')
 end

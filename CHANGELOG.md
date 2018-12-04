@@ -4,6 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Added
+- Most resources now support metadata specific properties (@webframp)
+
+### Changed
+- sensuctl cli args for asset updates now uses `--namespace`
+
+### Breaking Changes
+- `sensu_organization` resource removed to match upstream (@webframp)
+- Switched to beta package repository as default (@webframp)
+- `sensu_environment` is now `sensu_namespace` (@webframp)
+- `extended_attributes` property renamed to `annotations` as part of metadata (@webframp)
+- Filter `statements` property renamed to `expressions` (@webframp)
+- Entity `class` property renamed to `entity_class`
 
 ## [0.0.3] - 2018-09-12
 ### Added

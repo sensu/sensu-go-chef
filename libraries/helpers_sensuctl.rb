@@ -20,8 +20,7 @@ module SensuCookbook
 
       def sensuctl_asset_update_opts
         opts = []
-        opts << "--organization #{new_resource.organization}" if new_resource.organization
-        opts << "--environment #{new_resource.environment}" if new_resource.environment
+        opts << "--namespace #{new_resource.namespace}" if new_resource.namespace
       end
 
       def sensuctl_asset_update_cmd

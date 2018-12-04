@@ -23,6 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+include SensuCookbook::SensuMetadataProperties
 resource_name :sensu_check
 
 property :config_home, String, default: '/etc/sensu'
@@ -30,14 +31,11 @@ property :config_home, String, default: '/etc/sensu'
 property :check_hooks, Array
 property :command, String, default: '/bin/true', required: true
 property :cron, String
-property :environment, String, default: 'default'
-property :extended_attributes, Hash
 property :handlers, Array, default: [], required: true
 property :high_flap_threshold, Integer
 property :interval, Integer
 property :low_flap_threshold, Integer
-property :organization, String, default: 'default'
-property :proxy_entity_id, String, regex: [/^[\w\.\-]+$/]
+property :proxy_entity_name, String, regex: [/^[\w\.\-]+$/]
 property :proxy_requests, Hash
 property :publish, [true, false]
 property :round_robin, [true, false]

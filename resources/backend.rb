@@ -28,7 +28,7 @@ resource_name :sensu_backend
 include SensuCookbook::Helpers
 
 property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/nightly'
+property :repo, String, default: 'sensu/beta'
 property :config_home, String, default: '/etc/sensu'
 property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
 
@@ -51,7 +51,7 @@ action :install do
 
   # render template at /etc/sensu/backend.yml
   file ::File.join(new_resource.config_home, 'backend.yml') do
-    content(new_resource.config.to_yaml)
+    content(stringify_keys(new_resource.config))
   end
 
   service 'sensu-backend' do

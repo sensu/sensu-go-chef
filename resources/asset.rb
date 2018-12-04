@@ -23,13 +23,12 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+include SensuCookbook::SensuMetadataProperties
 resource_name :sensu_asset
 
 property :config_home, String, default: '/etc/sensu'
 
 property :filters, Array
-property :metadata, Hash
-property :organization, String, default: 'default'
 property :sha512, String, required: true
 property :url, String, required: true
 

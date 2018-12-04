@@ -14,6 +14,10 @@ module SensuCookbook
       ::File.join(object_dir, new_resource.name) + '.json'
     end
 
+    def stringify_keys(h)
+      Hash[h.map { |k, v| [k.to_s, v] }].to_yaml
+    end
+
     # Get check properties from the resource
     # https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-attributes
     def check_from_resource
@@ -21,15 +25,16 @@ module SensuCookbook
       spec['check_hooks'] = new_resource.check_hooks if new_resource.check_hooks
       spec['command'] = new_resource.command
       spec['cron'] = new_resource.cron
-      spec['environment'] = new_resource.environment
-      spec['extended_attributes'] = new_resource.extended_attributes if new_resource.extended_attributes
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['handlers'] = new_resource.handlers
       spec['high_flap_threshold'] = new_resource.high_flap_threshold if new_resource.high_flap_threshold
       spec['interval'] = new_resource.interval if new_resource.interval
       spec['low_flap_threshold'] = new_resource.low_flap_threshold if new_resource.low_flap_threshold
-      spec['name'] = new_resource.name
-      spec['organization'] = new_resource.organization
-      spec['proxy_entity_id'] = new_resource.proxy_entity_id if new_resource.proxy_entity_id
+      spec['proxy_entity_name'] = new_resource.proxy_entity_name if new_resource.proxy_entity_name
       spec['proxy_requests'] = new_resource.proxy_requests if new_resource.proxy_requests
       spec['publish'] = new_resource.publish if new_resource.publish
       spec['round_robin'] = new_resource.round_robin if new_resource.round_robin
@@ -50,9 +55,11 @@ module SensuCookbook
 
     def asset_from_resource
       spec = {}
-      spec['name'] = new_resource.name
-      spec['metadata'] = new_resource.metadata if new_resource.metadata
-      spec['organization'] = new_resource.organization if new_resource.organization
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['sha512'] = new_resource.sha512
       spec['url'] = new_resource.url
 
@@ -64,14 +71,16 @@ module SensuCookbook
 
     def handler_from_resource
       spec = {}
-      spec['name'] = new_resource.name
       spec['command'] = new_resource.command if new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
-      spec['environment'] = new_resource.environment
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['filters'] = new_resource.filters if new_resource.filters
       spec['handlers'] = new_resource.handlers if new_resource.handlers
       spec['mutator'] = new_resource.mutator if new_resource.mutator
-      spec['organization'] = new_resource.organization
       spec['socket'] = new_resource.socket if new_resource.socket
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
@@ -84,11 +93,13 @@ module SensuCookbook
 
     def filter_from_resource
       spec = {}
-      spec['name'] = new_resource.name
       spec['action'] = new_resource.filter_action
-      spec['environment'] = new_resource.environment if new_resource.environment
-      spec['organization'] = new_resource.organization if new_resource.organization
-      spec['statements'] = new_resource.statements
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
+      spec['expressions'] = new_resource.expressions
       spec['when'] = new_resource.when if new_resource.when
 
       f = {}
@@ -99,11 +110,13 @@ module SensuCookbook
 
     def mutator_from_resource
       spec = {}
-      spec['name'] = new_resource.name
       spec['command'] = new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
-      spec['environment'] = new_resource.environment
-      spec['organization'] = new_resource.organization if new_resource.organization
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
       m = {}
@@ -114,11 +127,13 @@ module SensuCookbook
 
     def entity_from_resource
       spec = {}
-      spec['id'] = new_resource.name
       spec['subscriptions'] = new_resource.subscriptions
-      spec['organization'] = new_resource.organization
-      spec['environment'] = new_resource.environment
-      spec['class'] = new_resource.entity_class
+      spec['metadata'] = {}
+      spec['metadata']['name'] = new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
+      spec['entity_class'] = new_resource.entity_class
 
       e = {}
       e['type'] = type_from_name
@@ -126,22 +141,9 @@ module SensuCookbook
       e
     end
 
-    def organization_from_resource
+    def namespace_from_resource
       spec = {}
-      spec['description'] = new_resource.description
       spec['name'] = new_resource.name
-
-      o = {}
-      o['type'] = type_from_name
-      o['spec'] = spec
-      o
-    end
-
-    def environment_from_resource
-      spec = {}
-      spec['description'] = new_resource.description
-      spec['name'] = new_resource.name
-      spec['organization'] = new_resource.organization
 
       e = {}
       e['type'] = type_from_name

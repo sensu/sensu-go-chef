@@ -26,7 +26,7 @@
 resource_name :sensu_ctl
 
 property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/nightly'
+property :repo, String, default: 'sensu/beta'
 property :username, String, default: 'admin'
 property :password, String, default: 'P@ssw0rd!'
 property :backend_url, String, default: 'http://127.0.0.1:8080'

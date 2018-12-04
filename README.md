@@ -59,7 +59,7 @@ sensu_check 'cron' do
   cron '@hourly'
   subscriptions %w(dad_jokes production)
   handlers %w(pagerduty email)
-  extended_attributes(runbook: 'https://www.xkcd.com/378/')
+  annotations(runbook: 'https://www.xkcd.com/378/')
   publish false
   ttl 100
   high_flap_threshold 60
@@ -86,7 +86,7 @@ end
 
 sensu_filter 'production_filter' do
   filter_action 'allow'
-  statements [
+  expressions [
     "event.Entity.Environment == 'production'",
   ]
 end
@@ -115,12 +115,21 @@ These resources primarily work by writing the Sensu 2.x object definitions to a 
 
 ## Resource Details
 
+### Common properties
+Sensu resources that support metadata attributes share these common properties:
+
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `labels` custom extended attributes to add to the check
+* `annotations` custom extended attributes to add to the check
+
+`name` metadata will be set automatically from the resource name
+
 ### sensu_backend
 The sensu backend resource can configure the core sensu backend service.
 
 #### Properties
 * `version` which version to install, default: *latest*
-* `repo` which repo to pull package from, default: *sensu/nightly*
+* `repo` which repo to pull package from, default: *sensu/beta*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu'}*
 
@@ -143,7 +152,7 @@ end
 The sensu agent resource will install and configure the agent.
 #### Properties
 * `version` which version to install, default: *latest*
-* `repo` which repo to pull package from, default: *sensu/nightly*
+* `repo` which repo to pull package from, default: *sensu/beta*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration
 
@@ -177,14 +186,11 @@ The sensu_check resource is used to define check objects.
 * `check_hooks` an array of hook name to run in response to the check
 * `command` **required** the check command to execute, default: */bin/true*
 * `cron` a schedule for the check, in cron format or a [predefined schedule](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules)
-* `environment` the Sensu RBAC environment that this check belongs to, default: *default*
-* `extended_attributes` custom extended attributes to add to the check
 * `handlers` **required** an array of handlers to run in response to the check, default: *[]*
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
-* `organization` The Sensu RBAC organization that this check belongs to, default: *default*
-* `proxy_entity_id` The check ID, used to create a proxy entity for an external resource
+* `proxy_entity_name` Used to create a proxy entity for an external resource
 * `proxy_requests` 	A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
 * `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-specification)
@@ -204,7 +210,7 @@ sensu_check 'cron' do
   cron '@hourly'
   subscriptions %w(dad_jokes)
   handlers %w(pagerduty email)
-  extended_attributes(runbook: 'https://www.xkcd.com/378/')
+  annotations(runbook: 'https://www.xkcd.com/378/')
   publish false
   ttl 100
   high_flap_threshold 60
@@ -220,11 +226,9 @@ end
 #### Properties
 * `command` the command to run *only allowd if type is pipe*
 * `env_vars` an array of environment variables to use with command execution *only allowed if type is pipe*
-* `environment` the Sensu RBAC environment that this check belongs to, default: *default*
 * `filters` an array of Sensu event filter names to use
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
-* `organization` the Sensu RBAC organization that this check belongs to, default: *default*
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
 * `timeout` the handler execution duration timeout in seconds, only used with *pipe* and *tcp* types
 * `type` **required** handler type, one of *pipe, tcp, udp* or *set*
@@ -243,16 +247,14 @@ end
 Used to define filters for sensu checks
 #### Properties
 * `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
-* `environment` the Sensu RBAC environment that this check belongs to, default: *default*
-* `organization` the Sensu RBAC organization that this check belongs to, default: *default*
-* `statements` **required** filter statements to be compared with event data.
+* `expressions` **required** filter expressions to be compared with event data.
 * `when` the [when definition scope](https://docs.sensu.io/sensu-core/2.0/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
 
 #### Examples
 ```rb
 sensu_filter 'production_filter' do
   filter_action 'allow'
-  statements [
+  expressions [
     "event.Entity.Environment == 'production'",
   ]
 end
@@ -261,7 +263,7 @@ end
 ```rb
 sensu_filter 'state_change_only' do
   filter_action 'allow'
-  statements [
+  expressions [
     "event.Check.Occurrences == 1"
   ]
 end
@@ -272,8 +274,6 @@ A handler can specify a mutator to transform event data. This resource can defin
 #### Properties
 * `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
-* `environment` the Sensu RBAC environment that this check belongs to, default: *default*
-* `organization` the Sensu RBAC organization that this check belongs to, default: *default*
 * `timeout` the execution duration timeout in seconds
 #### Examples
 The following defines a filter that uses a Sensu plugin called `example_mutator.rb` to modify event data prior to handling the event.
@@ -288,8 +288,6 @@ end
 At runtime the agent can sequentially fetch assets and store them in its local cache but these must first be defined by name for the sensu backend.
 #### Properties
 * `filters` a set of filter criteria used by the agent to determine of the asset should be installed.
-* `metadata` arbitrary information about the asset, in the form of key value pairs.
-* `organization` the Sensu RBAC organization that this check belongs to, default: *default*
 * `sha512` **required** the checksum of the asset.
 * `url` **required** the URL location of the asset.
 
@@ -304,34 +302,11 @@ sensu_asset 'asset_example' do
 end
 ```
 
-### sensu_organization
-An organization is a top-level resource for RBAC, and can contain multiple environemnts. Sensu ships with a `default` organization.
-#### Properties
-* `name` **required** the name of the organization.
-* `description` a description for the organization.
-
+### sensu_namespace
+A Namespace partitions resources within Sensu, this replaces organizations/environments. The resource name is the namespace name.
 #### Examples
 ```rb
-sensu_organization 'example_organization do
-  description 'example description'
-  name 'example'
-  action :create
-end
-```
-
-### sensu_environment
-An environment contains a set of resources, and belongs to a single organization.
-#### Properties
-* `name` **required** the name of the environment.
-* `description` a description for the environment.
-* `organization` **required** the name of the organization the environment belongs to.
-
-#### Examples
-```rb
-sensu_environment 'example_environment' do
-  description 'example description'
-  name 'example'
-  organization 'example'
+sensu_namespace 'example_namespace' do
   action :create
 end
 ```
@@ -342,15 +317,13 @@ An entity is a representation of anything that needs to be monitored. It can be 
 #### Properties
 * `subscriptions` An array of subscriptions. If no subscriptions are provided,
 it defaults to an entity-specific subscription list: `[entity:{ID}]`.
-* `class_` **required** the entity type, must be either `agent` or `proxy`.
-* `organization` the name of the organization the entity belongs to, defaults to `default`
-* `environment` the name of the environment the entity belongs to, defaults to `default`
+* `entity_class` **required** the entity type, must be either `agent` or `proxy`.
 
 #### Examples
 ```rb
 sensu_entity 'example-entity' do
   subscriptions ['example-entity']
-  class_ 'proxy'
+  entity_class 'proxy'
 end
 ```
 

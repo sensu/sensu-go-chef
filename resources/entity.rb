@@ -23,6 +23,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+include SensuCookbook::SensuMetadataProperties
 resource_name :sensu_entity
 
 action_class do
@@ -32,8 +33,6 @@ end
 property :config_home, String, default: '/etc/sensu'
 
 property :subscriptions, Array
-property :organization, String, default: 'default'
-property :environment, String, default: 'default'
 property :entity_class, String
 
 action :create do
