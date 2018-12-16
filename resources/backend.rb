@@ -39,7 +39,7 @@ action :install do
     )
   end
 
-  package 'sensu-backend' do
+  package 'sensu-go-backend' do
     if latest_version?(new_resource.version)
       action :upgrade
     else
@@ -68,7 +68,7 @@ action :uninstall do
     action [:disable, :stop]
   end
 
-  package 'sensu-backend' do
+  package 'sensu-go-backend' do
     action :remove
   end
 end

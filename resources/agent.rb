@@ -42,7 +42,7 @@ action :install do
     )
   end
 
-  package 'sensu-agent' do
+  package 'sensu-go-agent' do
     if latest_version?(new_resource.version)
       action :upgrade
     else
@@ -71,7 +71,7 @@ action :uninstall do
     action [:disable, :stop]
   end
 
-  package 'sensu-agent' do
+  package 'sensu-go-agent' do
     action :remove
   end
 end
