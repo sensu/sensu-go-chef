@@ -50,7 +50,7 @@ action :install do
     )
   end
 
-  package 'sensu-cli' do
+  package 'sensu-go-cli' do
     action :install
     version new_resource.version unless new_resource.version == 'latest'
   end
@@ -68,7 +68,7 @@ action :configure do
 end
 
 action :uninstall do
-  package 'sensu-cli' do
+  package 'sensu-go-cli' do
     action :remove
   end
 end
