@@ -23,13 +23,13 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+include SensuCookbook::SensuCommonProperties
+
 resource_name :sensu_namespace
 
 action_class do
   include SensuCookbook::Helpers
 end
-
-property :config_home, String, default: '/etc/sensu'
 
 action :create do
   directory object_dir do

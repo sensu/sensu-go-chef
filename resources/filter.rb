@@ -24,9 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 include SensuCookbook::SensuMetadataProperties
-resource_name :sensu_filter
+include SensuCookbook::SensuCommonProperties
 
-property :config_home, String, default: '/etc/sensu'
+resource_name :sensu_filter
 
 property :filter_action, String, equal_to: %w(allow deny), required: true
 property :expressions, Array, required: true

@@ -26,11 +26,10 @@
 resource_name :sensu_agent
 
 include SensuCookbook::Helpers
+include SensuCookbook::SensuPackageProperties
+include SensuCookbook::SensuCommonProperties
 
 property :agent_name, String, name_property: true
-property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/beta'
-property :config_home, String, default: '/etc/sensu'
 property :config, Hash, default: { "name": node['hostname'],
                                    "namespace": 'default',
                                    "backend-url": ['ws://127.0.0.1:8081'],
