@@ -129,7 +129,7 @@ The sensu backend resource can configure the core sensu backend service.
 
 #### Properties
 * `version` which version to install, default: *latest*
-* `repo` which repo to pull package from, default: *sensu/beta*
+* `repo` which repo to pull package from, default: *sensu/stable*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu'}*
 
@@ -142,7 +142,7 @@ Optionally pass configuration values for the backend:
 **(insecure example, don't really do this)**
 ```rb
 sensu_backend 'default' do
-  repo 'sensu/beta'
+  repo 'sensu/stable'
   config({'state-dir' => '/var/lib/sensu',
           'trusted-ca-file' => "/some/local/path.pem",
           'insecure-skip-tls-verify' => true})
@@ -152,7 +152,7 @@ end
 The sensu agent resource will install and configure the agent.
 #### Properties
 * `version` which version to install, default: *latest*
-* `repo` which repo to pull package from, default: *sensu/beta*
+* `repo` which repo to pull package from, default: *sensu/stable*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration
 
@@ -191,7 +191,7 @@ The sensu_check resource is used to define check objects.
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
 * `proxy_entity_name` Used to create a proxy entity for an external resource
-* `proxy_requests` 	A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
+* `proxy_requests`  A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
 * `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-specification)
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/) required at runtime for the execution of the `command`

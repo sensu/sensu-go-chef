@@ -4,7 +4,7 @@ module SensuCookbook
     def self.included(base)
       base.class_eval do
         property :version, String, default: 'latest'
-        property :repo, String, default: 'sensu/beta'
+        property :repo, String, default: 'sensu/stable'
       end
     end
   end

@@ -9,6 +9,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ### Changed
 - sensuctl cli args for asset updates now uses `--namespace`
+- use stable package channels (@webframp)
 
 ### Breaking Changes
 - `sensu_organization` resource removed to match upstream (@webframp)
