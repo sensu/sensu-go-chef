@@ -14,7 +14,7 @@ if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
 end
 
 if os.name == 'debian' || os.name == 'ubuntu'
-  describe apt("https://packagecloud.io/sensu/beta/#{os.name}") do
+  describe apt("https://packagecloud.io/sensu/stable/#{os.name}") do
     it { should exist }
     it { should be_enabled }
   end

@@ -46,7 +46,7 @@ RSpec.shared_examples 'sensu_agent' do |platform, version|
     end
 
     it 'adds sensu packagecloud repo' do
-      expect(chef_run).to add_packagecloud_repo('sensu/beta')
+      expect(chef_run).to add_packagecloud_repo('sensu/stable')
     end
 
     it 'writes the agent config file' do
