@@ -24,13 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 include SensuCookbook::SensuMetadataProperties
+include SensuCookbook::SensuCommonProperties
+
 resource_name :sensu_entity
 
 action_class do
   include SensuCookbook::Helpers
 end
-
-property :config_home, String, default: '/etc/sensu'
 
 property :subscriptions, Array
 property :entity_class, String

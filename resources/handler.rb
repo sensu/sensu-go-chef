@@ -24,9 +24,9 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 include SensuCookbook::SensuMetadataProperties
-resource_name :sensu_handler
+include SensuCookbook::SensuCommonProperties
 
-property :config_home, String, default: '/etc/sensu'
+resource_name :sensu_handler
 
 property :command, String # only allowed if type == pipe
 property :env_vars, Array

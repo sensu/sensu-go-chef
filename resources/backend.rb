@@ -26,10 +26,9 @@
 resource_name :sensu_backend
 
 include SensuCookbook::Helpers
+include SensuCookbook::SensuPackageProperties
+include SensuCookbook::SensuCommonProperties
 
-property :version, String, default: 'latest'
-property :repo, String, default: 'sensu/beta'
-property :config_home, String, default: '/etc/sensu'
 property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
 
 action :install do
