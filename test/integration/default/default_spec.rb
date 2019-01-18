@@ -7,7 +7,7 @@
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
 if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
-  describe yum.repo('sensu_beta') do
+  describe yum.repo('sensu_stable') do
     it { should exist }
     it { should be_enabled }
   end
@@ -20,21 +20,19 @@ if os.name == 'debian' || os.name == 'ubuntu'
   end
 end
 
-%w(sensu-backend sensu-agent).each do |pkg|
+%w(sensu-go-backend sensu-go-agent sensu-go-cli).each do |pkg|
   describe package(pkg) do
     it { should be_installed }
   end
+end
 
-  describe service(pkg) do
+%w(sensu-backend sensu-agent).each do |svc|
+  describe service(svc) do
     it { should be_installed }
     # Ubuntu 14.04: Sensu pkg ships an init script, init provider doesn't support enable
     it { should be_enabled unless os.release.to_f == 14.04 }
     it { should be_running }
   end
-end
-
-describe package('sensu-cli') do
-  it { should be_installed }
 end
 
 describe command('sensuctl user list') do
