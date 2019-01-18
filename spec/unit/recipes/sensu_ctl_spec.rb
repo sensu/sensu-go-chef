@@ -48,7 +48,7 @@ RSpec.shared_examples 'sensu_ctl' do |platform, version|
     end
 
     it 'installs package sensu-cli' do
-      expect(chef_run).to install_package('sensu-cli')
+      expect(chef_run).to install_package('sensu-go-cli')
     end
 
     it 'configures the sensu cli' do
