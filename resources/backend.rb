@@ -29,7 +29,7 @@ include SensuCookbook::Helpers
 include SensuCookbook::SensuPackageProperties
 include SensuCookbook::SensuCommonProperties
 
-property :config, Hash, default: { "state-dir": '/var/lib/sensu' }
+property :config, Hash, default: { "state-dir": '/var/lib/sensu/sensu-backend' }
 
 action :install do
   packagecloud_repo new_resource.repo do
