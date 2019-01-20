@@ -19,6 +19,15 @@ sensu_user 'doofus' do
   groups %w(view admin)
 end
 
+sensu_user 'doofus' do
+  action :disable
+end
+
+sensu_user 'reinstated' do
+  password 'a_smart_one'
+  groups %w(view)
+  action [:create, :disable, :reinstate]
+end
 sensu_namespace 'test-org' do
   action :create
 end

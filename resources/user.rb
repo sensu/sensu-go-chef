@@ -34,41 +34,46 @@ property :password, String, required: true, sensitive: true # depends on chef 12
 property :groups, Array, default: %w(view)
 property :disabled, [true, false], default: false
 
-action :create do
+action_class do
   require 'mixlib/shellout'
+  def current_users
+    cmd = Mixlib::ShellOut.new('sensuctl user list --format json')
+    JSON.parse(cmd.run_command.stdout)
+  end
 
-  # if users exists already, must call sensuctl user resinstate
-  execute "sensuctl user create #{new_resource.username}" do
-    command "#{sensuctl_bin} user create #{new_resource.username} --groups #{new_resource.groups.join(',')} --password #{new_resource.password}"
-    only_if do
-      cmd = Mixlib::ShellOut.new('sensuctl user list --format json')
-      userlist = JSON.parse(cmd.run_command.stdout)
-      user = userlist.detect { |u| u['username'] == new_resource.username }
-      user.nil?
-    end
-    sensitive true
-    action :run
+  def exists?
+    current_users.any? { |u| u['username'] == new_resource.username }
+  end
+
+  # Maybe preferable to use load_current_value with a disabled property to support modify action?
+  def disabled?
+    current_users.any? { |u| u['username'] == new_resource.username && u['disabled'] == true }
   end
 end
 
-action :delete do
-  # not possible, maybe an alias for disable?
-  puts 'no-op'
+action :create do
+  execute "sensuctl user create #{new_resource.username}" do
+    command "#{sensuctl_bin} user create #{new_resource.username} --groups #{new_resource.groups.join(',')} --password #{new_resource.password}"
+    not_if { exists? }
+    sensitive true
+  end
 end
 
 action :disable do
-  puts 'no-op'
+  execute "sensuctl user disable #{new_resource.username}" do
+    command "#{sensuctl_bin} user disable #{new_resource.username} --skip-confirm"
+    not_if { disabled? }
+  end
 end
 
 action :reinstate do
-  puts 'no-op'
+  execute "sensuctl user reinstate #{new_resource.username}" do
+    command "#{sensuctl_bin} user reinstate #{new_resource.username}"
+    only_if { disabled? }
+  end
 end
 
 action :modify do
   # an action to handle change-password, remove-group(s),add-group,set-groups
-  puts 'no-op'
+  Chef::Log.warn('Not Implemented')
 end
-
-# Tricky one
-# action :'change-password' do
-# end
