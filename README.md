@@ -28,8 +28,6 @@ The following platforms have been tested with Test Kitchen. It will most likely 
 |               | 0.0.1 |
 | centos-6      | X     |
 | centos-7      | X     |
-| debian-8      | X     |
-| debian-9      | X     |
 | fedora        | X     |
 | ubuntu-14.04  | X     |
 | ubuntu-16.04  | X     |
