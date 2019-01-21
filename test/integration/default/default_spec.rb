@@ -47,6 +47,7 @@ describe json(command: 'sensuctl user list --format json') do
   its([1, 'username']) { should cmp 'agent' }
   its([2, 'username']) { should cmp 'doofus' }
   its([2, 'groups']) { should include 'admin' }
+  its([2, 'groups']) { should include 'managers' }
   its([2, 'disabled']) { should cmp 'true' }
   its([3, 'username']) { should cmp 'reinstated' }
   its([3, 'groups']) { should include 'view' }

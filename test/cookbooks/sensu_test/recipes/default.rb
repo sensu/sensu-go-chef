@@ -28,6 +28,12 @@ sensu_user 'reinstated' do
   groups %w(view)
   action [:create, :disable, :reinstate]
 end
+
+sensu_user 'doofus' do
+  groups %w(view admin managers)
+  action :modify
+end
+
 sensu_namespace 'test-org' do
   action :create
 end

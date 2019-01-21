@@ -41,19 +41,34 @@ action_class do
     JSON.parse(cmd.run_command.stdout)
   end
 
+  def current_user
+    current_users.detect { |u| u['username'] == new_resource.username }
+  end
+
   def exists?
     current_users.any? { |u| u['username'] == new_resource.username }
   end
 
-  # Maybe preferable to use load_current_value with a disabled property to support modify action?
   def disabled?
     current_users.any? { |u| u['username'] == new_resource.username && u['disabled'] == true }
+  end
+
+  def current_groups
+    current_user['groups'].sort
+  end
+
+  def group_args
+    new_resource.groups.join(',')
+  end
+
+  def groups_match?
+    current_groups == new_resource.groups.sort
   end
 end
 
 action :create do
   execute "sensuctl user create #{new_resource.username}" do
-    command "#{sensuctl_bin} user create #{new_resource.username} --groups #{new_resource.groups.join(',')} --password #{new_resource.password}"
+    command "#{sensuctl_bin} user create #{new_resource.username} --groups #{group_args} --password #{new_resource.password}"
     not_if { exists? }
     sensitive true
   end
@@ -74,6 +89,18 @@ action :reinstate do
 end
 
 action :modify do
-  # an action to handle change-password, remove-group(s),add-group,set-groups
-  Chef::Log.warn('Not Implemented')
+  # It is difficult to make this action fully idempotent without also tracking the users passwords
+  if property_is_set?(:password)
+    execute "sensuctl user change-password #{new_resource.username}" do
+      command "sensuctl user change-password #{new_resource.username} --new-password #{password}"
+      sensitive true
+    end
+  end
+
+  # Instead of handling remove/add group commands just support idempotent set-group for now
+  if property_is_set?(:groups)
+    execute "sensuctl user set-groups #{new_resource.username} #{group_args}" do
+      not_if { groups_match? }
+    end
+  end
 end
