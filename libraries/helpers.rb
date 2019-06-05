@@ -91,6 +91,24 @@ module SensuCookbook
       h
     end
 
+    def hook_from_resource
+      spec = {}
+      spec['action'] = new_resource.hook_action
+      spec['metadata'] = {}
+      spec['metadata']['name'] =  new_resource.name
+      spec['metadata']['namespace'] = new_resource.namespace
+      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
+      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotationsspec['metadata']
+      spec['metadata']['command'] = new_resource.command
+      spec['metadata']['timeout'] = new_resource.timeout
+      spec['metadata']['stdin'] = new_resource.stdin
+
+      k = {}
+      k['type'] = type_from_name
+      k['type'] = spec
+      k
+    end
+
     def filter_from_resource
       spec = {}
       spec['action'] = new_resource.filter_action
