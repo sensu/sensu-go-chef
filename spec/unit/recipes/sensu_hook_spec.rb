@@ -25,37 +25,34 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 RSpec.shared_examples 'sensu_hook' do |platform, version|
-    context "when run on #{platform} #{version}" do
-      let(:chef_run) do
-        ChefSpec::SoloRunner.new(
-          os: 'linux',
-          platform: platform,
-          version: version,
-          step_into: ['sensu_hook']
-        ).converge(described_recipe)
-      end
-  
-      it 'converges successfully' do
-        expect { chef_run }.to_not raise_error
-      end
-  
-      it 'creates sensu hook resources' do
-        expect(chef_run).to create_sensu_hook('cron')
-      end
+  context "when run on #{platform} #{version}" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        os: 'linux',
+        platform: platform,
+        version: version,
+        step_into: ['sensu_hook']
+      ).converge(described_recipe)
+    end
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+    it 'creates sensu hook resources' do
+      expect(chef_run).to create_sensu_hook('cron')
     end
   end
+end
 
-  RSpec.describe 'sensu_test::default' do
-    platforms = {
-      'ubuntu' => ['14.04', '16.04'],
-      'centos' =>  '7.3.1611',
-    }
-  
-    platforms.each do |platform, versions|
-      versions = versions.is_a?(String) ? [versions] : versions
-      versions.each do |version|
-        #include_examples 'sensu_agent', platform, version
-      end
+RSpec.describe 'sensu_test::default' do
+  platforms = {
+    'ubuntu' => ['14.04', '16.04'],
+    'centos' =>  '7.3.1611',
+  }
+
+  platforms.each do |platform, versions|
+    versions = versions.is_a?(String) ? [versions] : versions
+    versions.each do |version|
+      # include_examples 'sensu_agent', platform, version
     end
   end
-  
+end
