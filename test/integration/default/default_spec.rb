@@ -88,3 +88,11 @@ describe json('/etc/sensu/namespaces/test-org.json') do
   its(%w(type)) { should eq 'namespace' }
   its(%w(spec name)) { should eq 'test-org' }
 end
+
+describe json('/etc/sensu/hooks/cron.json') do
+  its(%w(type)) { should eq 'hook' }
+  its(%w(spec metadata name)) { should eq 'cron' }
+  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(spec command)) { should eq 'sudo service cron restart' }
+  its(%w(spec timeout)) { should eq 60 }
+end
