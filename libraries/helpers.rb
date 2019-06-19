@@ -95,7 +95,7 @@ module SensuCookbook
       spec = {}
       spec['action'] = new_resource.hook_action
       spec['metadata'] = {}
-      spec['metadata']['name'] =  new_resource.name
+      spec['metadata']['name'] = new_resource.name
       spec['metadata']['namespace'] = new_resource.namespace
       spec['metadata']['labels'] = new_resource.labels if new_resource.labels
       spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotationsspec['metadata']

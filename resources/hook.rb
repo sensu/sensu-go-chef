@@ -52,10 +52,10 @@ action :create do
   end
 end
 
-action :delete
+action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu hook delete #{new_resource.name} --skip-confirm" do
+    notifies :run, "execute[sensu hook delete #{new_resource.name} --skip-confirm"
   end
 
   execute "sensuctl hook delete #{new_resource.name} --skip-confirm" do
