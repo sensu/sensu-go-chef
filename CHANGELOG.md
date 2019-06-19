@@ -20,6 +20,10 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Filter `statements` property renamed to `expressions` (@webframp)
 - Entity `class` property renamed to `entity_class`
 
+## [0.0.4] - 2019-06-19
+### Added
+- new `sensu_hook` resource (@derekgroh)
+
 ## [0.0.3] - 2018-09-12
 ### Added
 - new `sensu_entity` resource (@mercul3s)
