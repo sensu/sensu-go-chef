@@ -28,7 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_hook
 
-property :command, String
+property :command, String, required: true
 property :timeout, Integer
 property :stdin, [true, false]
 
