@@ -30,6 +30,9 @@ include SensuCookbook::SensuPackageProperties
 property :username, String, default: 'admin'
 property :password, String, default: 'P@ssw0rd!'
 property :backend_url, String, default: 'http://127.0.0.1:8080'
+# WARNING: this will expose secrets to whatever is capturing
+# the log output be it stdout (such as in CI) or log files
+property :debug, [TrueClass, FalseClass], default: false
 
 action_class do
   include SensuCookbook::Helpers::SensuCtl
@@ -45,7 +48,7 @@ end
 action :install do
   packagecloud_repo new_resource.repo do
     type value_for_platform_family(
-      %w(rhel fedora amazon) => 'rpm',
+      %w[rhel fedora amazon] => 'rpm',
       'default' => 'deb'
     )
   end
@@ -61,7 +64,7 @@ action :configure do
     converge_by 'Reconfiguring sensuctl' do
       execute 'configure sensuctl' do
         command sensuctl_configure_cmd
-        sensitive true
+        sensitive new_resource.debug
       end
     end
   end

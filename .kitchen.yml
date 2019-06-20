@@ -4,6 +4,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  client_rb:
+    chef_license: accept
 
 verifier:
   name: inspec
