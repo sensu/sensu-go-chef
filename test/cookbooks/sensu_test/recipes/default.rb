@@ -112,7 +112,7 @@ sensu_entity 'example-entity' do
   annotations(runbook: 'https://www.xkcd.com/378/')
 end
 
-sensu_hook 'cron' do
+sensu_hook 'restart_cron_service' do
   command 'sudo service cron restart'
   timeout 60
 end
