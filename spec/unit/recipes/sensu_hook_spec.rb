@@ -46,10 +46,10 @@ end
 RSpec.describe 'sensu_test::default' do
   platforms = {
     'ubuntu' => ['14.04', '16.04'],
-    'centos' =>  '7.3.1611',
+    'centos' => '7.3.1611',
   }
 
-  platforms.each do |platform, versions|
+  platforms.each do |_platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
       # include_examples 'sensu_agent', platform, version
