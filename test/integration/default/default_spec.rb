@@ -89,7 +89,7 @@ describe json('/etc/sensu/namespaces/test-org.json') do
   its(%w(spec name)) { should eq 'test-org' }
 end
 
-describe json('/etc/sensu/hooks/cron.json') do
+describe json('/etc/sensu/hooks/restart_cron_service.json') do
   its(%w(type)) { should eq 'hook' }
   its(%w(spec metadata name)) { should eq 'cron' }
   its(%w(spec metadata namespace)) { should eq 'default' }
