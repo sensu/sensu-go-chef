@@ -6,6 +6,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 ### Added
 - Most resources now support metadata specific properties (@webframp)
+- new `sensu_hook` resource (@derekgroh)
 
 ### Changed
 - sensuctl cli args for asset updates now uses `--namespace`
@@ -19,10 +20,6 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - `extended_attributes` property renamed to `annotations` as part of metadata (@webframp)
 - Filter `statements` property renamed to `expressions` (@webframp)
 - Entity `class` property renamed to `entity_class`
-
-## [0.0.4] - 2019-06-19
-### Added
-- new `sensu_hook` resource (@derekgroh)
 
 ## [0.0.3] - 2018-09-12
 ### Added
