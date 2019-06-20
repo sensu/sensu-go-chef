@@ -246,7 +246,7 @@ end
 Used to define hooks for sensu checks
 #### Properties
 * `command` **required** command to be executed
-* `timeout` **required** duration timeout in seconds (hard stop)
+* `timeout` duration timeout in seconds (hard stop)
 * `stdin`  If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the hook process to read and close STDIN
 
 #### Examples
