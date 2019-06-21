@@ -61,7 +61,7 @@ end
 
 RSpec.describe 'sensu_test::default' do
   platforms = {
-#    'ubuntu' => ['14.04', '16.04'],
+    'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.3.1611',
   }
 

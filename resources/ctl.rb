@@ -48,7 +48,7 @@ end
 action :install do
   packagecloud_repo new_resource.repo do
     type value_for_platform_family(
-      %w[rhel fedora amazon] => 'rpm',
+      %w(rhel fedora amazon) => 'rpm',
       'default' => 'deb'
     )
   end
