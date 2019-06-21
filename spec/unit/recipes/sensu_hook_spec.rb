@@ -51,7 +51,6 @@ RSpec.shared_examples 'sensu_hook' do |platform, version|
 
     it 'creates the hook object file' do
       expect(chef_run).to create_file('/etc/sensu/hooks/restart_cron_service.json')
-#      expect(chef_run).to notify('execute[sensuctl create -f /etc/sensu/hooks/restart_cron_service.json]').to(:run)
     end
 
     it 'creates the restart_cron_service sensu hook' do
@@ -62,7 +61,7 @@ end
 
 RSpec.describe 'sensu_test::default' do
   platforms = {
-#    'ubuntu' => ['14.04', '16.04'],
+    'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.3.1611',
   }
 
