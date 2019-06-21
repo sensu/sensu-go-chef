@@ -35,6 +35,8 @@ RSpec.shared_examples 'sensu_check' do |platform, version|
       ).converge(described_recipe)
     end
 
+    include_context 'common_stubs'
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
@@ -52,21 +54,21 @@ RSpec.shared_examples 'sensu_check' do |platform, version|
     end
 
     it 'creates the cron sensu check' do
-      expect(chef_run).to run_execute('sensuctl create -f /etc/sensu/checks/cron.json')
+      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/checks/cron.json')
     end
   end
 end
 
 RSpec.describe 'sensu_test::default' do
   platforms = {
-    'ubuntu' => ['14.04', '16.04'],
+#    'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.3.1611',
   }
 
   platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      include_examples 'sensu_agent', platform, version
+      include_examples 'sensu_check', platform, version
     end
   end
 end

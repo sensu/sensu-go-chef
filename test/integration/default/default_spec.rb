@@ -91,7 +91,7 @@ end
 
 describe json('/etc/sensu/hooks/restart_cron_service.json') do
   its(%w(type)) { should eq 'hook' }
-  its(%w(spec metadata name)) { should eq 'cron' }
+  its(%w(spec metadata name)) { should eq 'restart_cron_service' }
   its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec command)) { should eq 'sudo service cron restart' }
   its(%w(spec timeout)) { should eq 60 }
