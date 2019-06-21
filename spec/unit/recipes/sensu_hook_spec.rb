@@ -34,25 +34,42 @@ RSpec.shared_examples 'sensu_hook' do |platform, version|
         step_into: ['sensu_hook']
       ).converge(described_recipe)
     end
+
+    include_context 'common_stubs'
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
+
+    it 'creates a directory' do
+      expect(chef_run).to create_directory('/etc/sensu/hooks')
+    end
+
     it 'creates sensu hook resources' do
-      expect(chef_run).to create_sensu_hook('cron')
+      expect(chef_run).to create_sensu_hook('restart_cron_service')
+    end
+
+    it 'creates the hook object file' do
+      expect(chef_run).to create_file('/etc/sensu/hooks/restart_cron_service.json')
+#      expect(chef_run).to notify('execute[sensuctl create -f /etc/sensu/hooks/restart_cron_service.json]').to(:run)
+    end
+
+    it 'creates the restart_cron_service sensu hook' do
+      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/hooks/restart_cron_service.json')
     end
   end
 end
 
 RSpec.describe 'sensu_test::default' do
   platforms = {
-    'ubuntu' => ['14.04', '16.04'],
+#    'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.3.1611',
   }
 
-  platforms.each do |_platform, versions|
+  platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      # include_examples 'sensu_agent', platform, version
+      include_examples 'sensu_hook', platform, version
     end
   end
 end
