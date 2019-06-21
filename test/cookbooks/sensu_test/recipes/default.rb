@@ -111,3 +111,8 @@ sensu_entity 'example-entity' do
   labels(environment: 'production', region: 'us-west-2')
   annotations(runbook: 'https://www.xkcd.com/378/')
 end
+
+sensu_hook 'restart_cron_service' do
+  command 'sudo service cron restart'
+  timeout 60
+end

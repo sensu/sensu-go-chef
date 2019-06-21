@@ -1,9 +1,9 @@
 #
 # Cookbook Name:: sensu-go
-# Spec:: sensu_check
+# Spec:: sensu_hook
 #
 
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2019 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -24,14 +24,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-RSpec.shared_examples 'sensu_check' do |platform, version|
+RSpec.shared_examples 'sensu_hook' do |platform, version|
   context "when run on #{platform} #{version}" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         os: 'linux',
         platform: platform,
         version: version,
-        step_into: ['sensu_check']
+        step_into: ['sensu_hook']
       ).converge(described_recipe)
     end
 
@@ -41,20 +41,20 @@ RSpec.shared_examples 'sensu_check' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'creates sensu check resources' do
-      expect(chef_run).to create_sensu_check('cron')
+    it 'creates a directory' do
+      expect(chef_run).to create_directory('/etc/sensu/hooks')
     end
 
-    it 'creates sensu checks object storage' do
-      expect(chef_run).to create_directory('/etc/sensu/checks')
+    it 'creates sensu hook resources' do
+      expect(chef_run).to create_sensu_hook('restart_cron_service')
     end
 
-    it 'creates the check object file' do
-      expect(chef_run).to create_file('/etc/sensu/checks/cron.json')
+    it 'creates the hook object file' do
+      expect(chef_run).to create_file('/etc/sensu/hooks/restart_cron_service.json')
     end
 
-    it 'creates the cron sensu check' do
-      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/checks/cron.json')
+    it 'creates the restart_cron_service sensu hook' do
+      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/hooks/restart_cron_service.json')
     end
   end
 end
@@ -68,7 +68,7 @@ RSpec.describe 'sensu_test::default' do
   platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      include_examples 'sensu_check', platform, version
+      include_examples 'sensu_hook', platform, version
     end
   end
 end

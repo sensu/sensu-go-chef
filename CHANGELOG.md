@@ -6,6 +6,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 ### Added
 - Most resources now support metadata specific properties (@webframp)
+- add `sensu_hook` resource (@derekgroh)
 - add `debug` option for `sensu_ctl` resource to help debug (@majormoses)
 
 ### Changed

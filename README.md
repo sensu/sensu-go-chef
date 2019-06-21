@@ -109,7 +109,8 @@ These resources primarily work by writing the Sensu 2.x object definitions to a 
 * `sensu_handler` configure check [handlers](https://docs.sensu.io/sensu-core/2.0/reference/handlers/)
 * `sensu_filter` configure sensu [filters](https://docs.sensu.io/sensu-core/2.0/reference/filters/)
 * `sensu_mutator` configure sensu [mutators](https://docs.sensu.io/sensu-core/2.0/reference/mutators/)
-* `sensu_asset` configure sensu [assets ](https://docs.sensu.io/sensu-core/2.0/reference/assets/)for use with checks
+* `sensu_asset` configure sensu [assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/)for use with checks
+* `sensu_hook` configure sensu [hooks](https://docs.sensu.io/sensu-go/latest/reference/hooks/)for use with checks
 
 ## Resource Details
 
@@ -241,6 +242,30 @@ sensu_handler 'tcp_handler' do
   timeout 30
 end
 ```
+### sensu_hook
+Used to define hooks for sensu checks
+#### Properties
+* `command` **required** command to be executed
+* `timeout` duration timeout in seconds (hard stop)
+* `stdin`  If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the hook process to read and close STDIN
+
+#### Examples
+```rb
+sensu_hook 'restart_nginx' do
+  command 'sudo systemctl start nginx'
+  timeout 60,
+  stdin false
+end
+```
+
+```rb
+sensu_hook 'process_tree' do
+  command 'ps aux'
+  timeout 60,
+  stdin false
+end
+```
+
 ### sensu_filter
 Used to define filters for sensu checks
 #### Properties
