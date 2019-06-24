@@ -8,6 +8,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Most resources now support metadata specific properties (@webframp)
 - add `sensu_hook` resource (@derekgroh)
 - add `debug` option for `sensu_ctl` resource to help debug (@majormoses)
+- add support for sensu-go-agent on windows platform (@derekgroh)
 
 ### Changed
 - sensuctl cli args for asset updates now uses `--namespace`
