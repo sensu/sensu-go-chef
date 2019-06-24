@@ -66,6 +66,16 @@ end
   end
 end
 
+describe json('/etc/sensu/handlers/slack.json') do
+  its(%w(type)) { should eq 'handler' }
+  its(%w(spec metadata name)) { should eq 'slack' }
+  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(spec command)) { should eq 'sensu-slack-handler --channel monitoring' }
+  its(%w(spec env_vars)) { should include 'SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX' }
+  its(%w(spec type)) { should eq 'pipe' }
+  its(%w(spec runtime_assets)) { should include 'sensu-slack-handler' }
+end
+
 describe json('/etc/sensu/mutators/example-mutator.json') do
   its(%w(type)) { should eq 'mutator' }
   its(%w(spec metadata name)) { should eq 'example-mutator' }

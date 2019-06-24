@@ -37,7 +37,9 @@ end
 
 sensu_handler 'slack' do
   type 'pipe'
-  command 'handler-slack --webhook-url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX --channel monitoring'
+  env_vars ['SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX']
+  command 'sensu-slack-handler --channel monitoring'
+  runtime_assets %w(sensu-slack-handler)
 end
 
 sensu_handler 'tcp_handler' do
