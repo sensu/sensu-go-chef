@@ -24,7 +24,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-RSpec.shared_examples 'sensu_agent_nix' do |platform, version|
+RSpec.shared_examples 'sensu_agent' do |platform, version|
   context "when run on #{platform} #{version}" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
@@ -116,7 +116,7 @@ RSpec.describe 'sensu_test::default' do
   nix_platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      include_examples 'sensu_agent_nix', platform, version
+      include_examples 'sensu_agent', platform, version
     end
   end
 
