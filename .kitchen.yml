@@ -4,6 +4,9 @@ driver:
 
 provisioner:
   name: chef_zero
+  product_name: chef
+  product_version: '14' #<%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
 
 verifier:
   name: inspec
@@ -14,9 +17,33 @@ platforms:
   - name: ubuntu-18.04
   - name: centos-6
   - name: centos-7
+  - name: windows-2012r2
+    driver:
+      box: tas50/windows-2012r2  
+  - name: windows-2016
+    driver:
+      box: tas50/windows_2016
+      customize:
+        memory: 3072
+  - name: windows-2019
+    driver:
+      box: tas50/windows_2016
+      customize:
+        memory: 3072
 
 suites:
   - name: default
     run_list:
       - recipe[sensu_test::default]
+    attributes:
+    excludes:
+      - windows-2012r2
+      - windows-2016
+      - windows-2019
+  - name: agent
+    run_list:
+      - recipe[sensu_test::agent]
+    verifier:
+      inspec_tests:
+        - test/integration/agent
     attributes:

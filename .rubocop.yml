@@ -7,3 +7,5 @@ Style/FrozenStringLiteralComment:
 Lint/AmbiguousRegexpLiteral:
   Exclude:
     - '**/test/**/*'
+Layout/EndOfLine:
+  Enabled: false

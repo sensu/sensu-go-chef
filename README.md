@@ -31,6 +31,9 @@ The following platforms have been tested with Test Kitchen. It will most likely 
 | fedora        | X     |
 | ubuntu-14.04  | X     |
 | ubuntu-16.04  | X     |
+| windows-2012r2 | Agent Only |
+| windows-2016 | Agent Only |
+| windows-2019 | Agent Only |
 
 ## Cookbook Dependencies
 
@@ -148,6 +151,7 @@ end
 ```
 ### sensu_agent
 The sensu agent resource will install and configure the agent.
+**NOTE:** windows agent install is pinned to version 5.10 until available in a consumable package format (likely chocolately)
 #### Properties
 * `version` which version to install, default: *latest*
 * `repo` which repo to pull package from, default: *sensu/stable*
