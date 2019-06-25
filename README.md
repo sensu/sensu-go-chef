@@ -228,6 +228,7 @@ end
 * `filters` an array of Sensu event filter names to use
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
+* `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/) required at runtime for the execution of the `command`
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
 * `timeout` the handler execution duration timeout in seconds, only used with *pipe* and *tcp* types
 * `type` **required** handler type, one of *pipe, tcp, udp* or *set*

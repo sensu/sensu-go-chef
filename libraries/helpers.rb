@@ -81,6 +81,7 @@ module SensuCookbook
       spec['filters'] = new_resource.filters if new_resource.filters
       spec['handlers'] = new_resource.handlers if new_resource.handlers
       spec['mutator'] = new_resource.mutator if new_resource.mutator
+      spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
       spec['socket'] = new_resource.socket if new_resource.socket
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
