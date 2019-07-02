@@ -18,7 +18,7 @@ platforms:
   - name: centos-7
   - name: windows-2012r2
     driver:
-      box: tas50/windows-2012r2  
+      box: tas50/windows_2012r2  
   - name: windows-2016
     driver:
       box: tas50/windows_2016
@@ -46,3 +46,11 @@ suites:
       inspec_tests:
         - test/integration/agent
     attributes:
+  - name: remove-agent
+    run_list:
+      - recipe[sensu_test::agent]      
+      - recipe[sensu_test::remove_agent]
+    verifier:
+      inspec_tests:
+        - test/integration/remove_agent
+    attributes:      
