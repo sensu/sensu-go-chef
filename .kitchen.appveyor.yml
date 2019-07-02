@@ -1,0 +1,43 @@
+---
+driver:
+  name: proxy
+  host: localhost
+  reset_command: "exit 0"
+  port: 5985
+  username: <%= ENV["machine_user"] %>
+  password: <%= ENV["machine_pass"] %>
+
+transport:
+  name: winrm
+  elevated: true
+
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+  product_name: chef
+  product_version: 14
+
+platforms:
+  - name: windows-2012R2
+  - name: windows-2016
+  - name: windows-2019  
+
+verifier:
+  name: inspec
+
+suites:
+  - name: agent
+    run_list:
+      - recipe[sensu_test::agent]
+    verifier:
+      inspec_tests:
+        - test/integration/agent
+    attributes:
+  - name: remove-agent
+    run_list:
+      - recipe[sensu_test::agent]      
+      - recipe[sensu_test::remove_agent]
+    verifier:
+      inspec_tests:
+        - test/integration/remove_agent
+    attributes:          
