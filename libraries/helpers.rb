@@ -170,8 +170,8 @@ module SensuCookbook
 
     def latest_version?(version)
       version == 'latest' || version == :latest if node['platform'] != 'windows'
-      # Pins version of agent install on windows to 5.10.0 until packaging solution can be resolved.
-      version == '5.10.0' if node['platform'] == 'windows'
+      # Version controlled by attribute for Windows MSI
+      version == "#{node['sensu-go']['msi_version']}" if node['platform'] == 'windows'
     end
   end
 end

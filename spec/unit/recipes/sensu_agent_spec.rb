@@ -104,7 +104,7 @@ RSpec.shared_examples 'sensu_agent_win' do |platform, version|
   end
 end
 
-RSpec.describe 'sensu_test::default' do
+RSpec.describe 'sensu_test::agent' do
   nix_platforms = {
     'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.3.1611',

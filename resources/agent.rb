@@ -72,14 +72,14 @@ action :install do
 
   # Installs msi for Sensu-Go
   if node['platform'] == 'windows'
-    windows_package 'sensu-go-agent' do
-      source 'https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.10.0/sensu-go-agent_5.10.0.4171_en-US.x64.msi'
+    windows_package 'sensu agent' do
+      source "#{node['sensu-go']['windows_msi_source']}"
       installer_type :custom
-      version '5.10.0.4171'
+      version "#{node['sensu-go']['msi_version']}"
     end
 
     # Adds install directory to path
-    windows_path 'c:\\Program Files\\sensu\\sensu-agent\\bin'
+    windows_path "#{node['sensu-go']['sensu_bindir']}"
 
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config', 'agent.yml') do
@@ -89,7 +89,7 @@ action :install do
     # Installs SensuAgent Service
     powershell_script 'SensuAgent Service' do
       code '.\\sensu-agent.exe service install'
-      cwd 'c:/Program Files/sensu/sensu-agent/bin'
+      cwd "#{node['sensu-go']['sensu_bindir']}"
       not_if '((Get-Service SensuAgent).Name -eq "SensuAgent")'
     end
 
@@ -101,11 +101,27 @@ action :install do
 end
 
 action :uninstall do
-  service 'sensu-agent' do
-    action [:disable, :stop]
+  if node['platform'] != 'windows'
+    service 'sensu-agent' do
+      action [:disable, :stop]
+    end
+
+    package 'sensu-go-agent' do
+      action :remove
+    end
   end
 
-  package 'sensu-go-agent' do
-    action :remove
+  if node['platform'] == 'windows'
+    windows_service 'SensuAgent' do
+      action [:stop, :delete]
+    end
+
+    registry_key 'HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\SensuAgent' do
+      action :delete_key
+    end
+
+    windows_package 'Sensu Agent' do
+      action :remove
+    end
   end
 end
