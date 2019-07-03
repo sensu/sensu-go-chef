@@ -160,6 +160,27 @@ The sensu agent resource will install and configure the agent.
 sensu_agent 'default'
 ```
 
+**(insecure example, don't really do this)**
+
+```rb
+sensu_agent 'default' do
+  config(
+    "name": node['fqdn'],
+    "namespace": "default",
+    "backend-url": ["wss://sensu-backend.example.com:8081"],
+    "insecure-skip-tls-verify": true,
+    "subscriptions": ["centos", "haproxy"],
+    "labels": {
+      "app_id": "mycoolapp",
+      "app_tier": "loadbalancer"
+    },
+    "annotations": {
+      "color": "green"
+    }
+  )
+end
+```
+
 ### sensu_ctl
 Installs and configures the sensuctl cli
 #### Properties
