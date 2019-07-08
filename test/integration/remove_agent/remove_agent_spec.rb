@@ -17,6 +17,7 @@ if os.linux?
     it { should_not be_enabled unless os.release.to_f == 14.04 }
     it { should_not be_running }
   end
+end
 
 if os.windows?
   describe package('Sensu Agent') do
