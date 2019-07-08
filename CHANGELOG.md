@@ -9,6 +9,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - add `sensu_hook` resource (@derekgroh)
 - add `debug` option for `sensu_ctl` resource to help debug (@majormoses)
 - add support for sensu-go-agent on windows platform (@derekgroh)
+- fix symbols in annotations and labels (@scalp42)
 
 ### Changed
 - sensuctl cli args for asset updates now uses `--namespace`

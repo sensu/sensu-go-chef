@@ -68,6 +68,10 @@ action :install do
         action [:enable, :start]
       end
     end
+
+  # render template at /etc/sensu/agent.yml
+  file ::File.join(new_resource.config_home, 'agent.yml') do
+    content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
   end
 
   # Installs msi for Sensu-Go

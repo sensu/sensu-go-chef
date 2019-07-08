@@ -33,6 +33,7 @@ property :env_vars, Array
 property :filters, Array
 property :handlers, Array
 property :mutator, String
+property :runtime_assets, Array
 property :socket, Hash # can only have host: string, port: int
 property :timeout, Integer
 property :type, String, equal_to: %w(pipe tcp udp set), required: true

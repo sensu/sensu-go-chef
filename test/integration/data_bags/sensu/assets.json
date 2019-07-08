@@ -11,5 +11,9 @@
   "sensu-plugins-postgres": {
     "url": "https://github.com/sensu-plugins/sensu-plugins-postgres/archive/1.4.6.tar.gz",
     "checksum": "b4369e69f3e3247b6f48596733da2f1a3c66fceebb60e6b00c70f404324876696fc8d2381206c47bd9d09227b2d6d3802f359e2ae349d71930bd0d45c0b3d554"
+  },
+  "sensu-slack-handler": {
+    "url": "https://github.com/sensu/sensu-slack-handler/releases/download/1.0.3/sensu-slack-handler_1.0.3_linux_amd64.tar.gz",
+    "checksum": "68720865127fbc7c2fe16ca4d7bbf2a187a2df703f4b4acae1c93e8a66556e9079e1270521999b5871473e6c851f51b34097c54fdb8d18eedb7064df9019adc8"
   }
 }
