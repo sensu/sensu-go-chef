@@ -169,9 +169,7 @@ module SensuCookbook
     end
 
     def latest_version?(version)
-      version == 'latest' || version == :latest if node['platform'] != 'windows'
-      # Version controlled by attribute for Windows MSI
-      version == "#{node['sensu-go']['msi_version']}" if node['platform'] == 'windows'
+      version == 'latest' || version == :latest
     end
   end
 end
