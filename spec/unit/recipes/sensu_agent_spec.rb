@@ -127,3 +127,87 @@ RSpec.describe 'sensu_test::agent' do
     end
   end
 end
+
+RSpec.shared_examples 'remove_sensu_agent' do |platform, version|
+  context "when run on #{platform} #{version}" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        os: 'linux',
+        platform: platform,
+        version: version,
+        step_into: ['sensu_agent']
+      ).converge(described_recipe)
+    end
+
+    include_context 'common_stubs'
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+
+    it 'disables and stops a service `sensu-agent`' do
+      expect(chef_run).to disable_service('sensu-agent')
+      expect(chef_run).to stop_service('sensu-agent')
+    end
+
+    it 'removes a package' do
+      expect(chef_run).to remove_package('sensu-go-agent')
+    end
+  end
+end
+
+RSpec.shared_examples 'remove_sensu_agent_win' do |platform, version|
+  context "when run on #{platform} #{version}" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        os: 'windows',
+        platform: platform,
+        version: version,
+        step_into: ['sensu_agent']
+      ).converge(described_recipe)
+    end
+
+    include_context 'common_stubs'
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+
+    it 'stops and deletes a service `SensuAgent`' do
+      expect(chef_run).to stop_windows_service('SensuAgent')
+      expect(chef_run).to delete_windows_service('SensuAgent')
+    end
+
+    it 'deletes a registy key `HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\SensuAgent`' do
+      expect(chef_run).to delete_key_registry_key('HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\SensuAgent')
+    end
+
+    it 'removes a package `Sensu Agent`' do
+      expect(chef_run).to remove_windows_package('Sensu Agent')
+    end
+  end
+end
+
+RSpec.describe 'sensu_test::remove_agent' do
+  nix_platforms = {
+    'ubuntu' => ['14.04', '16.04'],
+    'centos' => '7.3.1611',
+  }
+  win_platforms = {
+    'windows' => %w(2012r2 2016 2019),
+  }
+
+  nix_platforms.each do |platform, versions|
+    versions = versions.is_a?(String) ? [versions] : versions
+    versions.each do |version|
+      include_examples 'remove_sensu_agent', platform, version
+    end
+  end
+
+  win_platforms.each do |platform, versions|
+    versions = versions.is_a?(String) ? [versions] : versions
+    versions.each do |version|
+      include_examples 'remove_sensu_agent_win', platform, version
+    end
+  end
+end
