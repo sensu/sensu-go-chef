@@ -69,21 +69,22 @@ action :install do
       end
     end
 
-  # render template at /etc/sensu/agent.yml
-  file ::File.join(new_resource.config_home, 'agent.yml') do
-    content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+    # render template at /etc/sensu/agent.yml
+    file ::File.join(new_resource.config_home, 'agent.yml') do
+      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+    end
   end
 
   # Installs msi for Sensu-Go
   if node['platform'] == 'windows'
     windows_package 'sensu agent' do
-      source (node['sensu-go']['windows_msi_source']).to_s
+      source node['sensu-go']['windows_msi_source']
       installer_type :custom
-      version (node['sensu-go']['msi_version']).to_s
+      version node['sensu-go']['msi_version']
     end
 
     # Adds install directory to path
-    windows_path (node['sensu-go']['sensu_bindir']).to_s
+    windows_path node['sensu-go']['sensu_bindir']
 
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config', 'agent.yml') do
@@ -93,7 +94,7 @@ action :install do
     # Installs SensuAgent Service
     powershell_script 'SensuAgent Service' do
       code '.\\sensu-agent.exe service install'
-      cwd (node['sensu-go']['sensu_bindir']).to_s
+      cwd node['sensu-go']['sensu_bindir']
       not_if '((Get-Service SensuAgent).Name -eq "SensuAgent")'
     end
 
