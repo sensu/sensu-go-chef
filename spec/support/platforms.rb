@@ -42,7 +42,7 @@ RSpec.shared_context 'centos-7' do
     ChefSpec::SoloRunner.new(
       os: 'linux',
       platform: 'centos',
-      version: '7.6.1810',
+      version: '7.6.1804',
       file_cache_path: '/var/chef/cache'
     ).converge(described_recipe)
   end
