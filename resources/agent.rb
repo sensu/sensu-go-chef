@@ -56,7 +56,7 @@ action :install do
 
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
-      content(stringify_keys(new_resource.config))
+      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
     end
 
     # Enable and start the sensu-agent service
@@ -67,11 +67,6 @@ action :install do
       else
         action [:enable, :start]
       end
-    end
-
-    # render template at /etc/sensu/agent.yml
-    file ::File.join(new_resource.config_home, 'agent.yml') do
-      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
     end
   end
 
@@ -87,8 +82,8 @@ action :install do
     windows_path node['sensu-go']['sensu_bindir']
 
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
-    file ::File.join('c:/ProgramData/Sensu/config', 'agent.yml') do
-      content(stringify_keys(new_resource.config))
+    file ::File.join(new_resource.config_home, 'agent.yml') do
+      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
     end
 
     # Installs SensuAgent Service
