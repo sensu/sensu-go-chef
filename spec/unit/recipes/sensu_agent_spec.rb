@@ -41,10 +41,6 @@ RSpec.shared_examples 'sensu_agent' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'creates sensu agent resources' do
-      expect(chef_run).to install_sensu_backend('default')
-    end
-
     it 'adds sensu packagecloud repo' do
       expect(chef_run).to add_packagecloud_repo('sensu/stable')
     end
@@ -86,7 +82,7 @@ RSpec.shared_examples 'sensu_agent_win' do |platform, version|
     end
 
     it 'adds a path to windows variable' do
-      expect(chef_run).to add_windows_path('c:\Program Files\sensu\sensu-agent\bin')
+      expect(chef_run).to add_windows_path('c:/Program Files/sensu/sensu-agent/bin')
     end
 
     it 'writes the agent config file' do
