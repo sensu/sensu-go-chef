@@ -48,39 +48,3 @@ RSpec.shared_context 'centos-7' do
   end
   include_context 'common_stubs'
 end
-
-RSpec.shared_context 'windows-2012r2' do
-  cached(:chef_run) do
-    ChefSpec::SoloRunner.new(
-      os: 'windows',
-      platform: 'windows',
-      version: '2012r2',
-      config_home: 'c:/ProgramData/Sensu/config/'
-    ).converge(described_recipe)
-  end
-  include_context 'common_stubs'
-end
-
-RSpec.shared_context 'windows-2016' do
-  cached(:chef_run) do
-    ChefSpec::SoloRunner.new(
-      os: 'windows',
-      platform: 'windows',
-      version: '2016',
-      config_home: 'c:/ProgramData/Sensu/config/'
-    ).converge(described_recipe)
-  end
-  include_context 'common_stubs'
-end
-
-RSpec.shared_context 'windows-2019' do
-  cached(:chef_run) do
-    ChefSpec::SoloRunner.new(
-      os: 'windows',
-      platform: 'windows',
-      version: '2019',
-      config_home: 'c:/ProgramData/Sensu/config/'
-    ).converge(described_recipe)
-  end
-  include_context 'common_stubs'
-end
