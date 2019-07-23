@@ -62,7 +62,7 @@ end
 RSpec.describe 'sensu_test::default' do
   platforms = {
     'ubuntu' => ['14.04', '16.04'],
-    'centos' => '7.3.1611',
+    'centos' => '7.6.1810',
   }
 
   platforms.each do |platform, versions|

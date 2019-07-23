@@ -103,7 +103,7 @@ end
 RSpec.describe 'sensu_test::agent' do
   nix_platforms = {
     'ubuntu' => ['14.04', '16.04'],
-    'centos' => '7.3.1611',
+    'centos' => '7.6.1810',
   }
   win_platforms = {
     'windows' => %w(2012r2 2016 2019),
