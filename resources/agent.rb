@@ -72,7 +72,7 @@ action :install do
 
   # Installs msi for Sensu-Go
   if node['platform'] == 'windows'
-    windows_package 'sensu agent' do
+    windows_package 'sensu-go-agent' do
       source node['sensu-go']['windows_msi_source']
       installer_type :custom
       version node['sensu-go']['msi_version']
@@ -82,7 +82,7 @@ action :install do
     windows_path node['sensu-go']['sensu_bindir']
 
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
-    file ::File.join(new_resource.config_home, 'agent.yml') do
+    file ::File.join('c:/ProgramData/Sensu/config/', 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
     end
 
