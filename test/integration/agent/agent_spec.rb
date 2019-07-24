@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go
+# Cookbook:: sensu-go
 # Spec:: agent
 #
 # Copyright:: 2019, The Authors, All Rights Reserved.

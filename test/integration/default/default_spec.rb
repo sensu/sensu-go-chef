@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go
+# Cookbook:: sensu-go
 # Spec:: default
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
