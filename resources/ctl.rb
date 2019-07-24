@@ -51,12 +51,11 @@ action :install do
       %w(rhel fedora amazon) => 'rpm',
       'default' => 'deb'
     )
-    end
+  end
 
-    package 'sensu-go-cli' do
-      action :install
-      version new_resource.version unless new_resource.version == 'latest'
-    end
+  package 'sensu-go-cli' do
+    action :install
+    version new_resource.version unless new_resource.version == 'latest'
   end
 end
 
@@ -66,6 +65,7 @@ action :configure do
       execute 'configure sensuctl' do
         command sensuctl_configure_cmd
         sensitive new_resource.debug
+      end
     end
   end
 end
