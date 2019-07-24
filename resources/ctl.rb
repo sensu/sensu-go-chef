@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go-chef
+# Cookbook:: sensu-go-chef
 # Resource:: agent
 #
 # Copyright:: 2018 Sensu, Inc.
@@ -46,25 +46,71 @@ end
 # end
 
 action :install do
-  packagecloud_repo new_resource.repo do
-    type value_for_platform_family(
-      %w(rhel fedora amazon) => 'rpm',
-      'default' => 'deb'
-    )
+  # Linux installation - source package
+  if node['platform'] != 'windows'
+    packagecloud_repo new_resource.repo do
+      type value_for_platform_family(
+        %w(rhel fedora amazon) => 'rpm',
+        'default' => 'deb'
+      )
+    end
+
+    package 'sensu-go-cli' do
+      action :install
+      version new_resource.version unless new_resource.version == 'latest'
+    end
   end
 
-  package 'sensu-go-cli' do
-    action :install
-    version new_resource.version unless new_resource.version == 'latest'
+  if node['platform'] == 'windows'
+    # Windows installation
+    powershell_script 'WebRequest SensuCtl' do
+      code 'Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/5.10.2/sensu-enterprise-go_5.10.2_windows_amd64.tar.gz  -OutFile C:/Users/Public/Desktop/sensu-enterprise-go_5.10.2_windows_amd64.tar.gz'
+      not_if '(Get-Item "C:/Users/Public/Desktop/sensu-enterprise-go_5.10.2_windows_amd64.tar.gz").name -eq "sensu-enterprise-go_5.10.2_windows_amd64.tar.gz"'
+    end
+
+    # Dependency until native windows packaging resolved
+    include_recipe 'seven_zip'
+
+    # tar.gz to tar
+    seven_zip_archive 'Extract Sensuctl' do
+      path      'C:/Users/Public/Desktop/'
+      source    'C:/Users/Public/Desktop/sensu-enterprise-go_5.10.2_windows_amd64.tar.gz'
+      overwrite true
+      timeout   30
+    end
+
+    # Extract tar
+    seven_zip_archive 'Extract Sensuctl' do
+      path      'c:/Program Files/Sensu/sensu-cli/bin/sensuctl'
+      source    'C:/Users/Public/Desktop/sensu-enterprise-go_5.10.2_windows_amd64.tar'
+      overwrite true
+      timeout   30
+    end
+
+    # Add install path to windows path
+    windows_path 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl'
   end
 end
 
 action :configure do
-  if shell_out('sensuctl user list').error?
-    converge_by 'Reconfiguring sensuctl' do
-      execute 'configure sensuctl' do
-        command sensuctl_configure_cmd
-        sensitive new_resource.debug
+  if node['platform'] != 'windows'
+    if shell_out('sensuctl user list').error?
+      converge_by 'Reconfiguring sensuctl' do
+        execute 'configure sensuctl' do
+          command sensuctl_configure_cmd
+          sensitive new_resource.debug
+        end
+      end
+    end
+  end
+
+  if node['platform'] == 'windows'
+    if execute('sensuctl user list').error?
+      converge_by 'Reconfiguring sensuctl' do
+        execute 'configure sensuctl' do
+          command sensuctl_configure_cmd
+          sensitive new_resource.debug
+        end
       end
     end
   end
