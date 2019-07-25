@@ -1,4 +1,5 @@
 # sensu-go
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/sensu/sensu-go-chef)](https://ci.appveyor.com/project/sensu/sensu-go-chef)
 [![Build Status](https://travis-ci.org/sensu/sensu-go-chef.svg?branch=master)](https://travis-ci.org/sensu/sensu-go-chef)
 [![Cookbook Version](https://img.shields.io/cookbook/v/sensu-go.svg)](https://supermarket.chef.io/cookbooks/sensu-go)
 [![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/badge)
@@ -12,7 +13,7 @@ Sensu is discussed in many places but typically the best place to get adhoc gene
 
 ## Scope
 
-This Chef Cookbook is for installing & configuring Sensu 2.x
+This Chef Cookbook is for installing & configuring Sensu 5.x
 See the [sensu](https://supermarket.chef.io/cookbooks/sensu) cookbook if you wish to manage Sensu 1.x via Chef.
 
 ## Requirements
@@ -38,7 +39,7 @@ The following platforms have been tested with Test Kitchen. It will most likely 
 
 ## Usage
 
-This is a library style cookbook that provides a set of resources to install and configure the Sensu 2.x environment in a composable way. It is intended to be used in your own wrapper cookbook suited to your specific needs. You can see a very simple example usage in the default recipe of the [sensu_test](https://github.com/sensu/sensu-go-chef/blob/master/test/cookbooks/sensu_test/recipes/default.rb) cookbook that is included in this repo. This recipe is used as part of integration testing.
+This is a library style cookbook that provides a set of resources to install and configure the Sensu 5.x environment in a composable way. It is intended to be used in your own wrapper cookbook suited to your specific needs. You can see a very simple example usage in the default recipe of the [sensu_test](https://github.com/sensu/sensu-go-chef/blob/master/test/cookbooks/sensu_test/recipes/default.rb) cookbook that is included in this repo. This recipe is used as part of integration testing.
 
 * add `depends 'sensu-go'` to the metadata.rb for your cookbook.
 * use the provided resources in your cookbook
@@ -100,16 +101,16 @@ end
 For more details look at the [TESTING.md](./TESTING.md).
 
 ## Resource Overview
-These resources primarily work by writing the Sensu 2.x object definitions to a local path and then using the sensuctl command line to reconfigure the definitions known to the sensu backend.
+These resources primarily work by writing the Sensu 5.x object definitions to a local path and then using the sensuctl command line to reconfigure the definitions known to the sensu backend.
 
 * `sensu_backend` install and configure the sensu backend
 * `sensu_agent` install and configure the sensu agent
-* `sensu_ctl` install and configure the [sensuctl](https://docs.sensu.io/sensu-core/2.0/reference/sensuctl/)
-* `sensu_check` configure sensu [checks](https://docs.sensu.io/sensu-core/2.0/reference/checks/)
-* `sensu_handler` configure check [handlers](https://docs.sensu.io/sensu-core/2.0/reference/handlers/)
-* `sensu_filter` configure sensu [filters](https://docs.sensu.io/sensu-core/2.0/reference/filters/)
-* `sensu_mutator` configure sensu [mutators](https://docs.sensu.io/sensu-core/2.0/reference/mutators/)
-* `sensu_asset` configure sensu [assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/)for use with checks
+* `sensu_ctl` install and configure the [sensuctl](https://docs.sensu.io/sensu-go/latest/reference/sensuctl/)
+* `sensu_check` configure sensu [checks](https://docs.sensu.io/sensu-go/latest/reference/checks/)
+* `sensu_handler` configure check [handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/)
+* `sensu_filter` configure sensu [filters](https://docs.sensu.io/sensu-go/latest/reference/filters/)
+* `sensu_mutator` configure sensu [mutators](https://docs.sensu.io/sensu-go/latest/reference/mutators/)
+* `sensu_asset` configure sensu [assets](https://docs.sensu.io/sensu-go/latest/reference/assets/)for use with checks
 * `sensu_hook` configure sensu [hooks](https://docs.sensu.io/sensu-go/latest/reference/hooks/)for use with checks
 
 ## Resource Details
@@ -211,12 +212,12 @@ The sensu_check resource is used to define check objects.
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
 * `proxy_entity_name` Used to create a proxy entity for an external resource
-* `proxy_requests`  A [Sensu Proxy Request](https://docs.sensu.io/sensu-core/2.0/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
+* `proxy_requests`  A [Sensu Proxy Request](https://docs.sensu.io/sensu-go/latest/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
-* `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-specification)
-* `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/) required at runtime for the execution of the `command`
+* `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-go/latest/reference/checks/#check-specification)
+* `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `stdin` If the Sensu agent writes JSON serialized entity and check data to the command process' STDIN
-* `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-core/2.0/reference/checks/#subdue-attributes), which is a hash of days of the week
+* `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-go/latest/reference/checks/#subdue-attributes), which is a hash of days of the week
 * `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to, default *[]*
 * `timeout` The check execution duration timeout in seconds
 * `ttl` The value in seconds until check results are considered stale
@@ -249,7 +250,7 @@ end
 * `filters` an array of Sensu event filter names to use
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
-* `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-core/2.0/reference/assets/) required at runtime for the execution of the `command`
+* `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
 * `timeout` the handler execution duration timeout in seconds, only used with *pipe* and *tcp* types
 * `type` **required** handler type, one of *pipe, tcp, udp* or *set*
@@ -293,7 +294,7 @@ Used to define filters for sensu checks
 #### Properties
 * `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
 * `expressions` **required** filter expressions to be compared with event data.
-* `when` the [when definition scope](https://docs.sensu.io/sensu-core/2.0/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
+* `when` the [when definition scope](https://docs.sensu.io/sensu-go/latest/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
 
 #### Examples
 ```rb
