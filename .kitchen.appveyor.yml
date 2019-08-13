@@ -16,9 +16,19 @@ provisioner:
   deprecations_as_errors: true
 
 platforms:
-  - name: windows-2012R2
+  - name: windows-2012r2
+    driver:
+      box: tas50/windows_2012r2  
   - name: windows-2016
-  - name: windows-2019  
+    driver:
+      box: tas50/windows_2016
+      customize:
+        memory: 3072
+  - name: windows-2019
+    driver:
+      box: tas50/windows_2016
+      customize:
+        memory: 3072
 
 verifier:
   name: inspec
