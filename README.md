@@ -105,7 +105,7 @@ These resources primarily work by writing the Sensu 5.x object definitions to a 
 
 * `sensu_backend` install and configure the sensu backend
 * `sensu_agent` install and configure the sensu agent
-* `sensu_ctl` install and configure the [sensuctl](https://docs.sensu.io/sensu-go/latest/reference/sensuctl/)
+* `sensu_ctl` install and configure the [sensuctl](https://docs.sensu.io/sensu-go/latest/sensuctl/reference/)
 * `sensu_check` configure sensu [checks](https://docs.sensu.io/sensu-go/latest/reference/checks/)
 * `sensu_handler` configure check [handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/)
 * `sensu_filter` configure sensu [filters](https://docs.sensu.io/sensu-go/latest/reference/filters/)
