@@ -7,31 +7,26 @@ driver:
   username: <%= ENV["machine_user"] %>
   password: <%= ENV["machine_pass"] %>
 
-transport:
-  name: winrm
-  elevated: true
-
 provisioner:
   name: chef_zero
-  deprecations_as_errors: true
 
 platforms:
   - name: windows-2012r2
     driver:
       box: tas50/windows_2012r2  
-  - name: windows-2016
-    driver:
-      box: tas50/windows_2016
-      customize:
-        memory: 3072
-  - name: windows-2019
-    driver:
-      box: tas50/windows_2016
-      customize:
-        memory: 3072
+#  - name: windows-2016
+#    driver:
+#      box: tas50/windows_2016
+#      customize:
+#        memory: 3072
+#  - name: windows-2019
+#    driver:
+#      box: tas50/windows_2016
+#      customize:
+#        memory: 3072
 
-verifier:
-  name: inspec
+#verifier:
+#  name: inspec
 
 suites:
   - name: agent
@@ -41,11 +36,11 @@ suites:
       inspec_tests:
         - test/integration/agent
     attributes:
-  - name: remove-agent
-    run_list:
-      - recipe[sensu_test::agent]      
-      - recipe[sensu_test::remove_agent]
-    verifier:
-      inspec_tests:
-        - test/integration/remove_agent
-    attributes:          
+#  - name: remove-agent
+#    run_list:
+#      - recipe[sensu_test::agent]      
+#      - recipe[sensu_test::remove_agent]
+#    verifier:
+#      inspec_tests:
+#        - test/integration/remove_agent
+#    attributes:          
