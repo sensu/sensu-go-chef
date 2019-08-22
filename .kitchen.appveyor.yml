@@ -9,6 +9,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  client_rb:
+    chef_license: accept
 
 platforms:
   - name: windows-2012r2
