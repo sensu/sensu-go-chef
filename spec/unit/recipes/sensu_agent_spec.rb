@@ -106,7 +106,7 @@ RSpec.describe 'sensu_test::agent' do
     'centos' => '7.6.1804',
   }
   win_platforms = {
-    'windows' => %w(2012r2 2016 2019),
+    'windows' => %w(2012R2 2016 2019),
   }
 
   nix_platforms.each do |platform, versions|
