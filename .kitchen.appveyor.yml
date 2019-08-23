@@ -38,11 +38,11 @@ suites:
       inspec_tests:
         - test/integration/agent
     attributes:
-  - name: remove-agent
+  - name: remove
     run_list:
-      - recipe[sensu_test::agent]      
+      - recipe[sensu_test::agent]
       - recipe[sensu_test::remove_agent]
     verifier:
       inspec_tests:
         - test/integration/remove_agent
-    attributes:          
+    attributes:
