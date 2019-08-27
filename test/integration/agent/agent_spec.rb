@@ -7,14 +7,13 @@
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
 if os.linux?
-  if os.redhat? || os.name == 'fedora' || os.name == 'amazon'
+  case os.redhat?
+  when 'fedora' || 'amazon'
     describe yum.repo('sensu_stable') do
       it { should exist }
       it { should be_enabled }
     end
-  end
-
-  if os.name == 'debian' || os.name == 'ubuntu'
+  when 'debian' || 'ubuntu'
     describe apt("https://packagecloud.io/sensu/stable/#{os.name}") do
       it { should exist }
       it { should be_enabled }
