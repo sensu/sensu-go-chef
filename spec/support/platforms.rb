@@ -8,8 +8,7 @@ RSpec.shared_context 'common_stubs' do
 
   before do
     stub_data_bag_item('sensu', 'assets').and_return(assets_stub)
-    # rubocop:disable Style/StringLiterals
-    stub_command("((Get-Service SensuAgent).Name -eq \"SensuAgent\")")
+    stub_command("((Get-Service SensuAgent).Name -eq \"SensuAgent\")") # rubocop:disable Style/StringLiterals
   end
 end
 
