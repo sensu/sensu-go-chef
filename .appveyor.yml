@@ -43,6 +43,6 @@ test_script:
 # Favor TravisCI linting
 #  - c:\opscode\chefdk\bin\chef.bat exec delivery local lint
 #  - c:\opscode\chefdk\bin\chef.bat exec delivery local syntax
-  - c:\opscode\chefdk\bin\chef.bat exec kitchen verify -l debug
+  - c:\opscode\chefdk\bin\chef.bat exec kitchen verify
 
 deploy: off
