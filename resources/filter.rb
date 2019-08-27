@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go
+# Cookbook:: sensu-go
 # Resource:: filter
 #
 # Copyright:: 2018 Sensu, Inc.

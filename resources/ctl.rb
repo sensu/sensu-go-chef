@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sensu-go-chef
+# Cookbook:: sensu-go-chef
 # Resource:: agent
 #
 # Copyright:: 2018 Sensu, Inc.

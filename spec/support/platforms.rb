@@ -8,6 +8,7 @@ RSpec.shared_context 'common_stubs' do
 
   before do
     stub_data_bag_item('sensu', 'assets').and_return(assets_stub)
+    stub_command("((Get-Service SensuAgent).Name -eq \"SensuAgent\")") # rubocop:disable Style/StringLiterals
   end
 end
 
@@ -40,7 +41,7 @@ RSpec.shared_context 'centos-7' do
     ChefSpec::SoloRunner.new(
       os: 'linux',
       platform: 'centos',
-      version: '7.3.1611',
+      version: '7.6.1804',
       file_cache_path: '/var/chef/cache'
     ).converge(described_recipe)
   end
