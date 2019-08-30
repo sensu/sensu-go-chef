@@ -19,8 +19,11 @@ module SensuCookbook
       end
 
       def sensuctl_configure_cmd
-        [sensuctl_bin, 'configure', sensuctl_configure_opts].join(' ').strip if node['platform'] != 'windows'
-        [sensuctl_path, 'configure', sensuctl_configure_opts].join(' ').strip if node['platform'] == 'windows'
+        if node['platform'] != 'windows'
+          [sensuctl_bin, 'configure', sensuctl_configure_opts].join(' ').strip
+        else
+          [sensuctl_path, 'configure', sensuctl_configure_opts].join(' ').strip
+        end
       end
 
       def sensuctl_asset_update_opts
