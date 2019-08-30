@@ -35,6 +35,8 @@ RSpec.shared_examples 'sensu_ctl' do |platform, version|
       ).converge(described_recipe)
     end
 
+    include_context 'common_stubs'
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
@@ -44,7 +46,7 @@ RSpec.shared_examples 'sensu_ctl' do |platform, version|
     end
 
     it 'adds sensu packagecloud repo' do
-      expect(chef_run).to add_packagecloud_repo('sensu/nightly')
+      expect(chef_run).to add_packagecloud_repo('sensu/stable')
     end
 
     it 'installs package sensu-cli' do
@@ -68,6 +70,8 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       ).converge(described_recipe)
     end
 
+    include_context 'common_stubs'
+
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
@@ -79,7 +83,7 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
     it 'creates a directory `c:\temp`' do
       expect(chef_run).to create_directory('c:\temp')
     end
-  
+
     it 'runs a powershell script `Download Sensuctl`' do
       expect(chef_run).to run_powershell_script('Download Sensuctl')
     end
@@ -114,7 +118,7 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
   end
 end
 
-RSpec.describe 'sensu_test::default' do
+RSpec.describe 'sensu_test::ctl' do
   nix_platforms = {
     'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.6.1804',

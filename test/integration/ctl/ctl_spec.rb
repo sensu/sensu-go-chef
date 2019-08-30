@@ -26,8 +26,8 @@ if os.linux?
 end
 
 if os.windows?
-  describe windows_path('c:\Program Files\Sensu\sensu-cli\bin\sensuctl') do
-    it { should exist }
+  describe command('cmd.exe /c "echo %PATH%"') do
+    its('stdout') { should include 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' }
   end
 
   describe file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe') do
