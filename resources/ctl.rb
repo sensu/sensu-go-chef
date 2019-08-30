@@ -46,16 +46,59 @@ end
 # end
 
 action :install do
-  packagecloud_repo new_resource.repo do
-    type value_for_platform_family(
-      %w(rhel fedora amazon) => 'rpm',
-      'default' => 'deb'
-    )
+  if node['platform'] != 'windows'
+    packagecloud_repo new_resource.repo do
+      type value_for_platform_family(
+        %w(rhel fedora amazon) => 'rpm',
+        'default' => 'deb'
+      )
+    end
+
+    package 'sensu-go-cli' do
+      action :install
+      version new_resource.version unless new_resource.version == 'latest'
+    end
   end
 
-  package 'sensu-go-cli' do
-    action :install
-    version new_resource.version unless new_resource.version == 'latest'
+  if node['platform'] == 'windows'
+    # This is awaiting a packaged method to be delivered, but provides a resource currently.
+    include_recipe 'seven_zip'
+
+    directory 'c:\temp'
+
+    powershell_script 'Download Sensuctl' do
+      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      not_if "Test-Path c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+    end
+
+    seven_zip_archive 'Extract Sensuctl Gz' do
+      path "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      source "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      overwrite true
+      timeout   30
+    end
+  
+    seven_zip_archive 'Extract Sensuctl Tar' do
+      path "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
+      source "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      overwrite true
+      timeout   30
+    end
+  
+    directory 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+      recursive true
+    end
+
+    remote_file 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe' do
+      source "file:///c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
+    end
+
+    windows_path 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl'
+
+    directory 'c:\temp' do
+      action :delete
+      recursive true
+    end
   end
 end
 
@@ -71,7 +114,20 @@ action :configure do
 end
 
 action :uninstall do
-  package 'sensu-go-cli' do
-    action :remove
+  if node['platform'] != 'windows'
+    package 'sensu-go-cli' do
+      action :remove
+    end
+  end
+
+  if node['platform'] == 'windows'
+    windows_path 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+      action :remove
+    end
+
+    directory 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+      action :delete
+      recursive true
+    end
   end
 end

@@ -57,16 +57,83 @@ RSpec.shared_examples 'sensu_ctl' do |platform, version|
   end
 end
 
+RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
+  context "when run on #{platform} #{version}" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(
+        os: 'windows',
+        platform: platform,
+        version: version,
+        step_into: ['sensu_ctl']
+      ).converge(described_recipe)
+    end
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+
+    it 'includes the `seven_zip::default` recipe' do
+      expect(chef_run).to include_recipe('seven_zip::default')
+    end
+
+    it 'creates a directory `c:\temp`' do
+      expect(chef_run).to create_directory('c:\temp')
+    end
+  
+    it 'runs a powershell script `Download Sensuctl`' do
+      expect(chef_run).to run_powershell_script('Download Sensuctl')
+    end
+
+    it 'extracts an archive' do
+      expect(chef_run).to extract_seven_zip_archive('Extract Sensuctl Gz')
+    end
+
+    it 'extracts the archive' do
+      expect(chef_run).to extract_seven_zip_archive('Extract Sensuctl Tar')
+    end
+
+    it 'creates a directory `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`' do
+      expect(chef_run).to create_directory('c:\Program Files\Sensu\sensu-cli\bin\sensuctl')
+    end
+
+    it 'creates a remote_file `c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe`' do
+      expect(chef_run).to create_remote_file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe')
+    end
+
+    it 'adds `c:\Program Files\Sensu\sensu-cli\bin\sensuctl` to windows path' do
+      expect(chef_run).to add_windows_path('c:\Program Files\Sensu\sensu-cli\bin\sensuctl')
+    end
+
+    it 'deletes the temporary directory `c:\temp`' do
+      expect(chef_run).to delete_directory('c:\temp')
+    end
+
+    it 'configures the sensu cli' do
+      expect(chef_run).to configure_sensu_ctl('default')
+    end
+  end
+end
+
 RSpec.describe 'sensu_test::default' do
-  platforms = {
+  nix_platforms = {
     'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.6.1804',
   }
+  win_platforms = {
+    'windows' => %w(2012R2 2016 2019),
+  }
 
-  platforms.each do |platform, versions|
+  nix_platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      include_examples 'sensu_agent', platform, version
+      include_examples 'sensu_ctl', platform, version
+    end
+  end
+
+  win_platforms.each do |platform, versions|
+    versions = versions.is_a?(String) ? [versions] : versions
+    versions.each do |version|
+      include_examples 'sensu_ctl_win', platform, version
     end
   end
 end

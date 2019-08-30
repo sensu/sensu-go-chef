@@ -1,0 +1,41 @@
+#
+# Cookbook Name:: sensu-go
+# Spec:: ctl
+#
+# Copyright:: 2018, The Authors, All Rights Reserved.
+
+# The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
+# for everything you can do.
+if os.linux?
+  case os.redhat?
+  when 'fedora' || 'amazon'
+    describe yum.repo('sensu_stable') do
+      it { should exist }
+      it { should be_enabled }
+    end
+  when 'debian' || 'ubuntu'
+    describe apt("https://packagecloud.io/sensu/stable/#{os.name}") do
+      it { should exist }
+      it { should be_enabled }
+    end
+  end
+
+  describe package('sensu-go-cli') do
+    it { should be_installed }
+  end
+end
+
+if os.windows?
+  describe windows_path('c:\Program Files\Sensu\sensu-cli\bin\sensuctl') do
+    it { should exist }
+  end
+
+  describe file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe') do
+    it { should exist }
+  end
+end
+
+describe command('sensuctl user list') do
+  its('stdout') { should match /Username/ }
+  its('exit_status') { should eq 0 }
+end
