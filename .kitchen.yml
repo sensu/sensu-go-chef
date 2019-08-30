@@ -28,7 +28,7 @@ platforms:
     driver:
       box: tas50/windows_2016
       customize:
-        memory: 3072  
+        memory: 3072
 
 suites:
   - name: default
@@ -61,4 +61,23 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/ctl
+    attributes:
+    excludes:
+      - windows-2012r2
+      - windows-2016
+      - windows-2019
+  - name: agent
+    run_list:
+      - recipe[sensu_test::agent]
+    verifier:
+      inspec_tests:
+        - test/integration/agent
+    attributes:
+  - name: remove
+    run_list:
+      - recipe[sensu_test::agent]
+      - recipe[sensu_test::remove_agent]
+    verifier:
+      inspec_tests:
+        - test/integration/remove_agent
     attributes:
