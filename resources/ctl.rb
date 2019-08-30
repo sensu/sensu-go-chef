@@ -77,14 +77,14 @@ action :install do
       overwrite true
       timeout   30
     end
-  
+
     seven_zip_archive 'Extract Sensuctl Tar' do
       path "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
       source "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
       overwrite true
       timeout   30
     end
-  
+
     directory 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
       recursive true
     end
