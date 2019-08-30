@@ -9,6 +9,10 @@ RSpec.shared_context 'common_stubs' do
   before do
     stub_data_bag_item('sensu', 'assets').and_return(assets_stub)
     stub_command("((Get-Service SensuAgent).Name -eq \"SensuAgent\")") # rubocop:disable Style/StringLiterals
+    stubs_for_provider('sensu_ctl[default]') do |provider|
+      allow(provider).to receive_shell_out('sensuctl user list')
+    end
+    stub_command("Test-Path c:/temp/sensu-enterprise-go_5.11.1_windows_amd64.tar.gz").and_return(true) # rubocop:disable Style/StringLiterals
   end
 end
 
