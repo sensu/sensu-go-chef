@@ -28,7 +28,7 @@ resource_name :sensu_ctl
 include SensuCookbook::SensuPackageProperties
 
 property :username, String, default: 'admin'
-property :password, String, default: 'P@ssw0rd!'
+property :password, String, default: 'P@ssw0rd!', sensitive: true
 property :backend_url, String, default: 'http://127.0.0.1:8080'
 # WARNING: this will expose secrets to whatever is capturing
 # the log output be it stdout (such as in CI) or log files
@@ -64,7 +64,7 @@ action :configure do
     converge_by 'Reconfiguring sensuctl' do
       execute 'configure sensuctl' do
         command sensuctl_configure_cmd
-        sensitive new_resource.debug
+        sensitive true unless new_resource.debug
       end
     end
   end
