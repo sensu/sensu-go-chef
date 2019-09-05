@@ -4,6 +4,7 @@ sensu_agent 'default'
 
 sensu_ctl 'default' do
   action [:install, :configure]
+  debug true
 end
 
 sensu_namespace 'test-org' do
