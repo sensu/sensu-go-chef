@@ -28,7 +28,7 @@ platforms:
     driver:
       box: tas50/windows_2016
       customize:
-        memory: 3072  
+        memory: 3072
 
 suites:
   - name: default
