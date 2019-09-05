@@ -13,6 +13,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ### Changed
 - sensuctl cli args for asset updates now uses `--namespace`
+- sensuctl cli args are escaped properly (@beeerd)
+- sensuctl cli commands are marked sensitive by default (@beeerd)
 
 ### Breaking Changes
 - Use stable package channels (@webframp)
