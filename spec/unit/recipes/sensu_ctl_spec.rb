@@ -84,10 +84,6 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect(chef_run).to create_directory('c:\temp')
     end
 
-#    it 'runs a powershell script `Download Sensuctl`' do
-#      expect(chef_run).to run_powershell_script('Download Sensuctl')
-#    end
-
     it 'extracts an archive' do
       expect(chef_run).to extract_seven_zip_archive('Extract Sensuctl Gz')
     end
