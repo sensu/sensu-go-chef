@@ -19,11 +19,7 @@ module SensuCookbook
       end
 
       def sensuctl_configure_cmd
-        if node['platform'] != 'windows'
-          [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
-        else
-          [sensuctl_path, 'configure', sensuctl_configure_opts].flatten
-        end
+        [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
       end
 
       def sensuctl_asset_update_opts
