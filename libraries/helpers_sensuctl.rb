@@ -2,11 +2,11 @@ module SensuCookbook
   module Helpers
     module SensuCtl
       def sensuctl_bin
-        '/usr/bin/sensuctl'
-      end
-
-      def sensuctl_path
-        '"c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe"'
+        if node['platform'] == 'linux'
+          '/usr/bin/sensuctl'
+        else
+          '"c:\Program Files\Sensu\sensu-cli\bin\sensuctl"'
+        end
       end
 
       def sensuctl_configure_opts
