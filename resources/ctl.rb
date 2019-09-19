@@ -64,38 +64,38 @@ action :install do
     # This is awaiting a packaged method to be delivered, but provides a resource currently.
     include_recipe 'seven_zip'
 
-    directory 'c:\temp'
+    directory 'c:\sensutemp'
 
     powershell_script 'Download Sensuctl' do
-      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-      not_if "Test-Path c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      not_if "Test-Path c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
     end
 
     seven_zip_archive 'Extract Sensuctl Gz' do
-      path "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
-      source "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      path "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      source "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
       overwrite true
       timeout   30
     end
 
     seven_zip_archive 'Extract Sensuctl Tar' do
-      path "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
-      source "c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      path "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
+      source "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
       overwrite true
       timeout   30
     end
 
-    directory 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+    directory sensuctl_bin do
       recursive true
     end
 
-    remote_file 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe' do
+    remote_file "#{sensuctl_bin}/sensuctl.exe" do
       source "file:///c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
     end
 
-    windows_path 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl'
+    windows_path sensuctl_bin
 
-    directory 'c:\temp' do
+    directory 'c:\sensutemp' do
       action :delete
       recursive true
     end
@@ -121,11 +121,11 @@ action :uninstall do
   end
 
   if node['platform'] == 'windows'
-    windows_path 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+    windows_path sensuctl_bin do
       action :remove
     end
 
-    directory 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' do
+    directory sensuctl_bin do
       action :delete
       recursive true
     end
