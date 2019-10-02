@@ -89,8 +89,8 @@ action :install do
       recursive true
     end
 
-    remote_file "#{sensuctl_bin}/sensuctl.exe" do
-      source "file:///c:/temp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
+    remote_file "#{sensuctl_bin}\\sensuctl.exe" do
+      source "file:///c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
     end
 
     windows_path sensuctl_bin

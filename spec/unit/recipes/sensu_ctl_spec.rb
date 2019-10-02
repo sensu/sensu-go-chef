@@ -80,8 +80,8 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect(chef_run).to include_recipe('seven_zip::default')
     end
 
-    it 'creates a directory `c:\temp`' do
-      expect(chef_run).to create_directory('c:\temp')
+    it 'creates a directory `c:\sensutemp`' do
+      expect(chef_run).to create_directory('c:\sensutemp')
     end
 
     it 'extracts an archive' do
@@ -104,8 +104,8 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect(chef_run).to add_windows_path('c:\Program Files\Sensu\sensu-cli\bin\sensuctl')
     end
 
-    it 'deletes the temporary directory `c:\temp`' do
-      expect(chef_run).to delete_directory('c:\temp')
+    it 'deletes the temporary directory `c:\sensutemp`' do
+      expect(chef_run).to delete_directory('c:\sensutemp')
     end
 
     it 'configures the sensu cli' do
