@@ -2,10 +2,10 @@ module SensuCookbook
   module Helpers
     module SensuCtl
       def sensuctl_bin
-        if node['platform'] == 'linux'
+        if node['platform'] != 'windows'
           '/usr/bin/sensuctl'
         else
-          '"c:\Program Files\Sensu\sensu-cli\bin\sensuctl"'
+          'c:\Program Files\Sensu\sensu-cli\bin\sensuctl'
         end
       end
 
