@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Added
+- `filters` resource now supports `runtime_assets` being passed (@majormoses)
 
 ## [0.1.0] - 2019-09-16
 ### Added
