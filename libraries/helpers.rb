@@ -115,6 +115,7 @@ module SensuCookbook
       spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['expressions'] = new_resource.expressions
       spec['when'] = new_resource.when if new_resource.when
+      spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
 
       f = {}
       f['type'] = 'event_' + type_from_name
