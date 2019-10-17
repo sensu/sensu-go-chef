@@ -134,7 +134,7 @@ The sensu backend resource can configure the core sensu backend service.
 * `version` which version to install, default: *latest*
 * `repo` which repo to pull package from, default: *sensu/stable*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
-* `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu'}*
+* `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu/sensu-backend'}*
 
 #### Examples
 ```rb
@@ -146,7 +146,7 @@ Optionally pass configuration values for the backend:
 ```rb
 sensu_backend 'default' do
   repo 'sensu/stable'
-  config({'state-dir' => '/var/lib/sensu',
+  config({'state-dir' => '/var/lib/sensu/sensu-backend',
           'trusted-ca-file' => "/some/local/path.pem",
           'insecure-skip-tls-verify' => true})
 end
