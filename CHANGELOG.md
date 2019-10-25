@@ -1,27 +1,40 @@
 # Change Log
+
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+
 ### Added
+
 - `filters` resource now supports `runtime_assets` being passed (@majormoses)
 
+### Breaking changes
+
+- `sensu-backend` property: `config` Readme incorrectly documented the wrong
+  path. Called out as a breaking change in case anyone had begun using the
+  incorrect setting. (@tmonk42) - #66
+
 ## [0.1.0] - 2019-09-16
+
 ### Added
+
 - Most resources now support metadata specific properties (@webframp)
 - add `sensu_hook` resource (@derekgroh)
 - add `debug` option for `sensu_ctl` resource to help debug (@majormoses)
 - add support for sensu-go-agent on windows platform (@derekgroh)
 - fix symbols in annotations and labels (@scalp42)
-- add sensu_ctl resource for windows platforms
+- add sensu_ctl resource for windows platforms (@derekgroh) - #59
 
 ### Changed
+
 - sensuctl cli args for asset updates now uses `--namespace`
 - sensuctl cli args are escaped properly (@beeerd)
 - sensuctl cli commands are marked sensitive by default (@beeerd)
 
 ### Breaking Changes
+
 - Use stable package channels (@webframp)
 - Temporarily remove Debian support until stable packages are available (@webframp)
 - `sensu_organization` resource removed to match upstream (@webframp)
@@ -32,17 +45,23 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Entity `class` property renamed to `entity_class`
 
 ## [0.0.3] - 2018-09-12
+
 ### Added
+
 - new `sensu_entity` resource (@mercul3s)
 - new `sensu_organization` resource (@mercul3s)
 - new `sensu_environment` resource (@mercul3s)
 
 ## [0.0.2] - 2018-08-29
+
 ### Added
+
 - Adding `output_metric` settings to the `sensu_check` resource
 
 ## [0.0.1]
+
 ### Added
+
 - new `.editorconfig` to help users who have editors that support [editor config](https://editorconfig.org/)
 - new PR and issue templates (@majormoses)
 - links to community slack (@majormoses)
@@ -56,15 +75,17 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - Added skel files from Chef Partners cookbook generator (@thomasriley)
 
 ### Changed
+
 - Updated contributing instruction (@majormoses)
 - use `@sensu/chef-cookbooks` for `CODEOWNERS` rather than individual users now that there is a team to refer to instead (@majormoses)
 
 ### Fixed
+
 - moved `CODEOWNERS` into the correct location (@majormoses)
 - updated development dependencies (@majormoses)
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...HEAD
+[unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...HEAD
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/sensu/sensu-go-chef/compare/0.0.1...0.0.2
