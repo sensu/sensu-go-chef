@@ -2,7 +2,11 @@ module SensuCookbook
   module Helpers
     module SensuCtl
       def sensuctl_bin
-        '/usr/bin/sensuctl'
+        if node['platform'] != 'windows'
+          '/usr/bin/sensuctl'
+        else
+          'c:\Program Files\Sensu\sensu-cli\bin\sensuctl'
+        end
       end
 
       def sensuctl_configure_opts
@@ -15,7 +19,11 @@ module SensuCookbook
       end
 
       def sensuctl_configure_cmd
-        [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
+        if node['platform'] != 'windows'
+          [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
+        else
+          ['sensuctl.exe', 'configure', sensuctl_configure_opts].flatten
+        end
       end
 
       def sensuctl_asset_update_opts

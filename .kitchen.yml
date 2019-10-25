@@ -34,6 +34,12 @@ suites:
   - name: default
     run_list:
       - recipe[sensu_test::default]
+    driver:  
+      network:
+        - ["private_network", {ip: "172.128.10.2"}]
+    verifier:
+      inspec_tests:
+        - test/integration/default
     attributes:
     excludes:
       - windows-2012r2
@@ -46,11 +52,13 @@ suites:
       inspec_tests:
         - test/integration/agent
     attributes:
-  - name: remove
+  - name: ctl
     run_list:
-      - recipe[sensu_test::agent]
-      - recipe[sensu_test::remove_agent]
+      - recipe[sensu_test::ctl]
+    driver:  
+      network:
+        - ["private_network", {ip: "172.128.10.3", autocorrect: true}]
     verifier:
       inspec_tests:
-        - test/integration/remove_agent
+        - test/integration/ctl
     attributes:
