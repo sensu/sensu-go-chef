@@ -85,7 +85,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - updated development dependencies (@majormoses)
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
-[unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...HEAD
+<!-- prettier-ignore -->
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...HEAD
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/sensu/sensu-go-chef/compare/0.0.1...0.0.2
