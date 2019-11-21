@@ -166,6 +166,21 @@ module SensuCookbook
       e
     end
 
+    def postgres_from_resource
+      obj = {
+        'metadata' => {},
+        'spec' => {}
+      }
+
+      obj['type'] = 'PostgresConfig'
+      obj['api_version'] = 'store/v1'
+      obj['metadata']['name'] = new_resource.name
+      obj['spec']['dsn'] = new_resource.dsn
+      obj['spec']['pool_size'] = new_resource.pool_size if new_resource.pool_size
+
+      obj
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

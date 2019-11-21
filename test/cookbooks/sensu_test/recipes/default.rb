@@ -115,6 +115,12 @@ sensu_entity 'example-entity' do
   annotations(runbook: 'https://www.xkcd.com/378/')
 end
 
+sensu_postgres 'sensu_pg' do
+  dsn "postgresql://user:secret@host:port/dbname?sslmode=disable"
+  pool_size 10
+  action :create
+end
+
 sensu_hook 'restart_cron_service' do
   command 'sudo service cron restart'
   timeout 60
