@@ -1,7 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Spec:: sensu_role_binding_binding_binding
-#
+# Spec:: sensu_role_binding
 
 # Copyright:: 2019 Sensu, Inc.
 #
