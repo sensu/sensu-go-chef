@@ -43,7 +43,7 @@ RSpec.shared_examples 'sensu_postgres_config' do |platform, version|
 
     # FIXME: object_dir helper is adding 's' suffix, ergo 'postgress'
     it 'creates a directory' do
-      expect(chef_run).to create_directory('/etc/sensu/postgress')
+      expect(chef_run).to create_directory('/etc/sensu/postgres_configs')
     end
 
     it 'creates sensu postgres config resources' do
@@ -51,11 +51,11 @@ RSpec.shared_examples 'sensu_postgres_config' do |platform, version|
     end
 
     it 'creates the postgres config object file' do
-      expect(chef_run).to create_file('/etc/sensu/postgress/sensu_pg.json')
+      expect(chef_run).to create_file('/etc/sensu/postgres_configs/sensu_pg.json')
     end
 
     it 'creates the sensu_pg PostgresConfig' do
-      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/postgress/sensu_pg.json')
+      expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/postgres_configs/sensu_pg.json')
     end
   end
 end
