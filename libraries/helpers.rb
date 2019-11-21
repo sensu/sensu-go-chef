@@ -178,6 +178,26 @@ module SensuCookbook
       role
     end
 
+    def role_binding_from_resource
+      binding = {
+        'metadata' => {},
+        'spec' => {},
+      }
+
+      spec = {
+        'role_ref' => {
+          'name' => new_resource.role_name,
+          'type' => new_resource.role_type,
+        },
+        'subjects' => new_resource.subjects,
+      }
+
+      binding['metadata']['name'] = new_resource.name
+      binding['metadata']['namespace'] = new_resource.namespace
+      binding['spec'] = spec
+      binding
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end
