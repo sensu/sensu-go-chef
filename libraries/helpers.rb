@@ -2,7 +2,8 @@ module SensuCookbook
   module Helpers
     # Extract object type from resource type
     def type_from_name
-      new_resource.declared_type.to_s.split('_').last
+      name_elements = new_resource.declared_type.to_s.split('_')
+      name_elements.drop(1).join('_')
     end
 
     # Pluralize object directory name
