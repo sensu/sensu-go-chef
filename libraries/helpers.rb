@@ -166,6 +166,18 @@ module SensuCookbook
       e
     end
 
+    def role_from_resource
+      role = {
+        'metadata' => {},
+        'spec' => {},
+      }
+
+      role['metadata']['name'] = new_resource.name
+      role['metadata']['namespace'] = new_resource.namespace
+      role['spec']['rules'] = new_resource.rules
+      role
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

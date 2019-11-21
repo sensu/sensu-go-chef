@@ -119,3 +119,8 @@ sensu_hook 'restart_cron_service' do
   command 'sudo service cron restart'
   timeout 60
 end
+
+sensu_role 'read_only' do
+  namespace 'test-org'
+  rules(resource_name: '*', verbs: %w(get list))
+end
