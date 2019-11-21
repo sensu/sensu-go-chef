@@ -49,11 +49,9 @@ action :create do
   execute "sensuctl create -f #{object_file}" do
     action :nothing
   end
-
 end
 
 action :delete do
-
   file object_file do
     content JSON.generate(postgres_cfg_resource)
   end

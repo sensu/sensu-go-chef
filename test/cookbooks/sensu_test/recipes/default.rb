@@ -116,7 +116,7 @@ sensu_entity 'example-entity' do
 end
 
 sensu_postgres_config 'sensu_pg' do
-  dsn "postgresql://user:secret@host:port/dbname?sslmode=disable"
+  dsn 'postgresql://user:secret@host:port/dbname?sslmode=disable'
   pool_size 10
   action :create
 end
