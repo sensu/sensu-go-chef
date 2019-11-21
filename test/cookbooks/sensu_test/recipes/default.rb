@@ -140,3 +140,9 @@ sensu_role_binding 'alice_read_only' do
   role_type 'Role'
   subjects [ { name: 'alice', type: 'user' } ]
 end
+
+sensu_cluster_role_binding 'cluster_admins-all_access' do
+  role_name 'all_access'
+  role_type 'ClusterRole'
+  subjects [ { name: 'cluster-admins', type: 'Group' } ]
+end

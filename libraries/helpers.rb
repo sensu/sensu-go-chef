@@ -210,6 +210,25 @@ module SensuCookbook
       binding
     end
 
+    def cluster_role_binding_from_resource
+      cbinding = {
+        'metadata' => {},
+        'spec' => {},
+      }
+
+      spec = {
+        'role_ref' => {
+          'name' => new_resource.role_name,
+          'type' => new_resource.role_type,
+        },
+        'subjects' => new_resource.subjects,
+      }
+
+      cbinding['metadata']['name'] = new_resource.name
+      cbinding['spec'] = spec
+      cbinding
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end
