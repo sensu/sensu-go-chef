@@ -29,7 +29,15 @@ include SensuCookbook::SensuCommonProperties
 resource_name :sensu_role
 
 property :namespace, String, default: 'default'
-property :rules, Hash, required: true
+# rubocop:disable Style/TrailingCommaInHashLiteral
+property :rules, Array, required: true, callbacks: {
+  'should be an array of hashes' => lambda do |arry|
+    arry.all? do |e|
+      e.respond_to?(:keys)
+    end
+  end
+}
+# rubocop:enable Style/TrailingCommaInHashLiteral
 
 action_class do
   include SensuCookbook::Helpers

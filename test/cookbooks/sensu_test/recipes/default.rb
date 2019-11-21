@@ -122,7 +122,7 @@ end
 
 sensu_role 'read_only' do
   namespace 'test-org'
-  rules(resource_name: '*', verbs: %w(get list))
+  rules [ { resource_name: '*', verbs: %w(get list) } ]
 end
 
 sensu_cluster_role 'all_access' do
