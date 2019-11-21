@@ -44,15 +44,15 @@ RSpec.shared_examples 'sensu_role_binding' do |platform, version|
       expect(chef_run).to create_directory('/etc/sensu/role_bindings')
     end
 
-    it 'creates sensu role resources' do
+    it 'creates sensu role binding resources' do
       expect(chef_run).to create_sensu_role_binding('alice_read_only')
     end
 
-    it 'creates the role object file' do
+    it 'creates the role binding object file' do
       expect(chef_run).to create_file('/etc/sensu/role_bindings/alice_read_only.json')
     end
 
-    it 'creates the read_only sensu role' do
+    it 'creates the alice_read_only sensu role binding' do
       expect(chef_run).to nothing_execute('sensuctl create -f /etc/sensu/role_bindings/alice_read_only.json')
     end
   end
