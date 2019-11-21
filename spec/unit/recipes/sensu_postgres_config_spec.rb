@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Spec:: sensu_postgres
+# Spec:: sensu_postgres_config
 #
 
 # Copyright:: 2019 Sensu, Inc.
@@ -24,14 +24,14 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-RSpec.shared_examples 'sensu_postgres' do |platform, version|
+RSpec.shared_examples 'sensu_postgres_config' do |platform, version|
   context "when run on #{platform} #{version}" do
     let(:chef_run) do
       ChefSpec::SoloRunner.new(
         os: 'linux',
         platform: platform,
         version: version,
-        step_into: ['sensu_postgres']
+        step_into: ['sensu_postgres_config']
       ).converge(described_recipe)
     end
 
@@ -41,12 +41,13 @@ RSpec.shared_examples 'sensu_postgres' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
+    # FIXME: object_dir helper is adding 's' suffix, ergo 'postgress'
     it 'creates a directory' do
       expect(chef_run).to create_directory('/etc/sensu/postgress')
     end
 
     it 'creates sensu postgres config resources' do
-      expect(chef_run).to create_sensu_postgres('sensu_pg')
+      expect(chef_run).to create_sensu_postgres_config('sensu_pg')
     end
 
     it 'creates the postgres config object file' do
@@ -68,7 +69,7 @@ RSpec.describe 'sensu_test::default' do
   platforms.each do |platform, versions|
     versions = versions.is_a?(String) ? [versions] : versions
     versions.each do |version|
-      include_examples 'sensu_postgres', platform, version
+      include_examples 'sensu_postgres_config', platform, version
     end
   end
 end

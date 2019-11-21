@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: postgres
+# Resource:: postgres_config
 #
 # Copyright:: 2019 Sensu, Inc.
 #
@@ -26,7 +26,7 @@
 include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
-resource_name :sensu_postgres
+resource_name :sensu_postgres_config
 
 property :dsn, String, required: true
 property :pool_size, Integer
@@ -42,7 +42,7 @@ action :create do
   end
 
   file object_file do
-    content JSON.generate(postgres_from_resource)
+    content JSON.generate(postgres_cfg_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file}]"
   end
 
@@ -55,7 +55,7 @@ end
 action :delete do
 
   file object_file do
-    content JSON.generate(postgres_from_resource)
+    content JSON.generate(postgres_cfg_resource)
   end
 
   execute "sensuctl delete #{new_resource.name} --skip-confirm" do

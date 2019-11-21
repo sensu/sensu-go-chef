@@ -166,7 +166,7 @@ module SensuCookbook
       e
     end
 
-    def postgres_from_resource
+    def postgres_cfg_from_resource
       obj = {
         'metadata' => {},
         'spec' => {}
