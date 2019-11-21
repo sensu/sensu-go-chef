@@ -129,5 +129,5 @@ sensu_role_binding 'alice_read_only' do
   namespace 'test-org'
   role_name 'read_only'
   role_type 'Role'
-  subjects [{name: 'alice', type: 'user'}]
+  subjects [ { name: 'alice', type: 'user' } ]
 end

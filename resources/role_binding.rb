@@ -31,9 +31,12 @@ resource_name :sensu_role_binding
 property :namespace, String, default: 'default'
 property :role_name, String, required: true
 property :role_type, String, required: true, equal_to: %w(Role ClusterRole)
+# rubocop:disable Style/TrailingCommaInHashLiteral
 property :subjects, Array, required: true, callbacks: {
   'should be an array of hashes' => lambda do |arry|
-    arry.all? { |e| e.respond_to?(:keys) }
+    arry.all? do |e|
+      e.respond_to?(:keys)
+    end
   end
 }
 
