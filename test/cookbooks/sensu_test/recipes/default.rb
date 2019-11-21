@@ -125,6 +125,15 @@ sensu_role 'read_only' do
   rules(resource_name: '*', verbs: %w(get list))
 end
 
+sensu_cluster_role 'all_access' do
+  rules [
+    {
+      resource_names: %w( assets checks entities events filters handlers hooks mutators rolebindings roles silenced cluster clusterrolebindings clusterroles namespaces users authproviders license ),
+      verbs: %w( get list create update delete ),
+    },
+  ]
+end
+
 sensu_role_binding 'alice_read_only' do
   namespace 'test-org'
   role_name 'read_only'

@@ -179,6 +179,17 @@ module SensuCookbook
       role
     end
 
+    def cluster_role_from_resource
+      crole = {
+        'metadata' => {},
+        'spec' => {},
+      }
+
+      crole['metadata']['name'] = new_resource.name
+      crole['spec']['rules'] = new_resource.rules
+      crole
+    end
+
     def role_binding_from_resource
       binding = {
         'metadata' => {},
