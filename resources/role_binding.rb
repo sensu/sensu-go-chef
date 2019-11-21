@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: role
+# Resource:: role_binding
 #
 # Copyright:: 2019 Sensu, Inc.
 #
@@ -39,6 +39,7 @@ property :subjects, Array, required: true, callbacks: {
     end
   end
 }
+# rubocop:enable Style/TrailingCommaInHashLiteral
 
 action_class do
   include SensuCookbook::Helpers
