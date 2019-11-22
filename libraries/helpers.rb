@@ -3,12 +3,13 @@ module SensuCookbook
     # Extract object type from resource type
     def type_from_name
       name_elements = new_resource.declared_type.to_s.split('_')
-      name_elements.drop(1).join('_')
+      name_elements.reject { |x| x == 'sensu' }.collect(&:capitalize).join
     end
 
     # Pluralize object directory name
     def object_dir
-      ::File.join(new_resource.config_home, type_from_name) + 's'
+      dirname = new_resource.declared_type.to_s.gsub(/^sensu_/, '')
+      ::File.join(new_resource.config_home, dirname) + 's'
     end
 
     def object_file
@@ -119,7 +120,7 @@ module SensuCookbook
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
 
       f = {}
-      f['type'] = 'event_' + type_from_name
+      f['type'] = 'Event' + type_from_name
       f['spec'] = spec
       f
     end
@@ -169,6 +170,7 @@ module SensuCookbook
 
     def role_from_resource
       role = {
+        'type' => type_from_name,
         'metadata' => {},
         'spec' => {},
       }
@@ -181,6 +183,7 @@ module SensuCookbook
 
     def cluster_role_from_resource
       crole = {
+        'type' => type_from_name,
         'metadata' => {},
         'spec' => {},
       }
@@ -192,6 +195,7 @@ module SensuCookbook
 
     def role_binding_from_resource
       binding = {
+        'type' => type_from_name,
         'metadata' => {},
         'spec' => {},
       }
@@ -212,6 +216,7 @@ module SensuCookbook
 
     def cluster_role_binding_from_resource
       cbinding = {
+        'type' => type_from_name,
         'metadata' => {},
         'spec' => {},
       }
