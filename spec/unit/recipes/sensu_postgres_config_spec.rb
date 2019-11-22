@@ -60,7 +60,7 @@ RSpec.shared_examples 'sensu_postgres_config' do |platform, version|
   end
 end
 
-RSpec.describe 'sensu_test::default' do
+RSpec.describe 'sensu_test::postgres' do
   platforms = {
     'ubuntu' => ['14.04', '16.04'],
     'centos' => '7.6.1804',
