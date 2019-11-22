@@ -109,7 +109,7 @@ end
 
 describe json('/etc/sensu/cluster_roles/all_access.json') do
   its(%w(type)) { should eq 'ClusterRole' }
-  its(%(metadata name)) { should eq 'all_access' }
+  its(%w(metadata name)) { should eq 'all_access' }
 end
 
 describe json('/etc/sensu/cluster_role_bindings/cluster_admins-all_access.json') do
