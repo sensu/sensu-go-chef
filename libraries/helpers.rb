@@ -235,7 +235,7 @@ module SensuCookbook
 
     def postgres_cfg_from_resource
       obj = {
-      'metadata' => {},
+        'metadata' => {},
         'spec' => {},
       }
       obj['type'] = 'PostgresConfig'

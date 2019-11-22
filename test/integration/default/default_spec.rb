@@ -121,12 +121,12 @@ end
 
 describe json('/etc/sensu/roles/read_only.json') do
   its(%w(type)) { should eq 'Role' }
-  its(%w(metadata name)) { should eq 'read_only'}
-  its(%w(metadata namespace)) { should eq 'test-org'}
+  its(%w(metadata name)) { should eq 'read_only' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
 end
 
 describe json('/etc/sensu/role_bindings/alice_read_only.json') do
   its(%w(type)) { should eq 'RoleBinding' }
-  its(%w(metadata name)) { should eq 'alice_read_only'}
-  its(%w(metadata namespace)) { should eq 'test-org'}
+  its(%w(metadata name)) { should eq 'alice_read_only' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
 end
