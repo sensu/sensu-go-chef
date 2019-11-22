@@ -2,7 +2,8 @@ module SensuCookbook
   module Helpers
     # Extract object type from resource type
     def type_from_name
-      new_resource.declared_type.to_s.split('_').last
+      name_elements = new_resource.declared_type.to_s.split('_')
+      name_elements.drop(1).join('_')
     end
 
     # Pluralize object directory name
@@ -164,6 +165,21 @@ module SensuCookbook
       e['type'] = type_from_name
       e['spec'] = spec
       e
+    end
+
+    def postgres_cfg_from_resource
+      obj = {
+        'metadata' => {},
+        'spec' => {},
+      }
+
+      obj['type'] = 'PostgresConfig'
+      obj['api_version'] = 'store/v1'
+      obj['metadata']['name'] = new_resource.name
+      obj['spec']['dsn'] = new_resource.dsn
+      obj['spec']['pool_size'] = new_resource.pool_size if new_resource.pool_size
+
+      obj
     end
 
     def latest_version?(version)
