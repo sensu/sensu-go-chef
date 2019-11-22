@@ -171,10 +171,7 @@ module SensuCookbook
     def role_from_resource
       role = {
         'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
       }
-
       role['metadata']['name'] = new_resource.name
       role['metadata']['namespace'] = new_resource.namespace
       role['spec']['rules'] = new_resource.rules
@@ -232,6 +229,20 @@ module SensuCookbook
       cbinding['metadata']['name'] = new_resource.name
       cbinding['spec'] = spec
       cbinding
+    end
+
+    def postgres_cfg_from_resource
+      obj = {
+      'metadata' => {},
+        'spec' => {},
+      }
+      obj['type'] = 'PostgresConfig'
+      obj['api_version'] = 'store/v1'
+      obj['metadata']['name'] = new_resource.name
+      obj['spec']['dsn'] = new_resource.dsn
+      obj['spec']['pool_size'] = new_resource.pool_size if new_resource.pool_size
+
+      obj
     end
 
     def latest_version?(version)

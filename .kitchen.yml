@@ -34,12 +34,14 @@ suites:
   - name: default
     run_list:
       - recipe[sensu_test::default]
+      - recipe[sensu_test::postgres]
     driver:  
       network:
         - ["private_network", {ip: "172.128.10.2"}]
     verifier:
       inspec_tests:
         - test/integration/default
+        - test/integration/postgres
     attributes:
     excludes:
       - windows-2012r2

@@ -377,6 +377,24 @@ sensu_entity 'example-entity' do
 end
 ```
 
+### sensu_postgres_config
+Configure Sensu to store events in a [PostgreSQL](https://www.postgresql.org/) database.
+
+#### Properties
+
+* `dsn` A string specifying the data source names as a URL or PostgreSQL connection string.
+* `pool_size` An integer value for the maximum number of PostgreSQL connections to maintain.
+
+See [PostgreSQL docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) for more information about connection strings.
+
+#### Examples
+```rb
+sensu_postgres_config 'default' do
+    dsn "postgresql://sensu:pgtesting123@127.0.0.1:5432/sensu_events?sslmode=disable"
+    pool_size 10
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).
