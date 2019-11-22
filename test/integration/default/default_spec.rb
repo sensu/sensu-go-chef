@@ -106,3 +106,27 @@ describe json('/etc/sensu/hooks/restart_cron_service.json') do
   its(%w(spec command)) { should eq 'sudo service cron restart' }
   its(%w(spec timeout)) { should eq 60 }
 end
+
+describe json('/etc/sensu/cluster_roles/all_access.json') do
+  its(%w(type)) { should eq 'ClusterRole' }
+  its(%(metadata name)) { should eq 'all_access' }
+end
+
+describe json('/etc/sensu/cluster_role_bindings/cluster_admins-all_access.json') do
+  its(%w(type)) { should eq 'ClusterRoleBinding' }
+  its(%w(metadata name)) { should eq 'cluster_admins-all_access' }
+  its(%w(spec role_ref name)) { should eq 'all_access' }
+  its(%w(spec role_ref type)) { should eq 'ClusterRole' }
+end
+
+describe json('/etc/sensu/roles/read_only.json') do
+  its(%w(type)) { should eq 'Role' }
+  its(%w(metadata name)) { should eq 'read_only'}
+  its(%w(metadata namespace)) { should eq 'test-org'}
+end
+
+describe json('/etc/sensu/role_bindings/alice_read_only.json') do
+  its(%w(type)) { should eq 'RoleBinding' }
+  its(%w(metadata name)) { should eq 'alice_read_only'}
+  its(%w(metadata namespace)) { should eq 'test-org'}
+end
