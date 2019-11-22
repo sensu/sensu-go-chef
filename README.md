@@ -377,12 +377,42 @@ sensu_entity 'example-entity' do
 end
 ```
 
+### sensu_role
+The combination of Roles and RoleBindings grant users and groups permissions to resources within a namespace. Roles describe which resources and verbs a subject has access to.
+
+#### Properties
+* `rules` **required** an array of hashes, describing permissions granted by the role. See [Role and Cluster Role Rule attribute specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#rule-attributes) for details.
+
+### sensu_role_binding
+The combination of Roles and RoleBindings grant users and groups permissions to resources within a namespace. RoleBindings describe the association of a role with one or more subjects.
+
+#### Properties
+* `role_name` **required** the name of the role
+* `role_type` **required** the role type, either `Role` or `ClusterRole`
+* `subjects` **required** an array of hashes, each describing the `name` and `type` of a subject which is granted the permissions described by the named role.
+
+See [Role binding and Cluster Role binding specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-binding-and-cluster-role-binding-specification) for additional details.
+
+### sensu_cluster_role
+The combination of ClusterRoles and ClusterRoleBindings grant users and groups permissions to resources across all namespaces. ClusterRoles describe which resources and verbs a subject has access to.
+
+#### Properties
+* `rules` **required** an array of hashes, describing permissions granted by the role. See [Role and Cluster Role Rule attribute specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#rule-attributes) for details.
+
+### sensu_cluster_role_binding
+The combination of ClusterRoles and ClusterRoleBindings grant users and groups permissions to resources within a namespace. ClusterRoleBindings describe the association of a role with one or more subjects.
+
+#### Properties
+* `role_name` **required** the name of the role
+* `role_type` **required** the role type, either `Role` or `ClusterRole`
+* `subjects` **required** an array of hashes, each describing the `name` and `type` of a subject which is granted the permissions described by the named role.
+
 ### sensu_postgres_config
 Configure Sensu to store events in a [PostgreSQL](https://www.postgresql.org/) database.
 
 #### Properties
 
-* `dsn` A string specifying the data source names as a URL or PostgreSQL connection string.
+* `dsn` **required** A string specifying the data source names as a URL or PostgreSQL connection string.
 * `pool_size` An integer value for the maximum number of PostgreSQL connections to maintain.
 
 See [PostgreSQL docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) for more information about connection strings.
