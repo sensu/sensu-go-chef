@@ -171,6 +171,8 @@ module SensuCookbook
     def role_from_resource
       role = {
         'type' => type_from_name,
+        'metadata' => {},
+        'spec' => {},
       }
       role['metadata']['name'] = new_resource.name
       role['metadata']['namespace'] = new_resource.namespace
