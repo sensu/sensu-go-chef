@@ -119,3 +119,30 @@ sensu_hook 'restart_cron_service' do
   command 'sudo service cron restart'
   timeout 60
 end
+
+sensu_role 'read_only' do
+  namespace 'test-org'
+  rules [ { resource_names: ['*'], verbs: %w(get list) } ]
+end
+
+sensu_cluster_role 'all_access' do
+  rules [
+    {
+      resource_names: %w( assets checks entities events filters handlers hooks mutators rolebindings roles silenced cluster clusterrolebindings clusterroles namespaces users authproviders license ),
+      verbs: %w( get list create update delete ),
+    },
+  ]
+end
+
+sensu_role_binding 'alice_read_only' do
+  namespace 'test-org'
+  role_name 'read_only'
+  role_type 'Role'
+  subjects [ { name: 'alice', type: 'user' } ]
+end
+
+sensu_cluster_role_binding 'cluster_admins-all_access' do
+  role_name 'all_access'
+  role_type 'ClusterRole'
+  subjects [ { name: 'cluster-admins', type: 'Group' } ]
+end

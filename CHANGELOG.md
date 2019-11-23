@@ -10,6 +10,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 - `filters` resource now supports `runtime_assets` being passed (@majormoses)
 - Added support for `postgres_config` resource (@cwjohnston) - #70
+- Added support for `role`, `role_binding`, `cluster_role` and `cluster_role_binding` resources (@cwjohnston) - #71
 
 ### Breaking changes
 

@@ -41,7 +41,7 @@ describe command('sensuctl user list') do
 end
 
 describe json('/etc/sensu/checks/cron.json') do
-  its(%w(type)) { should eq 'check' }
+  its(%w(type)) { should eq 'Check' }
   its(%w(spec metadata name)) { should eq 'cron' }
   its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
@@ -59,7 +59,7 @@ end
 %w(http docker postgres).each do |p|
   describe json("/etc/sensu/assets/sensu-plugins-#{p}.json") do
     require 'uri'
-    its(%w(type)) { should eq 'asset' }
+    its(%w(type)) { should eq 'Asset' }
     its(%w(spec metadata name)) { should eq "sensu-plugins-#{p}" }
     its(%w(spec metadata namespace)) { should eq 'default' }
     its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
@@ -67,7 +67,7 @@ end
 end
 
 describe json('/etc/sensu/handlers/slack.json') do
-  its(%w(type)) { should eq 'handler' }
+  its(%w(type)) { should eq 'Handler' }
   its(%w(spec metadata name)) { should eq 'slack' }
   its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec command)) { should eq 'sensu-slack-handler --channel monitoring' }
@@ -77,14 +77,14 @@ describe json('/etc/sensu/handlers/slack.json') do
 end
 
 describe json('/etc/sensu/mutators/example-mutator.json') do
-  its(%w(type)) { should eq 'mutator' }
+  its(%w(type)) { should eq 'Mutator' }
   its(%w(spec metadata name)) { should eq 'example-mutator' }
   its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec timeout)) { should eq 60 }
 end
 
 describe json('/etc/sensu/entitys/example-entity.json') do
-  its(%w(type)) { should eq 'entity' }
+  its(%w(type)) { should eq 'Entity' }
   its(%w(spec metadata name)) { should eq 'example-entity' }
   its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(spec entity_class)) { should eq 'proxy' }
@@ -95,14 +95,38 @@ describe json('/etc/sensu/entitys/example-entity.json') do
 end
 
 describe json('/etc/sensu/namespaces/test-org.json') do
-  its(%w(type)) { should eq 'namespace' }
+  its(%w(type)) { should eq 'Namespace' }
   its(%w(spec name)) { should eq 'test-org' }
 end
 
 describe json('/etc/sensu/hooks/restart_cron_service.json') do
-  its(%w(type)) { should eq 'hook' }
+  its(%w(type)) { should eq 'Hook' }
   its(%w(spec metadata name)) { should eq 'restart_cron_service' }
   its(%w(spec metadata namespace)) { should eq 'default' }
   its(%w(spec command)) { should eq 'sudo service cron restart' }
   its(%w(spec timeout)) { should eq 60 }
+end
+
+describe json('/etc/sensu/cluster_roles/all_access.json') do
+  its(%w(type)) { should eq 'ClusterRole' }
+  its(%w(metadata name)) { should eq 'all_access' }
+end
+
+describe json('/etc/sensu/cluster_role_bindings/cluster_admins-all_access.json') do
+  its(%w(type)) { should eq 'ClusterRoleBinding' }
+  its(%w(metadata name)) { should eq 'cluster_admins-all_access' }
+  its(%w(spec role_ref name)) { should eq 'all_access' }
+  its(%w(spec role_ref type)) { should eq 'ClusterRole' }
+end
+
+describe json('/etc/sensu/roles/read_only.json') do
+  its(%w(type)) { should eq 'Role' }
+  its(%w(metadata name)) { should eq 'read_only' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+end
+
+describe json('/etc/sensu/role_bindings/alice_read_only.json') do
+  its(%w(type)) { should eq 'RoleBinding' }
+  its(%w(metadata name)) { should eq 'alice_read_only' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
 end
