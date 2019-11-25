@@ -137,11 +137,10 @@ module SensuCookbook
     end
 
     def namespace_from_resource
-      spec = {}
-      spec['name'] = new_resource.name
-
-      e = {}
-      e['type'] = type_from_name
+      e = {
+        'type' => type_from_name,
+        'spec' => { 'name' => new_resource.name },
+      }
       e
     end
 
@@ -187,7 +186,6 @@ module SensuCookbook
       }
 
       cbinding = base_resource(new_resource, spec)
-      cbinding['metadata']['namespace'] = new_resource.namespace
       cbinding
     end
 
@@ -195,7 +193,7 @@ module SensuCookbook
       spec = {
         'dsn' => new_resource.dsn,
       }
-      spec['pool_size'] if new_resource.pool_size
+      spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
       obj = base_resource(new_resource, spec)
       obj['api_version'] = 'store/v1'
       obj
