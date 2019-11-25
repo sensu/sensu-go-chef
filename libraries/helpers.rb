@@ -16,6 +16,19 @@ module SensuCookbook
       ::File.join(object_dir, new_resource.name) + '.json'
     end
 
+    def base_resource(new_resource, spec = Mash.new)
+      obj = Mash.new
+      meta = Mash.new
+
+      meta['name'] = new_resource.name
+      meta['labels'] = new_resource.labels if new_resource.labels
+      meta['annotations'] = new_resource.annotations if new_resource.annotations
+
+      obj['metadata'] = meta
+      obj['spec'] = spec
+      obj
+    end
+
     # Get check properties from the resource
     # https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-attributes
     def check_from_resource
