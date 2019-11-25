@@ -179,12 +179,6 @@ module SensuCookbook
     end
 
     def role_binding_from_resource
-      binding = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
-      }
-
       spec = {
         'role_ref' => {
           'name' => new_resource.role_name,
@@ -193,7 +187,8 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      binding['metadata']['name'] = new_resource.name
+      binding = base_resource(new_resource, spec)
+      binding['type'] = type_from_name
       binding['metadata']['namespace'] = new_resource.namespace
       binding['spec'] = spec
       binding
