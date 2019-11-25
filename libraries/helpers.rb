@@ -141,8 +141,9 @@ module SensuCookbook
       spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['entity_class'] = new_resource.entity_class
 
-      e = {}
+      e = base_resource(new_resource, spec)
       e['type'] = type_from_name
+      e['metadata']['namespace'] = new_resource.namespace
       e['spec'] = spec
       e
     end
