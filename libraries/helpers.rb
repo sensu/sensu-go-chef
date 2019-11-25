@@ -62,15 +62,11 @@ module SensuCookbook
 
     def asset_from_resource
       spec = {}
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['sha512'] = new_resource.sha512
       spec['url'] = new_resource.url
 
-      a = {}
+      a = base_resource(new_resource, spec)
+      a['metadata']['namespace'] = new_resource.namespace
       a['type'] = type_from_name
       a['spec'] = spec
       a
