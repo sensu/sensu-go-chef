@@ -122,15 +122,11 @@ module SensuCookbook
       spec = {}
       spec['command'] = new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
-      m = {}
+      m = base_resource(new_resource, spec)
       m['type'] = type_from_name
+      m['metadata']['namespace'] = new_resource.namespace
       m['spec'] = spec
       m
     end
