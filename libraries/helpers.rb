@@ -25,7 +25,7 @@ module SensuCookbook
       meta['annotations'] = new_resource.annotations if new_resource.annotations
 
       obj['metadata'] = meta
-      obj['spec'] = spec
+      obj['type'] = type_from_name
       obj
     end
 
@@ -55,8 +55,6 @@ module SensuCookbook
 
       c = base_resource(new_resource, spec)
       c['metadata']['namespace'] = new_resource.namespace
-      c['metadata']['type'] = type_from_name
-      c['spec'] = spec
       c
     end
 
@@ -67,8 +65,6 @@ module SensuCookbook
 
       a = base_resource(new_resource, spec)
       a['metadata']['namespace'] = new_resource.namespace
-      a['type'] = type_from_name
-      a['spec'] = spec
       a
     end
 
@@ -85,9 +81,7 @@ module SensuCookbook
       spec['type'] = new_resource.type
 
       h = base_resource(new_resource, spec)
-      h['type'] = type_from_name
       h['metadata']['namespace'] = new_resource.namespace
-      h['spec'] = spec
       h
     end
 
@@ -98,9 +92,7 @@ module SensuCookbook
       spec['stdin'] = new_resource.stdin if new_resource.stdin
 
       h = base_resource(new_resource, spec)
-      h['type'] = type_from_name
       h['metadata']['namespace'] = new_resource.namespace
-      h['spec'] = spec
       h
     end
 
@@ -114,7 +106,6 @@ module SensuCookbook
       f = base_resource(new_resource, spec)
       f['type'] = 'Event' + type_from_name
       f['metadata']['namespace'] = new_resource.namespace
-      f['spec'] = spec
       f
     end
 
@@ -125,9 +116,7 @@ module SensuCookbook
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
       m = base_resource(new_resource, spec)
-      m['type'] = type_from_name
       m['metadata']['namespace'] = new_resource.namespace
-      m['spec'] = spec
       m
     end
 
@@ -142,9 +131,7 @@ module SensuCookbook
       spec['entity_class'] = new_resource.entity_class
 
       e = base_resource(new_resource, spec)
-      e['type'] = type_from_name
       e['metadata']['namespace'] = new_resource.namespace
-      e['spec'] = spec
       e
     end
 
@@ -154,7 +141,6 @@ module SensuCookbook
 
       e = {}
       e['type'] = type_from_name
-      e['spec'] = spec
       e
     end
 
@@ -164,7 +150,6 @@ module SensuCookbook
       }
 
       role = base_resource(new_resource, spec)
-      role['type'] = type_from_name
       role['metadata']['namespace'] = new_resource.namespace
       role
     end
@@ -174,7 +159,6 @@ module SensuCookbook
         'rules' => new_resource.rules,
       }
       crole = base_resource(new_resource, spec)
-      crole['type'] = type_from_name
       crole
     end
 
@@ -188,9 +172,7 @@ module SensuCookbook
       }
 
       binding = base_resource(new_resource, spec)
-      binding['type'] = type_from_name
       binding['metadata']['namespace'] = new_resource.namespace
-      binding['spec'] = spec
       binding
     end
 
@@ -204,9 +186,7 @@ module SensuCookbook
       }
 
       cbinding = base_resource(new_resource, spec)
-      cbinding['type'] = type_from_name
       cbinding['metadata']['namespace'] = new_resource.namespace
-      cbinding['spec'] = spec
       cbinding
     end
 
@@ -216,7 +196,6 @@ module SensuCookbook
       }
       spec['pool_size'] if new_resource.pool_size
       obj = base_resource(new_resource, spec)
-      obj['type'] = type_from_name
       obj['api_version'] = 'store/v1'
       obj
     end
