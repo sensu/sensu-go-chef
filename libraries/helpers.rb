@@ -190,8 +190,7 @@ module SensuCookbook
         'dsn' => new_resource.dsn,
       }
       spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
-      obj = base_resource(new_resource, spec)
-      obj['api_version'] = 'store/v1'
+      obj = base_resource(new_resource, spec, 'store/v1')
       obj
     end
 
