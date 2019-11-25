@@ -211,16 +211,13 @@ module SensuCookbook
     end
 
     def postgres_cfg_from_resource
-      obj = {
-        'metadata' => {},
-        'spec' => {},
+      spec = {
+        'dsn' => new_resource.dsn,
       }
-      obj['type'] = 'PostgresConfig'
+      spec['pool_size'] if new_resource.pool_size
+      obj = base_resource(new_resource, spec)
+      obj['type'] = type_from_name
       obj['api_version'] = 'store/v1'
-      obj['metadata']['name'] = new_resource.name
-      obj['spec']['dsn'] = new_resource.dsn
-      obj['spec']['pool_size'] = new_resource.pool_size if new_resource.pool_size
-
       obj
     end
 
