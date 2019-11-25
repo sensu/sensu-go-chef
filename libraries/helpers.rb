@@ -36,11 +36,6 @@ module SensuCookbook
       spec['check_hooks'] = new_resource.check_hooks if new_resource.check_hooks
       spec['command'] = new_resource.command
       spec['cron'] = new_resource.cron
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['handlers'] = new_resource.handlers
       spec['high_flap_threshold'] = new_resource.high_flap_threshold if new_resource.high_flap_threshold
       spec['interval'] = new_resource.interval if new_resource.interval
@@ -58,8 +53,9 @@ module SensuCookbook
       spec['output_metric_format'] = new_resource.output_metric_format if new_resource.output_metric_format
       spec['output_metric_handlers'] = new_resource.output_metric_handlers if new_resource.output_metric_handlers
 
-      c = {}
-      c['type'] = type_from_name
+      c = base_resource(new_resource, spec)
+      c['metadata']['namespace'] = new_resource.namespace
+      c['metadata']['type'] = type_from_name
       c['spec'] = spec
       c
     end
