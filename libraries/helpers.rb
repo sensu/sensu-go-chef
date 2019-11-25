@@ -170,14 +170,11 @@ module SensuCookbook
     end
 
     def cluster_role_from_resource
-      crole = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
+      spec = {
+        'rules' => new_resource.rules,
       }
-
-      crole['metadata']['name'] = new_resource.name
-      crole['spec']['rules'] = new_resource.rules
+      crole = base_resource(new_resource, spec)
+      crole['type'] = type_from_name
       crole
     end
 
