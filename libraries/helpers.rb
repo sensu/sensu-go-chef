@@ -124,11 +124,6 @@ module SensuCookbook
     def entity_from_resource
       spec = {}
       spec['subscriptions'] = new_resource.subscriptions
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['entity_class'] = new_resource.entity_class
 
       e = base_resource(new_resource, spec)
