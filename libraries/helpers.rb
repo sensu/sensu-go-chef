@@ -26,6 +26,7 @@ module SensuCookbook
 
       obj['metadata'] = meta
       obj['type'] = type_from_name
+      obj['spec'] = spec
       obj
     end
 
