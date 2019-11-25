@@ -42,9 +42,9 @@ end
 
 describe json('/etc/sensu/checks/cron.json') do
   its(%w(type)) { should eq 'Check' }
-  its(%w(spec metadata name)) { should eq 'cron' }
-  its(%w(spec metadata namespace)) { should eq 'default' }
-  its(%w(spec metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(metadata name)) { should eq 'cron' }
+  its(%w(metadata namespace)) { should eq 'default' }
+  its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(%w(spec cron)) { should eq '@hourly' }
   its(%w(spec subscriptions)) { should include 'dad_jokes' }
   its(%w(spec subscriptions)) { should include 'production' }
@@ -60,16 +60,16 @@ end
   describe json("/etc/sensu/assets/sensu-plugins-#{p}.json") do
     require 'uri'
     its(%w(type)) { should eq 'Asset' }
-    its(%w(spec metadata name)) { should eq "sensu-plugins-#{p}" }
-    its(%w(spec metadata namespace)) { should eq 'default' }
+    its(%w(metadata name)) { should eq "sensu-plugins-#{p}" }
+    its(%w(metadata namespace)) { should eq 'default' }
     its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
   end
 end
 
 describe json('/etc/sensu/handlers/slack.json') do
   its(%w(type)) { should eq 'Handler' }
-  its(%w(spec metadata name)) { should eq 'slack' }
-  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(metadata name)) { should eq 'slack' }
+  its(%w(metadata namespace)) { should eq 'default' }
   its(%w(spec command)) { should eq 'sensu-slack-handler --channel monitoring' }
   its(%w(spec env_vars)) { should include 'SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX' }
   its(%w(spec type)) { should eq 'pipe' }
@@ -78,20 +78,20 @@ end
 
 describe json('/etc/sensu/mutators/example-mutator.json') do
   its(%w(type)) { should eq 'Mutator' }
-  its(%w(spec metadata name)) { should eq 'example-mutator' }
-  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(metadata name)) { should eq 'example-mutator' }
+  its(%w(metadata namespace)) { should eq 'default' }
   its(%w(spec timeout)) { should eq 60 }
 end
 
 describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(type)) { should eq 'Entity' }
-  its(%w(spec metadata name)) { should eq 'example-entity' }
+  its(%w(metadata name)) { should eq 'example-entity' }
   its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(spec entity_class)) { should eq 'proxy' }
-  its(%w(spec metadata namespace)) { should eq 'default' }
-  its(%w(spec metadata labels environment)) { should eq 'production' }
-  its(%w(spec metadata labels region)) { should eq 'us-west-2' }
-  its(%w(spec metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(metadata namespace)) { should eq 'default' }
+  its(%w(metadata labels environment)) { should eq 'production' }
+  its(%w(metadata labels region)) { should eq 'us-west-2' }
+  its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
 end
 
 describe json('/etc/sensu/namespaces/test-org.json') do
@@ -101,8 +101,8 @@ end
 
 describe json('/etc/sensu/hooks/restart_cron_service.json') do
   its(%w(type)) { should eq 'Hook' }
-  its(%w(spec metadata name)) { should eq 'restart_cron_service' }
-  its(%w(spec metadata namespace)) { should eq 'default' }
+  its(%w(metadata name)) { should eq 'restart_cron_service' }
+  its(%w(metadata namespace)) { should eq 'default' }
   its(%w(spec command)) { should eq 'sudo service cron restart' }
   its(%w(spec timeout)) { should eq 60 }
 end
