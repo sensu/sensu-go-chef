@@ -16,7 +16,7 @@ module SensuCookbook
       ::File.join(object_dir, new_resource.name) + '.json'
     end
 
-    def base_resource(new_resource, spec = Mash.new)
+    def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2')
       obj = Mash.new
       meta = Mash.new
 
@@ -26,6 +26,7 @@ module SensuCookbook
 
       obj['metadata'] = meta
       obj['type'] = type_from_name
+      obj['api_version'] = api_version
       obj['spec'] = spec
       obj
     end
