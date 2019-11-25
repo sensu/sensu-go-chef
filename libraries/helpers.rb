@@ -195,12 +195,6 @@ module SensuCookbook
     end
 
     def cluster_role_binding_from_resource
-      cbinding = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
-      }
-
       spec = {
         'role_ref' => {
           'name' => new_resource.role_name,
@@ -209,7 +203,9 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      cbinding['metadata']['name'] = new_resource.name
+      cbinding = base_resource(new_resource, spec)
+      cbinding['type'] = type_from_name
+      cbinding['metadata']['namespace'] = new_resource.namespace
       cbinding['spec'] = spec
       cbinding
     end
