@@ -16,6 +16,21 @@ module SensuCookbook
       ::File.join(object_dir, new_resource.name) + '.json'
     end
 
+    def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2')
+      obj = Mash.new
+      meta = Mash.new
+
+      meta['name'] = new_resource.name
+      meta['labels'] = new_resource.labels if new_resource.labels
+      meta['annotations'] = new_resource.annotations if new_resource.annotations
+
+      obj['metadata'] = meta
+      obj['type'] = type_from_name
+      obj['api_version'] = api_version
+      obj['spec'] = spec
+      obj
+    end
+
     # Get check properties from the resource
     # https://docs.sensu.io/sensu-core/2.0/reference/checks/#check-attributes
     def check_from_resource
@@ -23,11 +38,6 @@ module SensuCookbook
       spec['check_hooks'] = new_resource.check_hooks if new_resource.check_hooks
       spec['command'] = new_resource.command
       spec['cron'] = new_resource.cron
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['handlers'] = new_resource.handlers
       spec['high_flap_threshold'] = new_resource.high_flap_threshold if new_resource.high_flap_threshold
       spec['interval'] = new_resource.interval if new_resource.interval
@@ -45,25 +55,18 @@ module SensuCookbook
       spec['output_metric_format'] = new_resource.output_metric_format if new_resource.output_metric_format
       spec['output_metric_handlers'] = new_resource.output_metric_handlers if new_resource.output_metric_handlers
 
-      c = {}
-      c['type'] = type_from_name
-      c['spec'] = spec
+      c = base_resource(new_resource, spec)
+      c['metadata']['namespace'] = new_resource.namespace
       c
     end
 
     def asset_from_resource
       spec = {}
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['sha512'] = new_resource.sha512
       spec['url'] = new_resource.url
 
-      a = {}
-      a['type'] = type_from_name
-      a['spec'] = spec
+      a = base_resource(new_resource, spec)
+      a['metadata']['namespace'] = new_resource.namespace
       a
     end
 
@@ -71,11 +74,6 @@ module SensuCookbook
       spec = {}
       spec['command'] = new_resource.command if new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['filters'] = new_resource.filters if new_resource.filters
       spec['handlers'] = new_resource.handlers if new_resource.handlers
       spec['mutator'] = new_resource.mutator if new_resource.mutator
@@ -84,9 +82,8 @@ module SensuCookbook
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
 
-      h = {}
-      h['type'] = type_from_name
-      h['spec'] = spec
+      h = base_resource(new_resource, spec)
+      h['metadata']['namespace'] = new_resource.namespace
       h
     end
 
@@ -95,33 +92,22 @@ module SensuCookbook
       spec['command'] = new_resource.command if new_resource.command
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['stdin'] = new_resource.stdin if new_resource.stdin
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
 
-      h = {}
-      h['type'] = type_from_name
-      h['spec'] = spec
+      h = base_resource(new_resource, spec)
+      h['metadata']['namespace'] = new_resource.namespace
       h
     end
 
     def filter_from_resource
       spec = {}
       spec['action'] = new_resource.filter_action
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['expressions'] = new_resource.expressions
       spec['when'] = new_resource.when if new_resource.when
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
 
-      f = {}
+      f = base_resource(new_resource, spec)
       f['type'] = 'Event' + type_from_name
-      f['spec'] = spec
+      f['metadata']['namespace'] = new_resource.namespace
       f
     end
 
@@ -129,76 +115,50 @@ module SensuCookbook
       spec = {}
       spec['command'] = new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
-      m = {}
-      m['type'] = type_from_name
-      m['spec'] = spec
+      m = base_resource(new_resource, spec)
+      m['metadata']['namespace'] = new_resource.namespace
       m
     end
 
     def entity_from_resource
       spec = {}
       spec['subscriptions'] = new_resource.subscriptions
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['entity_class'] = new_resource.entity_class
 
-      e = {}
-      e['type'] = type_from_name
-      e['spec'] = spec
+      e = base_resource(new_resource, spec)
+      e['metadata']['namespace'] = new_resource.namespace
       e
     end
 
     def namespace_from_resource
-      spec = {}
-      spec['name'] = new_resource.name
-
-      e = {}
-      e['type'] = type_from_name
-      e['spec'] = spec
+      e = {
+        'type' => type_from_name,
+        'spec' => { 'name' => new_resource.name },
+      }
       e
     end
 
     def role_from_resource
-      role = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
+      spec = {
+        'rules' => new_resource.rules,
       }
-      role['metadata']['name'] = new_resource.name
+
+      role = base_resource(new_resource, spec)
       role['metadata']['namespace'] = new_resource.namespace
-      role['spec']['rules'] = new_resource.rules
       role
     end
 
     def cluster_role_from_resource
-      crole = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
+      spec = {
+        'rules' => new_resource.rules,
       }
-
-      crole['metadata']['name'] = new_resource.name
-      crole['spec']['rules'] = new_resource.rules
+      crole = base_resource(new_resource, spec)
       crole
     end
 
     def role_binding_from_resource
-      binding = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
-      }
-
       spec = {
         'role_ref' => {
           'name' => new_resource.role_name,
@@ -207,19 +167,12 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      binding['metadata']['name'] = new_resource.name
+      binding = base_resource(new_resource, spec)
       binding['metadata']['namespace'] = new_resource.namespace
-      binding['spec'] = spec
       binding
     end
 
     def cluster_role_binding_from_resource
-      cbinding = {
-        'type' => type_from_name,
-        'metadata' => {},
-        'spec' => {},
-      }
-
       spec = {
         'role_ref' => {
           'name' => new_resource.role_name,
@@ -228,22 +181,16 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      cbinding['metadata']['name'] = new_resource.name
-      cbinding['spec'] = spec
+      cbinding = base_resource(new_resource, spec)
       cbinding
     end
 
     def postgres_cfg_from_resource
-      obj = {
-        'metadata' => {},
-        'spec' => {},
+      spec = {
+        'dsn' => new_resource.dsn,
       }
-      obj['type'] = 'PostgresConfig'
-      obj['api_version'] = 'store/v1'
-      obj['metadata']['name'] = new_resource.name
-      obj['spec']['dsn'] = new_resource.dsn
-      obj['spec']['pool_size'] = new_resource.pool_size if new_resource.pool_size
-
+      spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
+      obj = base_resource(new_resource, spec, 'store/v1')
       obj
     end
 

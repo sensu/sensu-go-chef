@@ -6,6 +6,10 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+### Changed
+
+- Refactored resource helpers to reduce duplication. (@cwjohnston) - #72
+
 ### Added
 
 - `filters` resource now supports `runtime_assets` being passed (@majormoses)
