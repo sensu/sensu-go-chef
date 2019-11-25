@@ -107,17 +107,13 @@ module SensuCookbook
     def filter_from_resource
       spec = {}
       spec['action'] = new_resource.filter_action
-      spec['metadata'] = {}
-      spec['metadata']['name'] = new_resource.name
-      spec['metadata']['namespace'] = new_resource.namespace
-      spec['metadata']['labels'] = new_resource.labels if new_resource.labels
-      spec['metadata']['annotations'] = new_resource.annotations if new_resource.annotations
       spec['expressions'] = new_resource.expressions
       spec['when'] = new_resource.when if new_resource.when
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
 
-      f = {}
+      f = base_resource(new_resource, spec)
       f['type'] = 'Event' + type_from_name
+      f['metadata']['namespace'] = new_resource.namespace
       f['spec'] = spec
       f
     end
