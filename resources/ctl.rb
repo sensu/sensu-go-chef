@@ -103,12 +103,12 @@ action :install do
 end
 
 action :configure do
-  if shell_out('sensuctl user list').error?
-    converge_by 'Reconfiguring sensuctl' do
-      execute 'configure sensuctl' do
-        command sensuctl_configure_cmd
-        sensitive true unless new_resource.debug
-      end
+  converge_by 'Reconfiguring sensuctl' do
+    config = sensuctl_cluster_config
+    execute 'configure sensuctl' do
+      command sensuctl_configure_cmd
+      sensitive true unless new_resource.debug
+      not_if { config['api-url'] == new_resource.backend_url }
     end
   end
 end

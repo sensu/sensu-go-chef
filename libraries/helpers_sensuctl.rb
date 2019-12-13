@@ -18,6 +18,15 @@ module SensuCookbook
         opts
       end
 
+      def sensuctl_cluster_config
+        cluster_config = ::File.join(ENV['HOME'],'.config/sensu/sensuctl/cluster')
+        if ::File.exist?(cluster_config)
+          JSON.parse(IO.read(cluster_config))
+        else
+          {}
+        end
+      end
+
       def sensuctl_configure_cmd
         if node['platform'] != 'windows'
           [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
