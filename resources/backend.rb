@@ -30,6 +30,15 @@ include SensuCookbook::SensuPackageProperties
 include SensuCookbook::SensuCommonProperties
 
 property :config, Hash, default: { "state-dir": '/var/lib/sensu/sensu-backend' }
+property :username, String, default: 'admin'
+property :password, String, default: 'P@ssw0rd!', sensitive: true
+# WARNING: this will expose secrets to whatever is capturing
+# the log output be it stdout (such as in CI) or log files
+property :debug, [TrueClass, FalseClass], default: false
+
+action_class do
+  include SensuCookbook::Helpers::SensuBackend
+end
 
 action :install do
   packagecloud_repo new_resource.repo do
@@ -60,6 +69,13 @@ action :install do
     else
       action [:enable, :start]
     end
+  end
+end
+
+action :init do
+  execute 'configure sensuctl' do
+    command sensu_backend_init_cmd
+    sensitive true unless new_resource.debug
   end
 end
 
