@@ -48,7 +48,9 @@ This is a library style cookbook that provides a set of resources to install and
 * use the provided resources in your cookbook
 
 ```rb
-sensu_backend 'default'
+sensu_backend 'default' do
+  action [:install, :init]
+end
 
 sensu_agent 'default'
 
@@ -135,6 +137,8 @@ The sensu backend resource can configure the core sensu backend service.
 * `repo` which repo to pull package from, default: *sensu/stable*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu/sensu-backend'}*
+* `username` the username to initialize the backend with
+* `password` the password to initialize the backend with
 
 #### Examples
 ```rb

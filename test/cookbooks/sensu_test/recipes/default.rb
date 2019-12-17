@@ -1,4 +1,7 @@
-sensu_backend 'default'
+sensu_backend 'default' do
+  action [:install, :init]
+  debug true
+end
 
 sensu_agent 'default'
 
