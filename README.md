@@ -245,6 +245,20 @@ sensu_check 'cron' do
   action :create
 end
 
+
+# Since this is a ruby based script, the check below defines two runtime_assets.
+# One is the ruby-runtime asset, the other is the actual disk usage asset
+sensu_check 'disk' do
+  command 'check-disk-usage.rb -t xfs -w 95 -c 99'
+  interval 60
+  subscriptions %w(linux)
+  handlers %w(pagerduty splunk)
+  publish true
+  ttl 100
+  runtime_assets ['sensu-ruby-runtime', 'sensu-plugins-disk-checks']
+  action :create
+end
+
 ```
 
 ### sensu_handler
