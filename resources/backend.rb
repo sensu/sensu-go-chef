@@ -30,8 +30,8 @@ include SensuCookbook::SensuPackageProperties
 include SensuCookbook::SensuCommonProperties
 
 property :config, Hash, default: { "state-dir": '/var/lib/sensu/sensu-backend' }
-property :username, String, default: 'admin'
-property :password, String, default: 'P@ssw0rd!', sensitive: true
+property :username, String
+property :password, String, sensitive: true
 # WARNING: this will expose secrets to whatever is capturing
 # the log output be it stdout (such as in CI) or log files
 property :debug, [TrueClass, FalseClass], default: false
