@@ -43,6 +43,9 @@ suites:
         - test/integration/default
         - test/integration/postgres
     attributes:
+      backend:
+        username: admin
+        password: password
     excludes:
       - windows-2012r2
       - windows-2016
