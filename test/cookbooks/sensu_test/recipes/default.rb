@@ -9,6 +9,8 @@ sensu_agent 'default'
 
 sensu_ctl 'default' do
   action [:install, :configure]
+  username node['backend']['username']
+  password node['backend']['password']
   debug true
 end
 
