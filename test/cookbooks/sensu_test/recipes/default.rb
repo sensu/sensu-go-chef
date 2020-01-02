@@ -1,7 +1,7 @@
 sensu_backend 'default' do
   action [:install, :init]
-  username node['backend']['username']
-  password node['backend']['password']
+  username node['username']
+  password node['password']
   debug true
 end
 
@@ -9,8 +9,8 @@ sensu_agent 'default'
 
 sensu_ctl 'default' do
   action [:install, :configure]
-  username node['backend']['username']
-  password node['backend']['password']
+  username node['username']
+  password node['password']
   debug true
 end
 
