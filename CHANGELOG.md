@@ -6,22 +6,22 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
-### Changed
+## [0.2.0] - 2020-01-05
+### Breaking Changes
 
-- Refactored resource helpers to reduce duplication. (@cwjohnston) - #72
+- `sensu-backend` property: `config` Readme incorrectly documented the wrong (@tmonk42)
+  path. Called out as a breaking change in case anyone had begun using the incorrect setting but as this has not been released it will be versioned as a patch. (@tmonk42) - #66
 
 ### Added
 
 - `filters` resource now supports `runtime_assets` being passed (@majormoses)
 - Added support for `postgres_config` resource (@cwjohnston) - #70
 - Added support for `role`, `role_binding`, `cluster_role` and `cluster_role_binding` resources (@cwjohnston) - #71
-- Added init action to sensu-backend to fix functionality added in 5.16.0 - #77
+- Added init action to sensu-backend to allow functionality added in 5.16.0 (@kovukono) - #77
 
-### Breaking changes
+### Changed
 
-- `sensu-backend` property: `config` Readme incorrectly documented the wrong
-  path. Called out as a breaking change in case anyone had begun using the
-  incorrect setting. (@tmonk42) - #66
+- Refactored resource helpers to reduce duplication. (@cwjohnston) - #72
 
 ## [0.1.0] - 2019-09-16
 
@@ -93,8 +93,9 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...HEAD
-[0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/sensu/sensu-go-chef/compare/0.0.1...0.0.2
-[0.0.1]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...0.01
+[0.0.1]: https://github.com/sensu/sensu-go-chef/compare/37630d8624247f0e2dc41de8de8c2ccd29d55694...0.0.1
