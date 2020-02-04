@@ -76,6 +76,7 @@ action :init do
   execute 'configure sensuctl' do
     command sensu_backend_init_cmd
     sensitive true unless new_resource.debug
+    returns [0, 3]
   end
 end
 
