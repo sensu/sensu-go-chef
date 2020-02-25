@@ -134,15 +134,25 @@ The sensu backend resource can configure the core sensu backend service.
 
 #### Properties
 * `version` which version to install, default: *latest*
-* `repo` which repo to pull package from, default: *sensu/stable*
+* `repo` which repo to pull package from, default: *sensu/stable*. If using private yum or apt repository, this is the baseurl/uri.
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration, default: *{ 'state-dir': '/var/lib/sensu/sensu-backend'}*
+* `distribution` possible values: commercial, source. Requires a valid yum or apt repository for installation. default: commercial
+* `gpgkey` To be used with a package built from source. The GPG key for the package.
 * `username` the username to initialize the backend with
 * `password` the password to initialize the backend with
 
 #### Examples
 ```rb
 sensu_backend 'default'
+```
+
+For using packages built from source:
+```
+sensu_backend 'default' do
+  distribution 'source'
+  repo 'https://my-custom-repo.com/yum/$releasever/$basearch/'
+end
 ```
 Optionally pass configuration values for the backend:
 
