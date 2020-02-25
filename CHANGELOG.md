@@ -7,6 +7,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 
 - `sensu-backend` action :init adding returns to account for possible return codes.  exit code 3 is returned when already init.  This allows chef-client runs to not fail when running idempotently.
+- `sensu-backend` now supports specifying an apt or yum repository for packages built from source.
 
 ## [0.2.0] - 2020-01-05
 ### Breaking Changes

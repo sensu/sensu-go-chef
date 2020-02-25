@@ -32,6 +32,8 @@ include SensuCookbook::SensuCommonProperties
 property :config, Hash, default: { "state-dir": '/var/lib/sensu/sensu-backend' }
 property :username, String
 property :password, String, sensitive: true
+property :distribution, String, default: 'commercial'
+property :gpgkey, String
 # WARNING: this will expose secrets to whatever is capturing
 # the log output be it stdout (such as in CI) or log files
 property :debug, [TrueClass, FalseClass], default: false
@@ -41,11 +43,30 @@ action_class do
 end
 
 action :install do
-  packagecloud_repo new_resource.repo do
-    type value_for_platform_family(
-      %w(rhel fedora amazon) => 'rpm',
-      'default' => 'deb'
-    )
+  if new_resource.distribution == 'commercial'
+    packagecloud_repo new_resource.repo do
+      type value_for_platform_family(
+        %w(rhel fedora amazon) => 'rpm',
+        'default' => 'deb'
+      )
+    end
+  elsif new_resource.distribution == 'source'
+    if platform_family?('rhel')
+      yum_repository 'sensu-go' do
+        baseurl new_resource.repo
+        gpgcheck lazy { new_resource.gpgkey.nil? ? false : true }
+        gpgkey new_resource.gpgkey
+      end
+    elsif platform_family?('debian')
+      apt_repository 'sensu-go' do
+        uri new_resource.repo
+        key new_resource.gpgkey
+      end
+    end
+  else
+    log 'Unrecognized distribution type. Not creating repo.' do
+      level :info
+    end
   end
 
   package 'sensu-go-backend' do
