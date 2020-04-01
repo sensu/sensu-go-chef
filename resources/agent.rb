@@ -57,8 +57,8 @@ action :install do
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
-      notifies :restart, 'service[sensu-agent]' unless node['sensu-go']['conf_restart_immediate']
-      notifies :restart, 'service[sensu-agent]', :immediately if node['sensu-go']['conf_restart_immediate']
+      notifies :restart, 'service[sensu-agent]' unless node['sensu-go']['conf_restart_immediate'] || node['sensu-go']['agent_restart_on_conf_change'] == false
+      notifies :restart, 'service[sensu-agent]', :immediately if node['sensu-go']['conf_restart_immediate'] && node['sensu-go']['agent_restart_on_conf_change']
     end
 
     # Enable and start the sensu-agent service
@@ -86,8 +86,8 @@ action :install do
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config/', 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
-      notifies :restart, 'service[SensuAgent]', :delayed unless node['sensu-go']['conf_restart_immediate']
-      notifies :restart, 'service[SensuAgent]', :immediately if node['sensu-go']['conf_restart_immediate']
+      notifies :restart, 'service[SensuAgent]' unless node['sensu-go']['conf_restart_immediate'] || node['sensu-go']['agent_restart_on_conf_change'] == false
+      notifies :restart, 'service[SensuAgent]', :immediately if node['sensu-go']['conf_restart_immediate'] && node['sensu-go']['agent_restart_on_conf_change']
     end
 
     # Installs SensuAgent Service
