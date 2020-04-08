@@ -40,19 +40,19 @@ property :builds, Array, default: [], required: false, callbacks: {
 
   'each build should contain sha512 and url' => lambda do |arry|
     arry.all? do |e|
-      e.keys.include?('url') && e.keys.include?('sha512')
+      e.key?('url') && e.key?('sha512')
     end
   end,
 
   'build filters should be an array' => lambda do |arry|
     arry.all? do |e|
-      if e.keys.include?('filters')
-        e['filters'].kind_of?(Array)
+      if e.key?('filters')
+        e['filters'].is_a?(Array)
       else
         true
       end
     end
-  end
+  end,
 }
 
 action_class do
