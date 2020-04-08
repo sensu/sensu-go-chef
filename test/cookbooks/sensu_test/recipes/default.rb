@@ -43,6 +43,35 @@ assets.each do |name, property|
   end
 end
 
+sensu_asset 'multi-build' do
+  builds [
+    {
+      "filters" => [
+        "entity.system.os == 'linux'",
+        "entity.system.arch == 'amd64'",
+        "entity.system.platform_family == 'debian'",
+        "entity.system.platform_version.split('.')[0] == '9'"
+      ],
+      "sha512" => "a909f6eef2785302f648d5289fddfdd97014984e25751abb94ea70226ef8c5e56f9e333c054d79734c5f165f93494f34943aa9aa1ed06297fac599ff57328c27",
+      "url" => "https://assets.bonsai.sensu.io/058af8cde8fbdd97cfebf81a2565346e404210d5/sensu-plugins-postgres_4.0.0-pre-jef.1_debian9_linux_amd64.tar.gz"
+    },
+    {
+      "filters" => [
+        "entity.system.os == 'linux'",
+        "entity.system.arch == 'amd64'",
+        "entity.system.platform_family == 'debian'"
+      ],
+      "sha512" => "b832ba248472e6c2713f60e946af322a8373e2144e6331afa6663ca13818b3c192e63f507dca1126d9b83b6c636b176a0e8e10a2a42292f457bf099f806ca57f",
+      "url" => "https://assets.bonsai.sensu.io/058af8cde8fbdd97cfebf81a2565346e404210d5/sensu-plugins-postgres_4.0.0-pre-jef.1_debian_linux_amd64.tar.gz"
+    },
+    {
+      "filters" => [],
+      "sha512" => "555889017fcbcc6319f08097b79c3efccc3bf8ed0f8e59913ff7a508d4fe3d3b347118de11961657cd8504bdfd32af51f3c4add4ac639e378e82a05178248853",
+      "url" => "https://assets.bonsai.sensu.io/058af8cde8fbdd97cfebf81a2565346e404210d5/sensu-plugins-postgres_4.0.0-pre-jef.1_centos6_linux_amd64.tar.gz"
+    }
+  ]
+end
+
 sensu_handler 'slack' do
   type 'pipe'
   env_vars ['SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX']

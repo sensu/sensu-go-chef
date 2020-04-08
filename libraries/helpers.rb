@@ -62,10 +62,13 @@ module SensuCookbook
 
     def asset_from_resource
       spec = {}
-      spec['sha512'] = new_resource.sha512
-      spec['url'] = new_resource.url
-      spec['filters'] = new_resource.filters if new_resource.filters
-
+      if new_resource.builds.empty?
+        spec['sha512'] = new_resource.sha512
+        spec['url'] = new_resource.url
+        spec['filters'] = new_resource.filters if new_resource.filters
+      else
+        spec['builds'] = new_resource.builds
+      end
       a = base_resource(new_resource, spec)
       a['metadata']['namespace'] = new_resource.namespace
       a

@@ -66,6 +66,14 @@ end
   end
 end
 
+describe json("/etc/sensu/assets/multi-build.json") do
+  require 'uri'
+  its(%w(type)) { should eq 'Asset' }
+  its(%w(metadata name)) { should eq "multi-build" }
+  its(%w(metadata namespace)) { should eq 'default' }
+  its(['spec', 'builds', 0, 'url']) { should match URI::DEFAULT_PARSER.make_regexp }
+end
+
 describe json('/etc/sensu/handlers/slack.json') do
   its(%w(type)) { should eq 'Handler' }
   its(%w(metadata name)) { should eq 'slack' }
