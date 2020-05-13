@@ -6,8 +6,13 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
-- `sensu-backend` action :init adding returns to account for possible return codes.  exit code 3 is returned when already init.  This allows chef-client runs to not fail when running idempotently.
-- `sensu-backend` now supports specifying an apt or yum repository for packages built from source.
+## [0.3.0] - 2020-05-13
+### Fixed
+- agent service will restart when its config changes (@kovukono)
+
+### Added
+- `sensu-backend` action :init adding returns to account for possible return codes.  exit code 3 is returned when already init.  This allows chef-client runs to not fail when running idempotently. (@tarcinil)
+- `sensu-backend` now supports specifying an apt or yum repository for packages built from source. (@kovukono)
 
 ## [0.2.0] - 2020-01-05
 ### Breaking Changes
@@ -96,7 +101,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/sensu/sensu-go-chef/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/sensu/sensu-go-chef/compare/0.0.2...0.0.3
