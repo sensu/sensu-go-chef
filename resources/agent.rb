@@ -57,6 +57,7 @@ action :install do
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      notifies :restart, 'service[sensu-agent]', :delayed
     end
 
     # Enable and start the sensu-agent service
@@ -84,6 +85,7 @@ action :install do
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config/', 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      notifies :restart, 'service[SensuAgent]', :delayed
     end
 
     # Installs SensuAgent Service
