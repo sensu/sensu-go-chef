@@ -467,11 +467,11 @@ sensu_active_directory 'active_directory' do
   servers [{
     'host': '127.0.0.1',
     'group_search': {
-      'base_dn': 'dc=acme,dc=org'
+      'base_dn': 'dc=acme,dc=org',
     },
     'user_search': {
-      'base_dn': 'dc=acme,dc=org'
-    }
+      'base_dn': 'dc=acme,dc=org',
+    },
   }]
 end
 ```

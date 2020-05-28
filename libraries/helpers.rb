@@ -29,7 +29,7 @@ module SensuCookbook
       meta['annotations'] = new_resource.annotations if new_resource.annotations
 
       obj['metadata'] = meta
-      obj['type'] = if defined?(new_resource.resource_type) 
+      obj['type'] = if defined?(new_resource.resource_type)
                       new_resource.resource_type
                     else
                       type_from_name

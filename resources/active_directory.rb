@@ -35,7 +35,7 @@ end
 property :servers, Array, required: true
 property :groups_prefix, String
 property :username_prefix, String
-property :resource_type, String, default: 'ad' 
+property :resource_type, String, default: 'ad'
 
 action :create do
   directory object_dir(false) do
