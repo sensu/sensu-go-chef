@@ -153,3 +153,15 @@ sensu_cluster_role_binding 'cluster_admins-all_access' do
   role_type 'ClusterRole'
   subjects [ { name: 'cluster-admins', type: 'Group' } ]
 end
+
+sensu_active_directory 'example-active-directory' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org'
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org'
+    }
+  }]
+end

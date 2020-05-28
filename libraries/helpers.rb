@@ -7,13 +7,17 @@ module SensuCookbook
     end
 
     # Pluralize object directory name
-    def object_dir
+    def object_dir(plural = true)
       dirname = new_resource.declared_type.to_s.gsub(/^sensu_/, '')
-      ::File.join(new_resource.config_home, dirname) + 's'
+      if plural
+        ::File.join(new_resource.config_home, dirname) + 's'
+      else
+        ::File.join(new_resource.config_home, dirname)
+      end
     end
 
-    def object_file
-      ::File.join(object_dir, new_resource.name) + '.json'
+    def object_file(plural = true)
+      ::File.join(object_dir(plural), new_resource.name) + '.json'
     end
 
     def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2')
@@ -25,7 +29,11 @@ module SensuCookbook
       meta['annotations'] = new_resource.annotations if new_resource.annotations
 
       obj['metadata'] = meta
-      obj['type'] = type_from_name
+      obj['type'] = if defined?(new_resource.resource_type) 
+                      new_resource.resource_type
+                    else
+                      type_from_name
+                    end
       obj['api_version'] = api_version
       obj['spec'] = spec
       obj
@@ -193,6 +201,15 @@ module SensuCookbook
       spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
       obj = base_resource(new_resource, spec, 'store/v1')
       obj
+    end
+
+    def active_directory_from_resource
+      spec = {}
+      spec['servers'] = new_resource.servers
+      spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
+      spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
+      ad = base_resource(new_resource, spec, 'authentication/v2')
+      ad
     end
 
     def latest_version?(version)
