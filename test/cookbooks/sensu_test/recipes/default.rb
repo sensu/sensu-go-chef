@@ -155,7 +155,7 @@ sensu_cluster_role_binding 'cluster_admins-all_access' do
 end
 
 sensu_active_directory 'example-active-directory' do
-  servers [{
+  ad_servers [{
     'host': '127.0.0.1',
     'group_search': {
       'base_dn': 'dc=acme,dc=org',

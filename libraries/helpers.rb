@@ -205,7 +205,7 @@ module SensuCookbook
 
     def active_directory_from_resource
       spec = {}
-      spec['servers'] = new_resource.servers
+      spec['servers'] = new_resource.ad_servers
       spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
       spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
       ad = base_resource(new_resource, spec, 'authentication/v2')

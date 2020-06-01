@@ -32,7 +32,7 @@ action_class do
   include SensuCookbook::Helpers
 end
 
-property :servers, Array, required: true
+property :ad_servers, Array, required: true
 property :groups_prefix, String
 property :username_prefix, String
 property :resource_type, String, default: 'ad'
