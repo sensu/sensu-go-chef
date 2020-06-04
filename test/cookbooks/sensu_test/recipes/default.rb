@@ -165,3 +165,15 @@ sensu_active_directory 'example-active-directory' do
     },
   }]
 end
+
+sensu_active_directory 'example-active-directory-alias' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end

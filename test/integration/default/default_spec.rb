@@ -136,3 +136,9 @@ describe json('/etc/sensu/active_directory/example-active-directory.json') do
   its(%w(api_version)) { should eq 'authentication/v2' }
   its(%w(metadata name)) { should eq 'example-active-directory' }
 end
+
+describe json('/etc/sensu/active_directory/example-active-directory-alias.json') do
+  its(%w(type)) { should eq 'ad' }
+  its(%w(api_version)) { should eq 'authentication/v2' }
+  its(%w(metadata name)) { should eq 'example-active-directory-alias' }
+end

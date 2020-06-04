@@ -36,6 +36,7 @@ property :ad_servers, Array, required: true
 property :groups_prefix, String
 property :username_prefix, String
 property :resource_type, String, default: 'ad'
+alias_method :servers, :ad_servers
 
 action :create do
   directory object_dir(false) do
