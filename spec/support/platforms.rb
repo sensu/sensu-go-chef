@@ -16,18 +16,6 @@ RSpec.shared_context 'common_stubs' do
   end
 end
 
-RSpec.shared_context 'ubuntu-14.04' do
-  cached(:chef_run) do
-    ChefSpec::SoloRunner.new(
-      os: 'linux',
-      platform: 'ubuntu',
-      version: '14.04',
-      file_cache_path: '/var/chef/cache'
-    ).converge(described_recipe)
-  end
-  include_context 'common_stubs'
-end
-
 RSpec.shared_context 'ubuntu-16.04' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(
@@ -40,12 +28,24 @@ RSpec.shared_context 'ubuntu-16.04' do
   include_context 'common_stubs'
 end
 
+RSpec.shared_context 'ubuntu-18.04' do
+  cached(:chef_run) do
+    ChefSpec::SoloRunner.new(
+      os: 'linux',
+      platform: 'ubuntu',
+      version: '18.04',
+      file_cache_path: '/var/chef/cache'
+    ).converge(described_recipe)
+  end
+  include_context 'common_stubs'
+end
+
 RSpec.shared_context 'centos-7' do
   cached(:chef_run) do
     ChefSpec::SoloRunner.new(
       os: 'linux',
       platform: 'centos',
-      version: '7.6.1804',
+      version: '7.6',
       file_cache_path: '/var/chef/cache'
     ).converge(described_recipe)
   end

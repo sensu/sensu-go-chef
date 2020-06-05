@@ -1,6 +1,6 @@
 driver:
   name: dokken
-  chef_version: current
+  chef_version: latest
   privileged: true # because Docker and SystemD/Upstart
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup

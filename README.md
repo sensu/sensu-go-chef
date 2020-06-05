@@ -453,6 +453,29 @@ sensu_postgres_config 'default' do
 end
 ```
 
+### sensu_active_directory
+An active directory configuration to be applied to Sensu Go (commercial feature).
+
+#### Properties
+* `groups_prefix` Prefix for groups to include.
+* `username_prefix` Prefix for users to include.
+* `servers` **required** An array of active directory servers to connect to, including all of their properties.
+
+#### Examples
+```rb
+sensu_active_directory 'active_directory' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).
