@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Spec:: default
 #
-# Copyright:: 2018, The Authors, All Rights Reserved.
+# Copyright:: 2020, The Authors, All Rights Reserved.
 
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
@@ -131,14 +131,10 @@ describe json('/etc/sensu/role_bindings/alice_read_only.json') do
   its(%w(metadata namespace)) { should eq 'test-org' }
 end
 
-describe json('/etc/sensu/active_directory/example-active-directory.json') do
-  its(%w(type)) { should eq 'ad' }
-  its(%w(api_version)) { should eq 'authentication/v2' }
-  its(%w(metadata name)) { should eq 'example-active-directory' }
-end
-
-describe json('/etc/sensu/active_directory/example-active-directory-alias.json') do
-  its(%w(type)) { should eq 'ad' }
-  its(%w(api_version)) { should eq 'authentication/v2' }
-  its(%w(metadata name)) { should eq 'example-active-directory-alias' }
+%w(example-active-directory example-active-directory-alias).each do |ad_name|
+  describe json("/etc/sensu/active_directory/#{ad_name}.json") do
+    its(%w(type)) { should eq 'ad' }
+    its(%w(api_version)) { should eq 'authentication/v2' }
+    its(%w(metadata name)) { should eq name }
+  end
 end
