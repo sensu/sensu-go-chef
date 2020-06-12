@@ -108,15 +108,23 @@ For more details look at the [TESTING.md](./TESTING.md).
 ## Resource Overview
 These resources primarily work by writing the Sensu 5.x object definitions to a local path and then using the sensuctl command line to reconfigure the definitions known to the sensu backend.
 
-* `sensu_backend` install and configure the sensu backend
-* `sensu_agent` install and configure the sensu agent
-* `sensu_ctl` install and configure the [sensuctl](https://docs.sensu.io/sensu-go/latest/sensuctl/reference/)
-* `sensu_check` configure sensu [checks](https://docs.sensu.io/sensu-go/latest/reference/checks/)
-* `sensu_handler` configure check [handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/)
-* `sensu_filter` configure sensu [filters](https://docs.sensu.io/sensu-go/latest/reference/filters/)
-* `sensu_mutator` configure sensu [mutators](https://docs.sensu.io/sensu-go/latest/reference/mutators/)
-* `sensu_asset` configure sensu [assets](https://docs.sensu.io/sensu-go/latest/reference/assets/)for use with checks
-* `sensu_hook` configure sensu [hooks](https://docs.sensu.io/sensu-go/latest/reference/hooks/)for use with checks
+* [sensu_backend](#sensu_backend): Install and configure the Sensu backend
+* [sensu_agent](#sensu_agent): Install and configure the Sensu agent
+* [sensu_ctl](#sensu_ctl): Install and configure the [sensuctl](https://docs.sensu.io/sensu-go/latest/sensuctl/reference/)
+* [sensu_check](#sensu_check): Configure Sensu [checks](https://docs.sensu.io/sensu-go/latest/reference/checks/)
+* [sensu_handler](#sensu_handler): Configure check [handlers](https://docs.sensu.io/sensu-go/latest/reference/handlers/)
+* [sensu_hook](#sensu_hook): Configure Sensu [hooks](https://docs.sensu.io/sensu-go/latest/reference/hooks/) for use with checks
+* [sensu_filter](#sensu_filter): Configure Sensu [filters](https://docs.sensu.io/sensu-go/latest/reference/filters/)
+* [sensu_mutator](#sensu_mutator): Configure Sensu [mutators](https://docs.sensu.io/sensu-go/latest/reference/mutators/)
+* [sensu_asset](#sensu_asset): Configure Sensu [assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) for use with checks
+* [sensu_namespace](#sensu_namespace): Configure Sensu [namespaces](https://docs.sensu.io/sensu-go/latest/reference/rbac/#namespaces)
+* [sensu_entity](#sensu_entity): Configure Sensu [entities](https://docs.sensu.io/sensu-go/latest/reference/entities/)
+* [sensu_role](#sensu_role): Configure Sensu RBAC [roles](https://docs.sensu.io/sensu-go/latest/reference/rbac/#roles-and-cluster-roles)
+* [sensu_role_binding](#sensu_role_binding): Configure Sensu RBAC [role bindings](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-bindings-and-cluster-role-bindings)
+* [sensu_cluster_role](#sensu_cluster_role): Configure Sensu RBAC [cluster roles](https://docs.sensu.io/sensu-go/latest/reference/rbac/#roles-and-cluster-roles)
+* [sensu_cluster_role_binding](#sensu_cluster_role_binding): Configure Sensu RBAC [cluster role bindings](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-bindings-and-cluster-role-bindings)
+* [sensu_postgres_config](#sensu_postgres_config): Configure Sensu to use [a Postgres DB](https://docs.sensu.io/sensu-go/latest/guides/scale-event-storage/#configure-postgres) for event storage
+* [sensu_active_directory](#sensu_active_directory): Configure Sensu to use [Active Directory authentication](https://docs.sensu.io/sensu-go/latest/installation/auth/#ad-authentication)
 
 ## Resource Details
 
