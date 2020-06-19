@@ -24,6 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 resource_name :sensu_ctl
+provides :sensu_ctl
 
 include SensuCookbook::SensuPackageProperties
 

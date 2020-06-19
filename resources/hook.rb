@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_hook
+provides :sensu_hook
 
 property :command, String, required: true
 property :timeout, Integer

@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_asset
+provides :sensu_asset
 
 property :filters, Array
 property :sha512, String, required: true

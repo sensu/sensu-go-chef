@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_role
+provides :sensu_role
 
 property :namespace, String, default: 'default'
 # rubocop:disable Style/TrailingCommaInHashLiteral

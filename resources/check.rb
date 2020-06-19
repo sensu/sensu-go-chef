@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_check
+provides :sensu_check
 
 property :check_hooks, Array
 property :command, String, default: '/bin/true', required: true

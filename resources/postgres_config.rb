@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_postgres_config
+provides :sensu_postgres_config
 
 property :dsn, String, required: true
 property :pool_size, Integer

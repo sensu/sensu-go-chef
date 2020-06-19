@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_active_directory
+provides :sensu_active_directory
 
 action_class do
   include SensuCookbook::Helpers
