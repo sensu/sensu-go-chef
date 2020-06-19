@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_handler
+provides :sensu_handler
 
 property :command, String # only allowed if type == pipe
 property :env_vars, Array

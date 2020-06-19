@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_cluster_role
+provides :sensu_cluster_role
 
 # rubocop:disable Style/TrailingCommaInHashLiteral
 property :rules, Array, required: true, callbacks: {

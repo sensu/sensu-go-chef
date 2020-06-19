@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_filter
+provides :sensu_filter
 
 property :filter_action, String, equal_to: %w(allow deny), required: true
 property :expressions, Array, required: true

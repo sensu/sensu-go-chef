@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_mutator
+provides :sensu_mutator
 
 property :command, String, required: true
 property :env_vars, Array

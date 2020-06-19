@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_role_binding
+provides :sensu_role_binding
 
 property :namespace, String, default: 'default'
 property :role_name, String, required: true
