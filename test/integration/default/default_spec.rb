@@ -135,6 +135,6 @@ end
   describe json("/etc/sensu/active_directory/#{ad_name}.json") do
     its(%w(type)) { should eq 'ad' }
     its(%w(api_version)) { should eq 'authentication/v2' }
-    its(%w(metadata name)) { should eq name }
+    its(%w(metadata name)) { should eq ad_name }
   end
 end
