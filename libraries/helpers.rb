@@ -133,8 +133,14 @@ module SensuCookbook
 
     def entity_from_resource
       spec = {}
-      spec['subscriptions'] = new_resource.subscriptions
+      spec['deregister'] = new_resource.deregister if new_resource.deregister
+      spec['deregistration'] = new_resource.deregistration if new_resource.deregistration
       spec['entity_class'] = new_resource.entity_class
+      spec['redact'] = new_resource.redact if new_resource.redact
+      spec['sensu_agent_version'] = new_resource.sensu_agent_version if new_resource.sensu_agent_version
+      spec['subscriptions'] = new_resource.subscriptions
+      spec['system'] = new_resource.system if new_resource.system
+      spec['user'] = new_resource.user if new_resource.user
 
       e = base_resource(new_resource, spec)
       e['metadata']['namespace'] = new_resource.namespace

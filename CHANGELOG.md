@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Fixed
+- Chef 16+ support (@kovukono)
+- `sensu_entity` support for missing attributes (@kovukono)
+
+### Added
+- `sensu_active_directory` resource for active directory integration. (@kovukono)
 
 ## [0.3.0] - 2020-05-13
 ### Fixed

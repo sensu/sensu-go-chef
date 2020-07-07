@@ -33,8 +33,14 @@ action_class do
   include SensuCookbook::Helpers
 end
 
-property :subscriptions, Array
+property :deregister, [TrueClass, FalseClass]
+property :deregistration, Hash
 property :entity_class, String
+property :redact, Array
+property :sensu_agent_version, String
+property :subscriptions, Array
+property :system, Hash
+property :user, String
 
 action :create do
   directory object_dir do

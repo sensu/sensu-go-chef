@@ -398,18 +398,53 @@ end
 ```
 
 ### sensu_entity
-An entity is a representation of anything that needs to be monitored. It can be either an `agent` or a `proxy`.
+An entity is a representation of anything that needs to be monitored.
 
 #### Properties
-* `subscriptions` An array of subscriptions. If no subscriptions are provided,
-it defaults to an entity-specific subscription list: `[entity:{ID}]`.
-* `entity_class` **required** the entity type, must be either `agent` or `proxy`.
+* `entity_class` **required** the entity type, should be either `agent` or `proxy`. Entities should only be created as `agent` in this manner if unable to deploy them through the `sensu_agent` resource on the machine.
+* `deregister` Whether or not the entity should be removed from Sensu once the Sensu agent process's keepalive dies. Not needed for proxy entities.
+* `deregistration` Hash of handlers for use when the entity is deregistered. Not needed for proxy entities.
+* `redact` List of items to redact from log messages and dashboard. If a value is provided, it overwrites the default list of items to be redacted.
+* `sensu_agent_version` Version of the agent entity running on the machine. Not needed for proxy entities.
+* `subscriptions` An array of subscriptions. If no subscriptions are provided, it defaults to an entity-specific subscription list: `[entity:{ID}]`.
+* `system` A hash of system information about the entity. A full list of attributes that can be used [can be found here](https://docs.sensu.io/sensu-go/latest/reference/entities/#system-attributes).
+* `user` Sensu RBAC username used by the entity.
 
 #### Examples
+This example assumes that you've designed your proxy check to look for subscriptions (e.g., "entity.subscriptions.indexOf('hypervisor') >= 0" for the `proxy_requests`' `entity_attributes`).
 ```rb
-sensu_entity 'example-entity' do
-  subscriptions ['example-entity']
+sensu_entity 'example-hypervisor-entity' do
   entity_class 'proxy'
+  subscriptions ['hypervisor']
+  redact ['snmp_community_string']
+  system(
+    'hostname': 'example-hypervisor',
+    'platform': 'Citrix Hypervisor',
+    'platform_version': '8.1.0',
+    'network': {
+      'interfaces': [
+        {
+          'name': 'lo',
+          'addresses': ['127.0.0.1/8'],
+        },
+        {
+          'name': 'xapi0',
+          'mac': '52:54:00:20:1b:3c',
+          'addresses': ['172.0.1.72/24'],
+        },
+      ],
+    },
+  )
+end
+```
+This example assumes you've designed your proxy check to look for labels (e.g., "entity.labels.proxy_type == 'website'" for the `proxy_requests`' `entity_attributes`).
+```rb
+sensu_entity 'example-website-entity' do
+  entity_class 'proxy'
+  labels (
+    'proxy_type': 'website',
+    'url': 'https://my-website-url.com'
+  )
 end
 ```
 

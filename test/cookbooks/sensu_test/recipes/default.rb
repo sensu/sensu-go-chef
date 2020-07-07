@@ -116,10 +116,29 @@ sensu_mutator 'example-mutator' do
 end
 
 sensu_entity 'example-entity' do
-  subscriptions ['example-entity']
   entity_class 'proxy'
+  subscriptions ['example-entity']
   labels(environment: 'production', region: 'us-west-2')
   annotations(runbook: 'https://www.xkcd.com/378/')
+  redact ['snmp_community_string']
+  system(
+    'hostname': 'example-hypervisor',
+    'platform': 'Citrix Hypervisor',
+    'platform_version': '8.1.0',
+    'network': {
+      'interfaces': [
+        {
+          'name': 'lo',
+          'addresses': ['127.0.0.1/8'],
+        },
+        {
+          'name': 'xapi0',
+          'mac': '52:54:00:20:1b:3c',
+          'addresses': ['172.0.1.72/24'],
+        },
+      ],
+    }
+  )
 end
 
 sensu_hook 'restart_cron_service' do

@@ -86,12 +86,16 @@ end
 describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(type)) { should eq 'Entity' }
   its(%w(metadata name)) { should eq 'example-entity' }
-  its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(spec entity_class)) { should eq 'proxy' }
+  its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(metadata namespace)) { should eq 'default' }
   its(%w(metadata labels environment)) { should eq 'production' }
   its(%w(metadata labels region)) { should eq 'us-west-2' }
   its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(spec redact)) { should include 'snmp_community_string' }
+  its(%w(spec system hostname)) { should eq 'example-hypervisor' }
+  its(%w(spec system platform)) { should eq 'Citrix Hypervisor' }
+  its(%w(spec system platform_version)) { should eq '8.1.0' }
 end
 
 describe json('/etc/sensu/namespaces/test-org.json') do
