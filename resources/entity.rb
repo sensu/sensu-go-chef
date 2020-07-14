@@ -33,7 +33,7 @@ action_class do
   include SensuCookbook::Helpers
 end
 
-property :deregister, [TrueClass, FalseClass]
+property :deregister, [true, false]
 property :deregistration, Hash
 property :entity_class, String
 property :redact, Array

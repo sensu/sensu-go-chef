@@ -37,7 +37,7 @@ property :config, Hash, default: { "name": node['hostname'],
                                  }
 action :install do
   # Linux installation - source package
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     packagecloud_repo new_resource.repo do
       type value_for_platform_family(
         %w(rhel fedora amazon) => 'rpm',
@@ -63,7 +63,7 @@ action :install do
 
     # Enable and start the sensu-agent service
     service 'sensu-agent' do
-      if node['platform'] == 'ubuntu' && node['platform_version'].to_f == 14.04
+      if platform?('ubuntu') && node['platform_version'].to_f == 14.04
         provider Chef::Provider::Service::Init
         action :start
       else
@@ -73,7 +73,7 @@ action :install do
   end
 
   # Installs msi for Sensu-Go
-  if node['platform'] == 'windows'
+  if platform?('windows')
     windows_package 'sensu-go-agent' do
       source node['sensu-go']['windows_msi_source']
       installer_type :custom
@@ -104,7 +104,7 @@ action :install do
 end
 
 action :uninstall do
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     service 'sensu-agent' do
       action [:disable, :stop]
     end
@@ -114,7 +114,7 @@ action :uninstall do
     end
   end
 
-  if node['platform'] == 'windows'
+  if platform?('windows')
     windows_service 'SensuAgent' do
       action [:stop, :delete]
     end
