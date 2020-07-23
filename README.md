@@ -231,9 +231,9 @@ The sensu_check resource is used to define check objects.
 #### Properties
 * `config_home` default: */etc/sensu*
 * `check_hooks` an array of hook name to run in response to the check
-* `command` **required** the check command to execute, default: */bin/true*
+* `command` **required** the check command to execute
 * `cron` a schedule for the check, in cron format or a [predefined schedule](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules)
-* `handlers` **required** an array of handlers to run in response to the check, default: *[]*
+* `handlers` an array of handlers to run in response to the check, default: *[]*
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
@@ -244,7 +244,7 @@ The sensu_check resource is used to define check objects.
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `stdin` If the Sensu agent writes JSON serialized entity and check data to the command process' STDIN
 * `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-go/latest/reference/checks/#subdue-attributes), which is a hash of days of the week
-* `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to, default *[]*
+* `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to
 * `timeout` The check execution duration timeout in seconds
 * `ttl` The value in seconds until check results are considered stale
 * `output_metric_format` (optional) the metric format that the output of this check conforms to
