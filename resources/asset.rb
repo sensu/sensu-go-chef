@@ -32,6 +32,7 @@ provides :sensu_asset
 property :filters, Array
 property :sha512, String, required: true
 property :url, String, required: true
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers
