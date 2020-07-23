@@ -40,6 +40,7 @@ assets.each do |name, property|
   sensu_asset name do
     url property['url']
     sha512 property['checksum']
+    namespace property['namespace']
   end
 end
 
