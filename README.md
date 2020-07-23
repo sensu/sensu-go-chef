@@ -381,6 +381,7 @@ At runtime the agent can sequentially fetch assets and store them in its local c
 * `filters` a set of filter criteria used by the agent to determine of the asset should be installed.
 * `sha512` **required** the checksum of the asset.
 * `url` **required** the URL location of the asset.
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 
 #### Examples
 ```rb
