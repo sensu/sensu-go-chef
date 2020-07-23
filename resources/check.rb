@@ -41,6 +41,7 @@ property :proxy_requests, Hash
 property :publish, [true, false]
 property :round_robin, [true, false]
 property :runtime_assets, Array
+property :secrets, Array
 property :stdin, [true, false], default: false
 property :subdue, Hash
 property :subscriptions, Array, required: true

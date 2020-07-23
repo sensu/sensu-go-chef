@@ -196,3 +196,28 @@ sensu_active_directory 'example-active-directory-alias' do
     },
   }]
 end
+
+sensu_secrets_provider 'vault' do
+  provider_type 'VaultProvider'
+  address 'https://vaultserver.example.com:8200'
+  max_retries 2
+  rate_limiter(
+    'limit': 10,
+    'burst': 100
+  )
+  timeout '60s'
+  token 'yourVaultToken'
+  version 'v1'
+end
+
+sensu_secret 'env-secret' do
+  namespace 'test-org'
+  id 'CONSUL_TOKEN'
+  secrets_provider 'env'
+end
+
+sensu_secret 'vault-secret' do
+  namespace 'test-org'
+  id 'secret/consul#token'
+  secrets_provider 'vault'
+end

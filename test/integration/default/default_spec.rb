@@ -142,3 +142,30 @@ end
     its(%w(metadata name)) { should eq ad_name }
   end
 end
+
+describe json('/etc/sensu/secrets_providers/vault.json') do
+  its(%w(type)) { should eq 'VaultProvider' }
+  its(%w(metadata name)) { should eq 'vault' }
+  its(%w(spec client address)) { should eq 'https://vaultserver.example.com:8200' }
+  its(%w(spec client max_retries)) { should eq 2 }
+  its(%w(spec client rate_limiter limit)) { should eq 10 }
+  its(%w(spec client rate_limiter burst)) { should eq 100 }
+  its(%w(spec client timeout)) { should eq '60s' }
+  its(%w(spec client token)) { should eq 'yourVaultToken' }
+end
+
+describe json('/etc/sensu/secrets/env-secret.json') do
+  its(%w(type)) { should eq 'Secret' }
+  its(%w(metadata name)) { should eq 'env-secret' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec id)) { should eq 'CONSUL_TOKEN' }
+  its(%w(spec provider)) { should eq 'env' }
+end
+
+describe json('/etc/sensu/secrets/vault-secret.json') do
+  its(%w(type)) { should eq 'Secret' }
+  its(%w(metadata name)) { should eq 'vault-secret' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec id)) { should eq 'secret/consul#token' }
+  its(%w(spec provider)) { should eq 'vault' }
+end

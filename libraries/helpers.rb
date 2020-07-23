@@ -55,6 +55,7 @@ module SensuCookbook
       spec['publish'] = new_resource.publish if new_resource.publish
       spec['round_robin'] = new_resource.round_robin if new_resource.round_robin
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['stdin'] = new_resource.stdin
       spec['subdue'] = new_resource.subdue if new_resource.subdue
       spec['subscriptions'] = new_resource.subscriptions
@@ -87,6 +88,7 @@ module SensuCookbook
       spec['handlers'] = new_resource.handlers if new_resource.handlers
       spec['mutator'] = new_resource.mutator if new_resource.mutator
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['socket'] = new_resource.socket if new_resource.socket
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
@@ -124,6 +126,7 @@ module SensuCookbook
       spec = {}
       spec['command'] = new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
       m = base_resource(new_resource, spec)
@@ -216,6 +219,28 @@ module SensuCookbook
       spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
       ad = base_resource(new_resource, spec, 'authentication/v2')
       ad
+    end
+
+    def secret_from_resource
+      spec = {}
+      spec['id'] = new_resource.id
+      spec['provider'] = new_resource.secrets_provider
+      secret = base_resource(new_resource, spec, 'secrets/v1')
+      secret['metadata']['namespace'] = new_resource.namespace
+      secret
+    end
+
+    def secrets_provider_from_resource
+      spec = { 'client' => {} }
+      spec['client']['address'] = new_resource.address
+      spec['client']['max_retries'] = new_resource.max_retries if new_resource.max_retries
+      spec['client']['rate_limiter'] = new_resource.rate_limiter if new_resource.rate_limiter
+      spec['client']['timeout'] = new_resource.timeout if new_resource.timeout
+      spec['client']['tls'] = new_resource.tls if new_resource.tls
+      spec['client']['token'] = new_resource.token if new_resource.token
+      spec['client']['version'] = new_resource.version
+      secrets_provider = base_resource(new_resource, spec, 'secrets/v1')
+      secrets_provider
     end
 
     def latest_version?(version)
