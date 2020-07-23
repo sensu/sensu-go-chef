@@ -14,6 +14,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ### Added
 - `sensu_active_directory` resource for active directory integration. (@kovukono)
+- `sensu_secrets_provider` and `sensu_secret` resource for Vault integration, along with secret support for checks, handlers, and mutators. (@kovukono)
 
 ## [0.3.0] - 2020-05-13
 ### Fixed

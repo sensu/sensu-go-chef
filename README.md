@@ -125,6 +125,8 @@ These resources primarily work by writing the Sensu 5.x object definitions to a 
 * [sensu_cluster_role_binding](#sensu_cluster_role_binding): Configure Sensu RBAC [cluster role bindings](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-bindings-and-cluster-role-bindings)
 * [sensu_postgres_config](#sensu_postgres_config): Configure Sensu to use [a Postgres DB](https://docs.sensu.io/sensu-go/latest/guides/scale-event-storage/#configure-postgres) for event storage
 * [sensu_active_directory](#sensu_active_directory): Configure Sensu to use [Active Directory authentication](https://docs.sensu.io/sensu-go/latest/installation/auth/#ad-authentication)
+* [sensu_secret](#sensu_secret): Configure Sensu [secrets](https://docs.sensu.io/sensu-go/latest/reference/secrets/)
+* [sensu_secrets_provider](#sensu_secrets_provider): Configure Sensu [secrets providers](https://docs.sensu.io/sensu-go/latest/reference/secrets-providers/)
 
 ## Resource Details
 
@@ -242,6 +244,7 @@ The sensu_check resource is used to define check objects.
 * `publish` If check requests are published for the check
 * `round_robin` If the check should be executed in a [round robin fashion](https://docs.sensu.io/sensu-go/latest/reference/checks/#check-specification)
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
+* `secrets` An array of hashes of name/secret pairs to use with command execution
 * `stdin` If the Sensu agent writes JSON serialized entity and check data to the command process' STDIN
 * `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-go/latest/reference/checks/#subdue-attributes), which is a hash of days of the week
 * `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to
@@ -291,6 +294,7 @@ end
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
+* `secrets` an array of hashes of name/secret pairs to use with command execution
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
 * `timeout` the handler execution duration timeout in seconds, only used with *pipe* and *tcp* types
 * `type` **required** handler type, one of *pipe, tcp, udp* or *set*
@@ -360,6 +364,7 @@ A handler can specify a mutator to transform event data. This resource can defin
 #### Properties
 * `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
+* `secrets` an array of hashes of name/secret pairs to use with command execution
 * `timeout` the execution duration timeout in seconds
 #### Examples
 The following defines a filter that uses a Sensu plugin called `example_mutator.rb` to modify event data prior to handling the event.
@@ -516,6 +521,78 @@ sensu_active_directory 'active_directory' do
       'base_dn': 'dc=acme,dc=org',
     },
   }]
+end
+```
+
+### sensu_secret
+Create a secret that Sensu can grab from a secret provider so that sensitive information is not exposed (commercial feature).
+
+#### Properties
+* `id` **required** The key to use to retrive the secret. For the Env secrets provider, this is the environment variable. For the Vault secrets provider, this is the path and key in the form of `secret/path#key`. Currently, the Vault secrets provider does not support any base engine paths other than "secret/" for v2 K/V secrets engine.
+* `secrets_provider` **required** Name of the provider, all in lowercase, ex: `'env'`, `'vault'`
+
+#### Examples
+Environment secret referencing the environment variable `CONSUL_TOKEN` on the backend server:
+
+```rb
+sensu_secret 'sensu-consul-token' do
+  id 'CONSUL_TOKEN'
+  secrets_provider 'env'
+end
+```
+
+Vault secret referencing the key `token` at the path `secret/consul`:
+```rb
+sensu_secret 'sensu-consul-token' do
+  id 'secret/consul#token'
+  secrets_provider 'vault'
+end
+```
+
+### sensu_secrets_provider
+Create a secret provider for Sensu to connect to for secrets (commercial feature). Currently supports only Vault integration or Sensu Go's built-in secrets provider.
+
+Either a token or a TLS hash must be provided.
+
+#### Properties
+* `address` **required** Vault server address.
+* `max_retries` Maximum number of times to retry connecting to the Vault provider.
+* `provider_type` Secret provider to use. Default: `'Env'`
+* `rate_limiter` Hash of rate and burst limits for the Vault API.
+* `timeout` Connection timeout for provider.
+* `tls` Hash of certificate information required to access Vault.
+* `token` Vault token to use for authentication.
+* `version` Version of the [Vault KV secrets engine](https://www.vaultproject.io/docs/secrets/kv) you're trying to access. Default: `'v2'`
+
+#### Examples
+Minimal with token:
+
+```rb
+sensu_secrets_provider 'vault' do
+  address 'https://vaultserver.example.com:8200'
+  provider_type 'VaultProvider'
+  token 'yourVaultToken'
+end
+```
+
+Complete with TLS:
+
+```rb
+sensu_secrets_provider 'vault' do
+  address 'https://vaultserver.example.com:8200'
+  max_retries 2
+  provider_type 'VaultProvider'
+  rate_limiter(
+    'limit': 10,
+    'burst': 100
+  )
+  tls('ca_cert': '/path/to/your/ca.pem',
+      'client_cert': '/path/to/backend/pem/for/vault.pem',
+      'client_key': '/path/to/backend/key/for/vault.pem',
+      'cname': 'sensu-backend.example.com'
+     )
+  timeout '60s'
+  version 'v2'
 end
 ```
 

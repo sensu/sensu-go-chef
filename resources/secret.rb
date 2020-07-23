@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: mutator
+# Resource:: secret
 #
 # Copyright:: 2020 Sensu, Inc.
 #
@@ -26,17 +26,15 @@
 include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
-resource_name :sensu_mutator
-provides :sensu_mutator
-
-property :command, String, required: true
-property :env_vars, Array
-property :secrets, Array
-property :timeout, Integer
+resource_name :sensu_secret
+provides :sensu_secret
 
 action_class do
   include SensuCookbook::Helpers
 end
+
+property :id, String, required: true
+property :secrets_provider, String, required: true
 
 action :create do
   directory object_dir do
@@ -45,7 +43,7 @@ action :create do
   end
 
   file object_file do
-    content JSON.generate(mutator_from_resource)
+    content JSON.generate(secret_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file}]"
   end
 
@@ -57,10 +55,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl mutator delete #{new_resource.name} --skip-confirm]"
+    notifies :run, "execute[sensuctl secret delete #{new_resource.name} --skip-confirm]"
   end
 
-  execute "sensuctl mutator delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl secret delete #{new_resource.name} --skip-confirm" do
     action :nothing
   end
 end
