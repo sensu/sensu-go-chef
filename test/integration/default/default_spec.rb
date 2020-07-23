@@ -66,6 +66,14 @@ end
   end
 end
 
+describe json("/etc/sensu/assets/sensu-plugins-disk-checks.json") do
+  require 'uri'
+  its(%w(type)) { should eq 'Asset' }
+  its(%w(metadata name)) { should eq "sensu-plugins-disk-checks" }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
+end
+
 describe json('/etc/sensu/handlers/slack.json') do
   its(%w(type)) { should eq 'Handler' }
   its(%w(metadata name)) { should eq 'slack' }
