@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Added
+- `sensu_asset` now supports namespaces that are not `default`. Default is the `default` namespace. (@joe-armstrong)
+
 ### Breaking Changes
 - `sensu_check` now does not provide defaults for `command` and `subscriptions`, and they must be required as per the upstream specs. (@kovukono)
 
