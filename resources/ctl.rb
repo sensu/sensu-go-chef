@@ -33,7 +33,7 @@ property :password, String, default: 'P@ssw0rd!', sensitive: true
 property :backend_url, String, default: 'http://127.0.0.1:8080'
 # WARNING: this will expose secrets to whatever is capturing
 # the log output be it stdout (such as in CI) or log files
-property :debug, [TrueClass, FalseClass], default: false
+property :debug, [true, false], default: false
 
 action_class do
   include SensuCookbook::Helpers::SensuCtl
@@ -47,7 +47,7 @@ end
 # end
 
 action :install do
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     packagecloud_repo new_resource.repo do
       type value_for_platform_family(
         %w(rhel fedora amazon) => 'rpm',
@@ -61,7 +61,7 @@ action :install do
     end
   end
 
-  if node['platform'] == 'windows'
+  if platform?('windows')
     # This is awaiting a packaged method to be delivered, but provides a resource currently.
     include_recipe 'seven_zip'
 
@@ -115,13 +115,13 @@ action :configure do
 end
 
 action :uninstall do
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     package 'sensu-go-cli' do
       action :remove
     end
   end
 
-  if node['platform'] == 'windows'
+  if platform?('windows')
     windows_path sensuctl_bin do
       action :remove
     end

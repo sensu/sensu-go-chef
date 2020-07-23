@@ -30,9 +30,9 @@ resource_name :sensu_check
 provides :sensu_check
 
 property :check_hooks, Array
-property :command, String, default: '/bin/true', required: true
+property :command, String, required: true
 property :cron, String
-property :handlers, Array, default: [], required: true
+property :handlers, Array, default: []
 property :high_flap_threshold, Integer
 property :interval, Integer
 property :low_flap_threshold, Integer
@@ -43,7 +43,7 @@ property :round_robin, [true, false]
 property :runtime_assets, Array
 property :stdin, [true, false], default: false
 property :subdue, Hash
-property :subscriptions, Array, default: [], required: true
+property :subscriptions, Array, required: true
 property :timeout, Integer
 property :ttl, Integer
 property :output_metric_format, String
