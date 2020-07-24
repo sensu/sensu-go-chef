@@ -5,11 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
-### Added
-- `sensu_asset` now supports namespaces that are not `default`. Default is the `default` namespace. (@joe-armstrong)
+
+## [1.0.0] - 2020-07-24
 
 ### Breaking Changes
 - `sensu_check` now does not provide defaults for `command` and `subscriptions`, and they must be required as per the upstream specs. (@kovukono)
+- declare chef supported versions to use match current chef support (15+) (@majormoses)
 
 ### Fixed
 - Chef 16+ support (@kovukono)
@@ -18,6 +19,9 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ### Added
 - `sensu_active_directory` resource for active directory integration. (@kovukono)
 - `sensu_secrets_provider` and `sensu_secret` resource for Vault integration, along with secret support for checks, handlers, and mutators. (@kovukono)
+- `sensu_asset` now exposes a `namespace` attribute for controlling where the asset is created, by default it will use `default`. Default is the `default` namespace. @joe-armstrong)
+- `sensu_asset` now supports multi-built assets using the `builds` key and accepts an array of hashes for each filter. By default no filters are passed. (@cwjohnston)
+- all of the following resources: `asset`, `check`, `filter`, `handler`, and `mutator` have had new aliases added to the providers with an optional namespace to ease migration issues where a resource exists in both `sensu` and `sensu-go` the generic schema is `sensu_go_$COMPONENT`. For example `sensu_check` can be referenced also via `sensu_go_check`. (@majoemoses)
 
 ## [0.3.0] - 2020-05-13
 ### Fixed
