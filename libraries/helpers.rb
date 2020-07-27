@@ -7,13 +7,17 @@ module SensuCookbook
     end
 
     # Pluralize object directory name
-    def object_dir
+    def object_dir(plural = true)
       dirname = new_resource.declared_type.to_s.gsub(/^sensu_/, '')
-      ::File.join(new_resource.config_home, dirname) + 's'
+      if plural
+        ::File.join(new_resource.config_home, dirname) + 's'
+      else
+        ::File.join(new_resource.config_home, dirname)
+      end
     end
 
-    def object_file
-      ::File.join(object_dir, new_resource.name) + '.json'
+    def object_file(plural = true)
+      ::File.join(object_dir(plural), new_resource.name) + '.json'
     end
 
     def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2')
@@ -25,7 +29,11 @@ module SensuCookbook
       meta['annotations'] = new_resource.annotations if new_resource.annotations
 
       obj['metadata'] = meta
-      obj['type'] = type_from_name
+      obj['type'] = if defined?(new_resource.resource_type)
+                      new_resource.resource_type
+                    else
+                      type_from_name
+                    end
       obj['api_version'] = api_version
       obj['spec'] = spec
       obj
@@ -47,6 +55,7 @@ module SensuCookbook
       spec['publish'] = new_resource.publish if new_resource.publish
       spec['round_robin'] = new_resource.round_robin if new_resource.round_robin
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['stdin'] = new_resource.stdin
       spec['subdue'] = new_resource.subdue if new_resource.subdue
       spec['subscriptions'] = new_resource.subscriptions
@@ -82,6 +91,7 @@ module SensuCookbook
       spec['handlers'] = new_resource.handlers if new_resource.handlers
       spec['mutator'] = new_resource.mutator if new_resource.mutator
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['socket'] = new_resource.socket if new_resource.socket
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
@@ -119,6 +129,7 @@ module SensuCookbook
       spec = {}
       spec['command'] = new_resource.command
       spec['env_vars'] = new_resource.env_vars if new_resource.env_vars
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
       m = base_resource(new_resource, spec)
@@ -128,8 +139,14 @@ module SensuCookbook
 
     def entity_from_resource
       spec = {}
-      spec['subscriptions'] = new_resource.subscriptions
+      spec['deregister'] = new_resource.deregister if new_resource.deregister
+      spec['deregistration'] = new_resource.deregistration if new_resource.deregistration
       spec['entity_class'] = new_resource.entity_class
+      spec['redact'] = new_resource.redact if new_resource.redact
+      spec['sensu_agent_version'] = new_resource.sensu_agent_version if new_resource.sensu_agent_version
+      spec['subscriptions'] = new_resource.subscriptions
+      spec['system'] = new_resource.system if new_resource.system
+      spec['user'] = new_resource.user if new_resource.user
 
       e = base_resource(new_resource, spec)
       e['metadata']['namespace'] = new_resource.namespace
@@ -196,6 +213,37 @@ module SensuCookbook
       spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
       obj = base_resource(new_resource, spec, 'store/v1')
       obj
+    end
+
+    def active_directory_from_resource
+      spec = {}
+      spec['servers'] = new_resource.ad_servers
+      spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
+      spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
+      ad = base_resource(new_resource, spec, 'authentication/v2')
+      ad
+    end
+
+    def secret_from_resource
+      spec = {}
+      spec['id'] = new_resource.id
+      spec['provider'] = new_resource.secrets_provider
+      secret = base_resource(new_resource, spec, 'secrets/v1')
+      secret['metadata']['namespace'] = new_resource.namespace
+      secret
+    end
+
+    def secrets_provider_from_resource
+      spec = { 'client' => {} }
+      spec['client']['address'] = new_resource.address
+      spec['client']['max_retries'] = new_resource.max_retries if new_resource.max_retries
+      spec['client']['rate_limiter'] = new_resource.rate_limiter if new_resource.rate_limiter
+      spec['client']['timeout'] = new_resource.timeout if new_resource.timeout
+      spec['client']['tls'] = new_resource.tls if new_resource.tls
+      spec['client']['token'] = new_resource.token if new_resource.token
+      spec['client']['version'] = new_resource.version
+      secrets_provider = base_resource(new_resource, spec, 'secrets/v1')
+      secrets_provider
     end
 
     def latest_version?(version)

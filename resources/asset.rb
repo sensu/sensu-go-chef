@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: asset
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_asset
+provides :sensu_asset
 
 property :filters, Array
 property :sha512, String, required: false
@@ -54,6 +55,7 @@ property :builds, Array, default: [], required: false, callbacks: {
     end
   end,
 }
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers

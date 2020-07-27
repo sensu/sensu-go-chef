@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: check
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,11 +27,12 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_check
+provides :sensu_check
 
 property :check_hooks, Array
-property :command, String, default: '/bin/true', required: true
+property :command, String, required: true
 property :cron, String
-property :handlers, Array, default: [], required: true
+property :handlers, Array, default: []
 property :high_flap_threshold, Integer
 property :interval, Integer
 property :low_flap_threshold, Integer
@@ -40,9 +41,10 @@ property :proxy_requests, Hash
 property :publish, [true, false]
 property :round_robin, [true, false]
 property :runtime_assets, Array
+property :secrets, Array
 property :stdin, [true, false], default: false
 property :subdue, Hash
-property :subscriptions, Array, default: [], required: true
+property :subscriptions, Array, required: true
 property :timeout, Integer
 property :ttl, Integer
 property :output_metric_format, String

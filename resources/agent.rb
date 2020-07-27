@@ -24,6 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 resource_name :sensu_agent
+provides :sensu_agent
 
 include SensuCookbook::Helpers
 include SensuCookbook::SensuPackageProperties
@@ -36,7 +37,7 @@ property :config, Hash, default: { "name": node['hostname'],
                                  }
 action :install do
   # Linux installation - source package
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     packagecloud_repo new_resource.repo do
       type value_for_platform_family(
         %w(rhel fedora amazon) => 'rpm',
@@ -57,11 +58,12 @@ action :install do
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      notifies :restart, 'service[sensu-agent]', :delayed
     end
 
     # Enable and start the sensu-agent service
     service 'sensu-agent' do
-      if node['platform'] == 'ubuntu' && node['platform_version'].to_f == 14.04
+      if platform?('ubuntu') && node['platform_version'].to_f == 14.04
         provider Chef::Provider::Service::Init
         action :start
       else
@@ -71,7 +73,7 @@ action :install do
   end
 
   # Installs msi for Sensu-Go
-  if node['platform'] == 'windows'
+  if platform?('windows')
     windows_package 'sensu-go-agent' do
       source node['sensu-go']['windows_msi_source']
       installer_type :custom
@@ -84,6 +86,7 @@ action :install do
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config/', 'agent.yml') do
       content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      notifies :restart, 'service[SensuAgent]', :delayed
     end
 
     # Installs SensuAgent Service
@@ -101,7 +104,7 @@ action :install do
 end
 
 action :uninstall do
-  if node['platform'] != 'windows'
+  unless platform?('windows')
     service 'sensu-agent' do
       action [:disable, :stop]
     end
@@ -111,7 +114,7 @@ action :uninstall do
     end
   end
 
-  if node['platform'] == 'windows'
+  if platform?('windows')
     windows_service 'SensuAgent' do
       action [:stop, :delete]
     end

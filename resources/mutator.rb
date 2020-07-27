@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: mutator
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,9 +27,11 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_mutator
+provides :sensu_mutator
 
 property :command, String, required: true
 property :env_vars, Array
+property :secrets, Array
 property :timeout, Integer
 
 action_class do

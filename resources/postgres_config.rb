@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: postgres_config
 #
-# Copyright:: 2019 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_postgres_config
+provides :sensu_postgres_config
 
 property :dsn, String, required: true
 property :pool_size, Integer

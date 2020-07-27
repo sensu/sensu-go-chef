@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Spec:: default
 #
-# Copyright:: 2018, The Authors, All Rights Reserved.
+# Copyright:: 2020, The Authors, All Rights Reserved.
 
 # The following are only examples, check out https://github.com/chef/inspec/tree/master/docs
 # for everything you can do.
@@ -74,6 +74,14 @@ describe json('/etc/sensu/assets/multi-build.json') do
   its(['spec', 'builds', 0, 'url']) { should match URI::DEFAULT_PARSER.make_regexp }
 end
 
+describe json('/etc/sensu/assets/sensu-plugins-disk-checks.json') do
+  require 'uri'
+  its(%w(type)) { should eq 'Asset' }
+  its(%w(metadata name)) { should eq 'sensu-plugins-disk-checks' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
+end
+
 describe json('/etc/sensu/handlers/slack.json') do
   its(%w(type)) { should eq 'Handler' }
   its(%w(metadata name)) { should eq 'slack' }
@@ -94,12 +102,16 @@ end
 describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(type)) { should eq 'Entity' }
   its(%w(metadata name)) { should eq 'example-entity' }
-  its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(spec entity_class)) { should eq 'proxy' }
+  its(%w(spec subscriptions)) { should include 'example-entity' }
   its(%w(metadata namespace)) { should eq 'default' }
   its(%w(metadata labels environment)) { should eq 'production' }
   its(%w(metadata labels region)) { should eq 'us-west-2' }
   its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(spec redact)) { should include 'snmp_community_string' }
+  its(%w(spec system hostname)) { should eq 'example-hypervisor' }
+  its(%w(spec system platform)) { should eq 'Citrix Hypervisor' }
+  its(%w(spec system platform_version)) { should eq '8.1.0' }
 end
 
 describe json('/etc/sensu/namespaces/test-org.json') do
@@ -137,4 +149,39 @@ describe json('/etc/sensu/role_bindings/alice_read_only.json') do
   its(%w(type)) { should eq 'RoleBinding' }
   its(%w(metadata name)) { should eq 'alice_read_only' }
   its(%w(metadata namespace)) { should eq 'test-org' }
+end
+
+%w(example-active-directory example-active-directory-alias).each do |ad_name|
+  describe json("/etc/sensu/active_directory/#{ad_name}.json") do
+    its(%w(type)) { should eq 'ad' }
+    its(%w(api_version)) { should eq 'authentication/v2' }
+    its(%w(metadata name)) { should eq ad_name }
+  end
+end
+
+describe json('/etc/sensu/secrets_providers/vault.json') do
+  its(%w(type)) { should eq 'VaultProvider' }
+  its(%w(metadata name)) { should eq 'vault' }
+  its(%w(spec client address)) { should eq 'https://vaultserver.example.com:8200' }
+  its(%w(spec client max_retries)) { should eq 2 }
+  its(%w(spec client rate_limiter limit)) { should eq 10 }
+  its(%w(spec client rate_limiter burst)) { should eq 100 }
+  its(%w(spec client timeout)) { should eq '60s' }
+  its(%w(spec client token)) { should eq 'yourVaultToken' }
+end
+
+describe json('/etc/sensu/secrets/env-secret.json') do
+  its(%w(type)) { should eq 'Secret' }
+  its(%w(metadata name)) { should eq 'env-secret' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec id)) { should eq 'CONSUL_TOKEN' }
+  its(%w(spec provider)) { should eq 'env' }
+end
+
+describe json('/etc/sensu/secrets/vault-secret.json') do
+  its(%w(type)) { should eq 'Secret' }
+  its(%w(metadata name)) { should eq 'vault-secret' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
+  its(%w(spec id)) { should eq 'secret/consul#token' }
+  its(%w(spec provider)) { should eq 'vault' }
 end

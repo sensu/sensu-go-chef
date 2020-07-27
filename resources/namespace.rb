@@ -1,8 +1,8 @@
 #
 # Cookbook:: sensu-go
-# Resource:: agent
+# Resource:: namespace
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -26,6 +26,7 @@
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_namespace
+provides :sensu_namespace
 
 action_class do
   include SensuCookbook::Helpers

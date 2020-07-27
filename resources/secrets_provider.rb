@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: role
+# Resource:: secrets_provider
 #
 # Copyright:: 2020 Sensu, Inc.
 #
@@ -26,23 +26,22 @@
 include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
-resource_name :sensu_role
-provides :sensu_role
-
-property :namespace, String, default: 'default'
-# rubocop:disable Style/TrailingCommaInHashLiteral
-property :rules, Array, required: true, callbacks: {
-  'should be an array of hashes' => lambda do |arry|
-    arry.all? do |e|
-      e.respond_to?(:keys)
-    end
-  end
-}
-# rubocop:enable Style/TrailingCommaInHashLiteral
+resource_name :sensu_secrets_provider
+provides :sensu_secrets_provider
 
 action_class do
   include SensuCookbook::Helpers
 end
+
+property :address, String, required: true
+property :max_retries, Integer
+property :provider_type, String, default: 'Env'
+property :rate_limiter, Hash
+property :timeout, String
+property :tls, Hash
+property :token, String
+property :version, String, default: 'v2'
+alias_method :resource_type, :provider_type
 
 action :create do
   directory object_dir do
@@ -51,7 +50,7 @@ action :create do
   end
 
   file object_file do
-    content JSON.generate(role_from_resource)
+    content JSON.generate(secrets_provider_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file}]"
   end
 
@@ -63,10 +62,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu role delete #{new_resource.name} --skip-confirm"
+    notifies :run, "execute[sensuctl delete -f #{object_file} --skip-confirm]", :before
   end
 
-  execute "sensuctl role delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl delete -f #{object_file} --skip-confirm" do
     action :nothing
   end
 end

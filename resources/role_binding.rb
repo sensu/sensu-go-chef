@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: role_binding
 #
-# Copyright:: 2019 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_role_binding
+provides :sensu_role_binding
 
 property :namespace, String, default: 'default'
 property :role_name, String, required: true

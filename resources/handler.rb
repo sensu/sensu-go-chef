@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: handler
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,6 +27,7 @@ include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_handler
+provides :sensu_handler
 
 property :command, String # only allowed if type == pipe
 property :env_vars, Array
@@ -34,6 +35,7 @@ property :filters, Array
 property :handlers, Array
 property :mutator, String
 property :runtime_assets, Array
+property :secrets, Array
 property :socket, Hash # can only have host: string, port: int
 property :timeout, Integer
 property :type, String, equal_to: %w(pipe tcp udp set), required: true

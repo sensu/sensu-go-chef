@@ -2,7 +2,7 @@
 # Cookbook:: sensu-go
 # Resource:: backend
 #
-# Copyright:: 2018 Sensu, Inc.
+# Copyright:: 2020 Sensu, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -24,6 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 resource_name :sensu_backend
+provides :sensu_backend
 
 include SensuCookbook::Helpers
 include SensuCookbook::SensuPackageProperties
@@ -36,7 +37,7 @@ property :distribution, String, default: 'commercial'
 property :gpgkey, String
 # WARNING: this will expose secrets to whatever is capturing
 # the log output be it stdout (such as in CI) or log files
-property :debug, [TrueClass, FalseClass], default: false
+property :debug, [true, false], default: false
 
 action_class do
   include SensuCookbook::Helpers::SensuBackend
@@ -84,7 +85,7 @@ action :install do
   end
 
   service 'sensu-backend' do
-    if node['platform'] == 'ubuntu' && node['platform_version'].to_f == 14.04
+    if platform?('ubuntu') && node['platform_version'].to_f == 14.04
       provider Chef::Provider::Service::Init
       action :start
     else
