@@ -32,6 +32,7 @@ provides :sensu_hook
 property :command, String, required: true
 property :timeout, Integer
 property :stdin, [true, false]
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers

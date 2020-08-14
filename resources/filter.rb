@@ -34,6 +34,7 @@ property :filter_action, String, equal_to: %w(allow deny), required: true
 property :expressions, Array, required: true
 property :when, Hash
 property :runtime_assets, Array
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers
