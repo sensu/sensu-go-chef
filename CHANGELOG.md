@@ -6,6 +6,9 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+### Added
+ - The following resources, `sensu_check`, `sensu_entity`, `sensu_filter`, `sensu_handler`, `sensu_hook`, `sensu_mutator`, and `sensu_secret` now expose a `namespace` attribute for controlling where the resource is created. Default is the `default` namespace. @joe-armstrong)
+
 ## [1.0.0] - 2020-07-24
 
 ### Breaking Changes
