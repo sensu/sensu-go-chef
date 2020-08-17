@@ -185,3 +185,11 @@ describe json('/etc/sensu/secrets/vault-secret.json') do
   its(%w(spec id)) { should eq 'secret/consul#token' }
   its(%w(spec provider)) { should eq 'vault' }
 end
+
+describe json('/etc/sensu/secrets/env-secret-default.json') do
+  its(%w(type)) { should eq 'Secret' }
+  its(%w(metadata name)) { should eq 'env-secret-default' }
+  its(%w(metadata namespace)) { should eq 'default' }
+  its(%w(spec id)) { should eq 'CONSUL_TOKEN' }
+  its(%w(spec provider)) { should eq 'env' }
+end

@@ -251,3 +251,9 @@ sensu_secret 'vault-secret' do
   id 'secret/consul#token'
   secrets_provider 'vault'
 end
+
+sensu_secret 'env-secret-default' do
+  namespace 'default'
+  id 'CONSUL_TOKEN'
+  secrets_provider 'env'
+end
