@@ -239,6 +239,7 @@ The sensu_check resource is used to define check objects.
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `proxy_entity_name` Used to create a proxy entity for an external resource
 * `proxy_requests`  A [Sensu Proxy Request](https://docs.sensu.io/sensu-go/latest/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
@@ -293,6 +294,7 @@ end
 * `filters` an array of Sensu event filter names to use
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `secrets` an array of hashes of name/secret pairs to use with command execution
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
@@ -313,6 +315,7 @@ end
 Used to define hooks for sensu checks
 #### Properties
 * `command` **required** command to be executed
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `timeout` duration timeout in seconds (hard stop)
 * `stdin`  If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the hook process to read and close STDIN
 
@@ -338,6 +341,7 @@ Used to define filters for sensu checks
 #### Properties
 * `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
 * `expressions` **required** filter expressions to be compared with event data.
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `when` the [when definition scope](https://docs.sensu.io/sensu-go/latest/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
 
 #### Examples
@@ -364,6 +368,7 @@ A handler can specify a mutator to transform event data. This resource can defin
 #### Properties
 * `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `secrets` an array of hashes of name/secret pairs to use with command execution
 * `timeout` the execution duration timeout in seconds
 #### Examples
@@ -410,6 +415,7 @@ An entity is a representation of anything that needs to be monitored.
 * `entity_class` **required** the entity type, should be either `agent` or `proxy`. Entities should only be created as `agent` in this manner if unable to deploy them through the `sensu_agent` resource on the machine.
 * `deregister` Whether or not the entity should be removed from Sensu once the Sensu agent process's keepalive dies. Not needed for proxy entities.
 * `deregistration` Hash of handlers for use when the entity is deregistered. Not needed for proxy entities.
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `redact` List of items to redact from log messages and dashboard. If a value is provided, it overwrites the default list of items to be redacted.
 * `sensu_agent_version` Version of the agent entity running on the machine. Not needed for proxy entities.
 * `subscriptions` An array of subscriptions. If no subscriptions are provided, it defaults to an entity-specific subscription list: `[entity:{ID}]`.
@@ -530,6 +536,7 @@ Create a secret that Sensu can grab from a secret provider so that sensitive inf
 
 #### Properties
 * `id` **required** The key to use to retrive the secret. For the Env secrets provider, this is the environment variable. For the Vault secrets provider, this is the path and key in the form of `secret/path#key`. Currently, the Vault secrets provider does not support any base engine paths other than "secret/" for v2 K/V secrets engine.
+* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `secrets_provider` **required** Name of the provider, all in lowercase, ex: `'env'`, `'vault'`
 
 #### Examples
