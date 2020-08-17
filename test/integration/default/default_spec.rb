@@ -58,7 +58,7 @@ end
 
 describe json('/etc/sensu/checks/cron-test-org.json') do
   its(%w(type)) { should eq 'Check' }
-  its(%w(metadata name)) { should eq 'cron' }
+  its(%w(metadata name)) { should eq 'cron-test-org' }
   its(%w(metadata namespace)) { should eq 'test-org' }
   its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(%w(spec cron)) { should eq '@hourly' }
@@ -147,7 +147,7 @@ describe json('/etc/sensu/entitys/example-entity.json') do
   its(%w(spec system platform_version)) { should eq '8.1.0' }
 end
 
-describe json('/etc/sensu/entitys/example-entity.json') do
+describe json('/etc/sensu/entitys/example-entity-test-org.json') do
   its(%w(type)) { should eq 'Entity' }
   its(%w(metadata name)) { should eq 'example-entity-test-org' }
   its(%w(spec entity_class)) { should eq 'proxy' }
@@ -178,7 +178,7 @@ end
 describe json('/etc/sensu/hooks/restart_cron_service_test_org.json') do
   its(%w(type)) { should eq 'Hook' }
   its(%w(metadata name)) { should eq 'restart_cron_service_test_org' }
-  its(%w(metadata namespace)) { should eq 'default' }
+  its(%w(metadata namespace)) { should eq 'test-org' }
   its(%w(spec command)) { should eq 'sudo service cron restart' }
   its(%w(spec timeout)) { should eq 60 }
 end
