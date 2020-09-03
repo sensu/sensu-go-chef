@@ -174,7 +174,7 @@ sensu_backend 'default' do
 end
 ```
 ### sensu_agent
-The sensu agent resource will install and configure the agent.
+The sensu agent resource will install and configure the agent. As of Sensu Go 6.0.0, it is no longer possible to update an existing agent configuration with this resource, and an agent entity should be made via [sensu_entity](#sensu_entity).
 **NOTE:** windows agent install is pinned to version 5.10 until available in a consumable package format (likely chocolately)
 #### Properties
 * `version` which version to install, default: *latest*
@@ -404,10 +404,10 @@ end
 ```
 
 ### sensu_entity
-An entity is a representation of anything that needs to be monitored.
+An entity is a representation of anything that needs to be monitored. From Sensu Go 6.0.0 onward, updates of an existing agent entity's subscriptions, labels, annotations, and attributes should be done via this resource, as updating via `sensu_agent` will be ignored.
 
 #### Properties
-* `entity_class` **required** the entity type, should be either `agent` or `proxy`. Entities should only be created as `agent` in this manner if unable to deploy them through the `sensu_agent` resource on the machine.
+* `entity_class` **required** the entity type, should be either `agent` or `proxy`.
 * `deregister` Whether or not the entity should be removed from Sensu once the Sensu agent process's keepalive dies. Not needed for proxy entities.
 * `deregistration` Hash of handlers for use when the entity is deregistered. Not needed for proxy entities.
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
