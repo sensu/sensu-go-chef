@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+- Minor README change for Sensu 6.0.0 handling of agent configs. (@kovukono)
 
 ## [1.0.0] - 2020-07-24
 
