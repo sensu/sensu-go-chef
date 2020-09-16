@@ -68,8 +68,6 @@ sensu_check 'cron' do
   ttl 100
   high_flap_threshold 60
   low_flap_threshold 20
-  subdue(days: { all: [{ begin: '12:00 AM', end: '11:59 PM' },
-                       { begin: '11:00 PM', end: '1:00 AM' }] })
   action :create
 end
 
@@ -246,7 +244,6 @@ The sensu_check resource is used to define check objects.
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `secrets` An array of hashes of name/secret pairs to use with command execution
 * `stdin` If the Sensu agent writes JSON serialized entity and check data to the command process' STDIN
-* `subdue` A [Sensu subdue](https://docs.sensu.io/sensu-go/latest/reference/checks/#subdue-attributes), which is a hash of days of the week
 * `subscriptions` **required** an array of Sensu entity subscriptions that check requests will be sent to
 * `timeout` The check execution duration timeout in seconds
 * `ttl` The value in seconds until check results are considered stale
@@ -265,8 +262,6 @@ sensu_check 'cron' do
   ttl 100
   high_flap_threshold 60
   low_flap_threshold 20
-  subdue(days: { all: [{ begin: '12:00 AM', end: '11:59 PM' },
-                       { begin: '11:00 PM', end: '1:00 AM' }] })
   action :create
 end
 
