@@ -78,7 +78,7 @@ end
     its(%w(type)) { should eq 'Asset' }
     its(%w(metadata name)) { should eq "sensu-plugins-#{p}" }
     its(%w(metadata namespace)) { should eq 'default' }
-    # its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
+    its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
   end
 end
 
