@@ -183,7 +183,6 @@ describe json('/etc/sensu/hooks/restart_cron_service_test_org.json') do
   its(%w(spec timeout)) { should eq 60 }
 end
 
-
 describe json('/etc/sensu/cluster_roles/all_access.json') do
   its(%w(type)) { should eq 'ClusterRole' }
   its(%w(metadata name)) { should eq 'all_access' }
