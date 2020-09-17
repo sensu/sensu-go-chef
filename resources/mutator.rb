@@ -34,6 +34,7 @@ property :command, String, required: true
 property :env_vars, Array
 property :secrets, Array
 property :timeout, Integer
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers

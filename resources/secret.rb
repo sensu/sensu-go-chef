@@ -35,6 +35,7 @@ end
 
 property :id, String, required: true
 property :secrets_provider, String, required: true
+property :namespace, String, default: 'default'
 
 action :create do
   directory object_dir do
