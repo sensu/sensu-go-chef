@@ -87,7 +87,7 @@ describe json('/etc/sensu/assets/multi-build.json') do
   its(%w(type)) { should eq 'Asset' }
   its(%w(metadata name)) { should eq 'multi-build' }
   its(%w(metadata namespace)) { should eq 'default' }
-  # its(['spec', 'builds', 0, 'url']) { should match URI::DEFAULT_PARSER.make_regexp }
+  its(['spec', 'builds', 0, 'url']) { should match URI::DEFAULT_PARSER.make_regexp }
 end
 
 describe json('/etc/sensu/assets/sensu-plugins-disk-checks.json') do
@@ -95,7 +95,7 @@ describe json('/etc/sensu/assets/sensu-plugins-disk-checks.json') do
   its(%w(type)) { should eq 'Asset' }
   its(%w(metadata name)) { should eq 'sensu-plugins-disk-checks' }
   its(%w(metadata namespace)) { should eq 'test-org' }
-  #its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
+  its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
 end
 
 describe json('/etc/sensu/handlers/slack.json') do
