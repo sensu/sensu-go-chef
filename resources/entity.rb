@@ -41,6 +41,7 @@ property :sensu_agent_version, String
 property :subscriptions, Array
 property :system, Hash
 property :user, String
+property :namespace, String, default: 'default'
 
 action :create do
   directory object_dir do

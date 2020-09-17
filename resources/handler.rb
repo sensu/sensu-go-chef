@@ -40,6 +40,7 @@ property :secrets, Array
 property :socket, Hash # can only have host: string, port: int
 property :timeout, Integer
 property :type, String, equal_to: %w(pipe tcp udp set), required: true
+property :namespace, String, default: 'default'
 
 action_class do
   include SensuCookbook::Helpers
