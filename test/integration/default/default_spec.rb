@@ -44,7 +44,7 @@ describe json('/etc/sensu/checks/cron.json') do
   its(%w(type)) { should eq 'Check' }
   its(%w(metadata name)) { should eq 'cron' }
   its(%w(metadata namespace)) { should eq 'default' }
-  # its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(%w(spec cron)) { should eq '@hourly' }
   its(%w(spec subscriptions)) { should include 'dad_jokes' }
   its(%w(spec subscriptions)) { should include 'production' }
@@ -60,7 +60,7 @@ describe json('/etc/sensu/checks/cron-test-org.json') do
   its(%w(type)) { should eq 'Check' }
   its(%w(metadata name)) { should eq 'cron-test-org' }
   its(%w(metadata namespace)) { should eq 'test-org' }
-  # its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
+  its(%w(metadata annotations runbook)) { should eq 'https://www.xkcd.com/378/' }
   its(%w(spec cron)) { should eq '@hourly' }
   its(%w(spec subscriptions)) { should include 'dad_jokes' }
   its(%w(spec subscriptions)) { should include 'production' }
