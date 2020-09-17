@@ -154,11 +154,10 @@ module SensuCookbook
     end
 
     def namespace_from_resource
-      e = {
+      {
         'type' => type_from_name,
         'spec' => { 'name' => new_resource.name },
       }
-      e
     end
 
     def role_from_resource
@@ -175,8 +174,7 @@ module SensuCookbook
       spec = {
         'rules' => new_resource.rules,
       }
-      crole = base_resource(new_resource, spec)
-      crole
+      base_resource(new_resource, spec)
     end
 
     def role_binding_from_resource
@@ -202,8 +200,7 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      cbinding = base_resource(new_resource, spec)
-      cbinding
+      base_resource(new_resource, spec)
     end
 
     def postgres_cfg_from_resource
@@ -211,8 +208,7 @@ module SensuCookbook
         'dsn' => new_resource.dsn,
       }
       spec['pool_size'] = new_resource.pool_size if new_resource.pool_size
-      obj = base_resource(new_resource, spec, 'store/v1')
-      obj
+      base_resource(new_resource, spec, 'store/v1')
     end
 
     def active_directory_from_resource
@@ -220,8 +216,7 @@ module SensuCookbook
       spec['servers'] = new_resource.ad_servers
       spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
       spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
-      ad = base_resource(new_resource, spec, 'authentication/v2')
-      ad
+      base_resource(new_resource, spec, 'authentication/v2')
     end
 
     def secret_from_resource
@@ -242,8 +237,7 @@ module SensuCookbook
       spec['client']['tls'] = new_resource.tls if new_resource.tls
       spec['client']['token'] = new_resource.token if new_resource.token
       spec['client']['version'] = new_resource.version
-      secrets_provider = base_resource(new_resource, spec, 'secrets/v1')
-      secrets_provider
+      base_resource(new_resource, spec, 'secrets/v1')
     end
 
     def latest_version?(version)
