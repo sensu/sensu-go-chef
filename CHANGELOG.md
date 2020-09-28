@@ -5,10 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
-- Minor README change for Sensu 6.0.0 handling of agent configs. (@kovukono)
 
+## [1.1.0] - 2020-09-27
 ### Added
  - The following resources, `sensu_check`, `sensu_entity`, `sensu_filter`, `sensu_handler`, `sensu_hook`, `sensu_mutator`, and `sensu_secret` now expose a `namespace` attribute for controlling where the resource is created. Default is the `default` namespace. @joe-armstrong)
+ - Minor README change for Sensu 6.0.0 handling of agent configs. (@kovukono)
 
 ## [1.0.0] - 2020-07-24
 
@@ -122,7 +123,9 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/sensu/sensu-go-chef/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...1.0.0
 [0.3.0]: https://github.com/sensu/sensu-go-chef/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/sensu/sensu-go-chef/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/sensu/sensu-go-chef/compare/0.0.3...0.1.0
