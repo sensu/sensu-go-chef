@@ -1,1 +1,1 @@
-default['sensu-go']['ctl_version'] = '5.11.1'
+default['sensu-go']['ctl_version'] = '6.1.0'
