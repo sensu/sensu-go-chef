@@ -68,20 +68,20 @@ action :install do
     directory 'c:\sensutemp'
 
     powershell_script 'Download Sensuctl' do
-      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-      not_if "Test-Path c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      not_if "Test-Path c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
     end
 
     seven_zip_archive 'Extract Sensuctl Gz' do
-      path "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
-      source "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
       overwrite true
       timeout   30
     end
 
     seven_zip_archive 'Extract Sensuctl Tar' do
-      path "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
-      source "c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+      path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
+      source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
       overwrite true
       timeout   30
     end
@@ -91,7 +91,7 @@ action :install do
     end
 
     remote_file "#{sensuctl_bin}\\sensuctl.exe" do
-      source "file:///c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
+      source "file:///c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
     end
 
     windows_path sensuctl_bin
