@@ -22,11 +22,14 @@ env:
   global:
     - CHEF_LICENSE="accept-no-persist"
   matrix:
+    - INSTANCE=default-amazonlinux
+    - INSTANCE=default-amazonlinux-2
     - INSTANCE=default-centos-6
     - INSTANCE=default-centos-7
     - INSTANCE=default-ubuntu-1404
     - INSTANCE=default-ubuntu-1604
     - INSTANCE=default-ubuntu-1804
+    - INSTANCE=default-ubuntu-2004
 
 # Ensure we make ChefDK's Ruby the default
 before_script:
