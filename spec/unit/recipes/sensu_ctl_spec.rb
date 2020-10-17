@@ -76,20 +76,16 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'includes the `seven_zip::default` recipe' do
-      expect(chef_run).to include_recipe('seven_zip::default')
-    end
-
     it 'creates a directory `c:\sensutemp`' do
       expect(chef_run).to create_directory('c:\sensutemp')
     end
 
     it 'extracts an archive' do
-      expect(chef_run).to extract_seven_zip_archive('Extract Sensuctl Gz')
+      expect(chef_run).to extract_archive_file('Extract Sensuctl Gz')
     end
 
     it 'extracts the archive' do
-      expect(chef_run).to extract_seven_zip_archive('Extract Sensuctl Tar')
+      expect(chef_run).to extract_archive_file('Extract Sensuctl Tar')
     end
 
     it 'creates a directory `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`' do
