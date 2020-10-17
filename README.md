@@ -449,7 +449,10 @@ sensu_entity 'example-hypervisor-entity' do
   )
 end
 ```
-This example assumes you've designed your proxy check to look for labels (e.g., "entity.labels.proxy_type == 'website'" for the `proxy_requests`' `entity_attributes`).
+This example provides a proxy check for the label where `proxy_requests` `entity_attributes` matches `"entity.labels.proxy_type == 'website'"`. You must define both the entity and the check in your chef recipe.
+
+Define the entity resource:
+
 ```rb
 sensu_entity 'example-website-entity' do
   entity_class 'proxy'
@@ -459,6 +462,25 @@ sensu_entity 'example-website-entity' do
   )
 end
 ```
+
+And define the corresponding proxy check resource:
+
+``` rb
+sensu_check 'proxy_check_proxy_requests' do
+  proxy_entity_name 'example-website-entity'
+  proxy_requests(entity_attributes: [ "entity.labels.proxy_type == 'website'"])
+  subscriptions %w(proxy)
+  handlers %w(pagerduty email)
+  command 'http_check.sh {{ .labels.url }}'
+  interval 60
+  publish true
+  action :create
+end
+```
+
+Note that this check uses [token substitution](https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-schedule/checks/#check-token-substitution) so the command must be in single quotes.
+
+Consult the [proxy check](https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-schedule/checks/#proxy-checks) section of the checks reference documentation for further details.
 
 ### sensu_role
 The combination of Roles and RoleBindings grant users and groups permissions to resources within a namespace. Roles describe which resources and verbs a subject has access to.
