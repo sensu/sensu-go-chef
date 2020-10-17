@@ -385,6 +385,8 @@ At runtime the agent can sequentially fetch assets and store them in its local c
 * `sha512` **required** the checksum of the asset.
 * `url` **required** the URL location of the asset.
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `builds` List, defines multiple artifacts that provide the named asset.
+* `headers` Optional HTTP headers to apply to dynamic runtime asset retrieval
 
 #### Examples
 ```rb

@@ -58,6 +58,7 @@ assets.each do |name, property|
     url property['url']
     sha512 property['checksum']
     namespace property['namespace']
+    headers property['headers'] if property['headers']
   end
 end
 
