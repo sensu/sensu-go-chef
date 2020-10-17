@@ -76,24 +76,8 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'creates a directory `c:\sensutemp`' do
-      expect(chef_run).to create_directory('c:\sensutemp')
-    end
-
     it 'extracts an archive' do
-      expect(chef_run).to extract_archive_file('Extract Sensuctl Gz')
-    end
-
-    it 'extracts the archive' do
-      expect(chef_run).to extract_archive_file('Extract Sensuctl Tar')
-    end
-
-    it 'creates a directory `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`' do
-      expect(chef_run).to create_directory('c:\Program Files\Sensu\sensu-cli\bin\sensuctl')
-    end
-
-    it 'creates a remote_file `c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe`' do
-      expect(chef_run).to create_remote_file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe')
+      expect(chef_run).to extract_archive_file('Extract Sensuctl')
     end
 
     it 'adds `c:\Program Files\Sensu\sensu-cli\bin\sensuctl` to windows path' do
