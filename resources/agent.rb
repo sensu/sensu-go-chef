@@ -23,8 +23,6 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'yaml'
-
 resource_name :sensu_agent
 provides :sensu_agent
 
@@ -59,7 +57,7 @@ action :install do
 
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
-      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      content(YAML.dump(JSON.parse(new_resource.config.to_json)).to_s)
       notifies :restart, 'service[sensu-agent]', :delayed
     end
 

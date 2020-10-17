@@ -18,23 +18,26 @@ See the [sensu](https://supermarket.chef.io/cookbooks/sensu) cookbook if you wis
 
 ## Requirements
 
-* Chef 12.5 or higher.
+* Chef 15.0 or higher.
 * Network accessible package repositories.
 
 ## Platform Support
 The following platforms have been tested with Test Kitchen. It will most likely work on other platforms as well.
 
-| Platform | Supported Version|
-|---------------|-------|
-|               | 0.0.1 |
-| centos-6      | X     |
-| centos-7      | X     |
-| fedora        | X     |
-| ubuntu-14.04  | X     |
-| ubuntu-16.04  | X     |
-| windows-2012r2 | Agent Only |
-| windows-2016 | Agent Only |
-| windows-2019 | Agent Only |
+| Platform       | Supported Version |
+|----------------|-------------------|
+|                | 0.0.1             |
+| amazonlinux    | X                 |
+| amazonlinux-2  | X                 |
+| centos-6       | X                 |
+| centos-7       | X                 |
+| fedora         | X                 |
+| ubuntu-16.04   | X                 |
+| ubuntu-18.04   | X                 |
+| ubuntu-20.04   | X                 |
+| windows-2012r2 | Agent Only        |
+| windows-2016   | Agent Only        |
+| windows-2019   | Agent Only        |
 
 ## Cookbook Dependencies
 
