@@ -5,9 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
-- Fix yaml rendering for agent and backend with Chef 16.x
-- Updated the attributes for `agent` and `ctl` to version `6.1.0`. (@derekgroh)
+
+## [1.2.0] - 2020-10-17
+### Fixed
+- Fix yaml rendering for agent and backend with Chef 16.x (@webframp)
+
+### Added
 - Add `header` property support to `sensu_asset` resource. (@webframp)
+
+### Changed
+- Updated the attributes for `agent` and `ctl` (windows only) to version `6.1.0`. On linux the behavior is unchanged; installed by a single package and default to `latest` unless a version is specified. (@derekgroh)
+
 
 ## [1.1.0] - 2020-09-27
 ### Added
@@ -126,7 +134,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu/sensu-go-chef/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...1.0.0
 [0.3.0]: https://github.com/sensu/sensu-go-chef/compare/0.2.0...0.3.0
