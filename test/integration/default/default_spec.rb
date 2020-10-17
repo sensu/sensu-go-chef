@@ -82,6 +82,11 @@ end
   end
 end
 
+# http test data has optional header field defined
+describe json('/etc/sensu/assets/sensu-plugins-http.json') do
+  its(%w(spec headers X-Forwarded-For)) { should eq 'client1, proxy1, proxy2' }
+end
+
 describe json('/etc/sensu/assets/multi-build.json') do
   require 'uri'
   its(%w(type)) { should eq 'Asset' }

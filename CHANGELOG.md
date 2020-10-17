@@ -7,6 +7,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 - Fix yaml rendering for agent and backend with Chef 16.x
 - Updated the attributes for `agent` and `ctl` to version `6.1.0`. (@derekgroh)
+- Add `header` property support to `sensu_asset` resource. (@webframp)
 
 ## [1.1.0] - 2020-09-27
 ### Added

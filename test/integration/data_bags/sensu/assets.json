@@ -3,7 +3,8 @@
   "sensu-plugins-http": {
     "url": "https://github.com/sensu-plugins/sensu-plugins-http/archive/2.9.0.tar.gz",
     "checksum": "b57cacd2b479f41b5d002c037ac3005e7a655d1dfae93c457f0c19dde21fc992771b5d290a2cce9255578d9bd2fc88075646e3e0e02e3c01d8e1e274ae0b7376",
-    "namespace": "default"
+    "namespace": "default",
+    "headers": { "X-Forwarded-For": "client1, proxy1, proxy2" }
   },
   "sensu-plugins-docker": {
     "url": "https://github.com/sensu-plugins/sensu-plugins-docker/archive/3.0.0.tar.gz",

@@ -57,6 +57,7 @@ property :builds, Array, default: [], required: false, callbacks: {
   end,
 }
 property :namespace, String, default: 'default'
+property :headers, Hash, default: {}
 
 action_class do
   include SensuCookbook::Helpers
