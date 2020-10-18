@@ -6,6 +6,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+- `sensu_auth_ldap` resource for ldap integration. (@webframp)
 - `sensu_auth_oidc` resource added (@webframp)
 
 ## [1.2.0] - 2020-10-17
