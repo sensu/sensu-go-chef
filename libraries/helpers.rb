@@ -220,6 +220,21 @@ module SensuCookbook
       base_resource(new_resource, spec, 'authentication/v2')
     end
 
+    def auth_oidc_from_resource
+      spec = {}
+      spec['additional_scopes'] = new_resource.additional_scopes if new_resource.additional_scopes
+      spec['client_id'] = new_resource.client_id
+      spec['client_secret'] = new_resource.client_secret
+      spec['disable_offline_access'] = new_resource.disable_offline_access
+      spec['redirect_uri'] = new_resource.redirect_uri if new_resource.redirect_uri
+      spec['server'] = new_resource.server
+      spec['groups_claim'] = new_resource.groups_claim
+      spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
+      spec['username_claim'] = new_resource.username_claim
+      spec['username_prefix'] = new_resource.username_prefix if new_resource.username_prefix
+      base_resource(new_resource, spec, 'authentication/v2')
+    end
+
     def secret_from_resource
       spec = {}
       spec['id'] = new_resource.id
