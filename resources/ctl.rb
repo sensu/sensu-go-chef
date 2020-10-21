@@ -65,7 +65,7 @@ action :install do
     # This is awaiting a packaged method to be delivered, but provides a resource currently.
     include_recipe 'seven_zip'
 
-    if shell_out('where sensuctl').error?
+    unless shell_out('sensuctl version').stdout.match?("sensuctl version #{node['sensu-go']['ctl_version']}")
       directory 'c:\sensutemp'
 
       powershell_script 'Download Sensuctl' do
