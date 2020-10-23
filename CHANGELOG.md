@@ -6,6 +6,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 ### Fixed
+- `sensu_auth_oidc` resource added (@webframp)
 - Fixed outfile for sensuctl install for Windows, as well as preventing unnecessary downloads for install. Fixed configure action for Windows that was unable to parse array. (@kovukono)
 
 ## [1.2.0] - 2020-10-17

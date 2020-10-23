@@ -553,6 +553,33 @@ sensu_active_directory 'active_directory' do
 end
 ```
 
+### sensu_auth_oidc
+An OIDC  configuration applied to Sensu Go (commercial feature). Configuring OIDC is beyond the scope of this document, consult the sensu documentation for [OpenID Connect authentication](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#openid-connect-10-protocol-oidc-authentication) and for [Registering an OIDC application](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#register-an-oidc-application)
+
+* `additional_scopes` Scopes to include in the claims, in addition to the default `openid` scope.
+* `client_id` **required**
+* `client_secret` **required** The OIDC provider Client Secret. This value should be dynamically retrieved from a secret store such as chef-vault
+* `disable_offline_access`
+* `redirect_uri`
+* `server` **required** The location of the OIDC server you wish to authenticate against.
+* `groups_claim`
+* `groups_prefix`
+* `username_prefix`
+* `username_claim`
+* `resource_type`
+
+#### Examples
+``` rb
+sensu_auth_oidc 'fake_okta' do
+  additional_scopes ["groups", "email"]
+  client_id "a8e43af034e7f2608780"
+  # Demo only! The client secret value should come from somewhere like chef-vault
+  client_secret "b63968394be6ed2edb61c93847ee792f31bf6216"
+  redirect_uri "http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback"
+  server "https://oidc.example.com:9031"
+end
+```
+
 ### sensu_secret
 Create a secret that Sensu can grab from a secret provider so that sensitive information is not exposed (commercial feature).
 
