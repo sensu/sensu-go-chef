@@ -301,6 +301,15 @@ sensu_active_directory 'example-active-directory-alias' do
   }]
 end
 
+sensu_auth_oidc 'fake_okta' do
+  additional_scopes %w(groups email)
+  client_id 'a8e43af034e7f2608780'
+  # Demo only! The client secret value should come from somewhere like chef-vault
+  client_secret 'b63968394be6ed2edb61c93847ee792f31bf6216'
+  redirect_uri 'http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback'
+  server 'https://oidc.example.com:9031'
+end
+
 sensu_secrets_provider 'vault' do
   provider_type 'VaultProvider'
   address 'https://vaultserver.example.com:8200'

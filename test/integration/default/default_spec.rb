@@ -220,6 +220,20 @@ end
   end
 end
 
+describe json('/etc/sensu/auth_oidc/fake_okta.json') do
+  its(%w(type)) { should eq 'oidc' }
+  its(%w(metadata name)) { should eq 'fake_okta' }
+  its(%w(api_version)) { should eq 'authentication/v2' }
+  its(%w(spec client_id)) { should eq 'a8e43af034e7f2608780' }
+  its(%w(spec client_secret)) { should eq 'b63968394be6ed2edb61c93847ee792f31bf6216' }
+  its(%w(spec additional_scopes)) { should include 'groups' }
+  its(%w(spec disable_offline_access)) { should eq false }
+  its(%w(spec redirect_uri)) { should eq 'http://sensu-backend.example.com:8080/api/enterprise/authentication/v2/oidc/callback' }
+  its(%w(spec server)) { should eq 'https://oidc.example.com:9031' }
+  its(%w(spec groups_claim)) { should eq 'groups' }
+  its(%w(spec username_claim)) { should eq 'email' }
+end
+
 describe json('/etc/sensu/secrets_providers/vault.json') do
   its(%w(type)) { should eq 'VaultProvider' }
   its(%w(metadata name)) { should eq 'vault' }
