@@ -37,9 +37,10 @@ property :auth_servers, Array, required: true
 property :groups_prefix, String
 property :username_prefix, String
 property :resource_type, String, default: 'ad'
-# maintain backward compat with released cookbook versions for now
-alias_method :ad_servers, :auth_servers
 alias_method :servers, :auth_servers
+
+# maintain backward compat with released cookbook versions for now, but warn users
+deprecated_property_alias 'ad_servers', 'servers', 'ad_servers property was renamed to servers in v1.3.0 release of this cookbook. Please update recipes to use the new property name.'
 
 action :create do
   directory object_dir(false) do
