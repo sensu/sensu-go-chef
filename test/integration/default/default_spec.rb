@@ -303,3 +303,10 @@ end
 describe json('/etc/sensu/etcd_replicator/insecure_role_replicator.json') do
   its(%w(spec insecure)) { should eq true }
 end
+
+describe json('/etc/sensu/search/check-config.json') do
+  its(%w(type)) { should eq 'Search' }
+  its(%w(metadata name)) { should eq 'check-config' }
+  its(%w(metadata namespace)) { should eq 'default' }
+  its(%w(spec resource)) { should eq 'core.v2/CheckConfig' }
+end
