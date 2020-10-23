@@ -37,11 +37,12 @@ action_class do
   end
 
   def check_resource_semantics!
-    error_msg = "\n\nFor the resource: #{new_resource.name} the property 'insecure' is set to 'false'.\n"\
-               "This is the default and enables transport security for replication.\n"\
-               "Transport security requires both 'cert' and 'key' properties of"\
-               'this resource to be set to valid local paths.'\
-               "Please set these values.\n\n"
+    error_msg = <<-EOH
+\n\nFor the resource: #{new_resource.name} the property 'insecure' is set to 'false'.
+This is the default and enables transport security for replication.
+Transport security requires both 'cert' and 'key' properties of this resource to be set to valid local paths.
+Please set these values.
+EOH
 
     if missing_secure_transport_property(new_resource.cert)
       raise error_msg

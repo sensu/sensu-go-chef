@@ -732,9 +732,11 @@ end
 ```
 
 ### sensu_etcd_replicator
+
 Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. This resource allows you to set up etcd mirrors for one-way key replication (commercial feature).
 
 #### Properties
+
 * `ca_cert` Path to an the PEM-format CA certificate to use for TLS client authentication. *Required if using default transport security*
 * `cert` Path to the PEM-format certificate to use for TLS client authentication. *Required if using default transport security*
 * `key` Path to the PEM-format key file associated with the cert to use for TLS client authentication. *Required if using default transport security*
