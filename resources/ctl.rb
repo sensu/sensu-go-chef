@@ -65,40 +65,42 @@ action :install do
     # This is awaiting a packaged method to be delivered, but provides a resource currently.
     include_recipe 'seven_zip'
 
-    directory 'c:\sensutemp'
+    unless shell_out('sensuctl version').stdout.match?("sensuctl version #{node['sensu-go']['ctl_version']}")
+      directory 'c:\sensutemp'
 
-    powershell_script 'Download Sensuctl' do
-      code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-enterprise-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-      not_if "Test-Path c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-    end
+      powershell_script 'Download Sensuctl' do
+        code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+        not_if "Test-Path c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+      end
 
-    seven_zip_archive 'Extract Sensuctl Gz' do
-      path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
-      source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-      overwrite true
-      timeout   30
-    end
+      seven_zip_archive 'Extract Sensuctl Gz' do
+        path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+        source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+        overwrite true
+        timeout   30
+      end
 
-    seven_zip_archive 'Extract Sensuctl Tar' do
-      path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
-      source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
-      overwrite true
-      timeout   30
-    end
+      seven_zip_archive 'Extract Sensuctl Tar' do
+        path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64"
+        source "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar"
+        overwrite true
+        timeout   30
+      end
 
-    directory sensuctl_bin do
-      recursive true
-    end
+      directory sensuctl_bin do
+        recursive true
+      end
 
-    remote_file "#{sensuctl_bin}\\sensuctl.exe" do
-      source "file:///c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
-    end
+      remote_file "#{sensuctl_bin}\\sensuctl.exe" do
+        source "file:///c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64/sensuctl.exe"
+      end
 
-    windows_path sensuctl_bin
+      windows_path sensuctl_bin
 
-    directory 'c:\sensutemp' do
-      action :delete
-      recursive true
+      directory 'c:\sensutemp' do
+        action :delete
+        recursive true
+      end
     end
   end
 end
