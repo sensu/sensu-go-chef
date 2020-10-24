@@ -24,7 +24,7 @@ Test Kitchen is configured to use vagrant by default and uses [inspec](https://w
 
 A configuration is also provided to use [kitchen-dokken](https://github.com/someara/kitchen-dokken) for testing. To use dokken instead of vagrant docker must be installed.
 
-```text
+```sh
 $ export KITCHEN_LOCAL_YAML=.kitchen.dokken.yml
 $ kitchen list
 Instance             Driver  Provisioner  Verifier  Transport  Last Action    Last Error
