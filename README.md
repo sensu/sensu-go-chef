@@ -731,6 +731,46 @@ sensu_secrets_provider 'vault' do
 end
 ```
 
+### sensu_etcd_replicator
+
+Etcd replicators allow you to manage RBAC resources in one place and mirror the changes to follower clusters. This resource allows you to set up etcd mirrors for one-way key replication (commercial feature).
+
+#### Properties
+
+* `ca_cert` Path to an the PEM-format CA certificate to use for TLS client authentication. *Required if using default transport security*
+* `cert` Path to the PEM-format certificate to use for TLS client authentication. *Required if using default transport security*
+* `key` Path to the PEM-format key file associated with the cert to use for TLS client authentication. *Required if using default transport security*
+* `insecure` Set to true to disable transport security. *Not Recommended*. Default: `false`
+* `url` Destination cluster URL. Use comma separated list in single quotes for more than one.
+* `api_version` API version of the resource to replicate.
+* `resource` Name of the resource to replicate.
+* `namespace` Namespace to replicate or all namespaces for a given resource type if not set.
+* `replication_interval_seconds` Interval in seconds for replication.
+
+#### Examples
+
+``` rb
+sensu_etcd_replicator 'insecure_role_replicator' do
+  insecure true # NOTE: Disable transport security with care.
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_binding_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'RoleBinding'
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

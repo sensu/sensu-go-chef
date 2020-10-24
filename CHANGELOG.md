@@ -7,6 +7,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 
 - `sensu_auth_oidc` resource added (@webframp)
+- `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
 
 ## [1.2.0] - 2020-10-17
 
