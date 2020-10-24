@@ -2,7 +2,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/sensu/sensu-go-chef)](https://ci.appveyor.com/project/sensu/sensu-go-chef)
 [![Build Status](https://travis-ci.org/sensu/sensu-go-chef.svg?branch=master)](https://travis-ci.org/sensu/sensu-go-chef)
 [![Cookbook Version](https://img.shields.io/cookbook/v/sensu-go.svg)](https://supermarket.chef.io/cookbooks/sensu-go)
-[![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/badge)
+[![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/)
 
 
 **[Under Construction]** Chef Cookbook for The Sensu Go project
@@ -235,7 +235,7 @@ The sensu_check resource is used to define check objects.
 * `config_home` default: */etc/sensu*
 * `check_hooks` an array of hook name to run in response to the check
 * `command` **required** the check command to execute
-* `cron` a schedule for the check, in cron format or a [predefined schedule](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules)
+* `cron` a schedule for the check, in cron format or a [predefined schedule](https://pkg.go.dev/github.com/robfig/cron#hdr-Predefined_schedules)
 * `handlers` an array of handlers to run in response to the check, default: *[]*
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
