@@ -7,15 +7,18 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [Unreleased]
 
 ### Fixed
+
 - Fixed outfile for sensuctl install for Windows, as well as preventing unnecessary downloads for install. Fixed configure action for Windows that was unable to parse array. (@kovukono)
 
 ### Added
+
 - `sensu_auth_oidc` resource added (@webframp)
 - `sensu_auth_ldap` resource for ldap integration. (@webframp)
 - `sensu_auth_oidc` resource added (@webframp)
 - `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
 
 ### Changed
+
 - Rename `:ad_servers` property of `sensu_active_diretory` resource to `:auth_servers`. For consistency with `sensu_auth_ldap` resource this property was renamed and will be removed in a future cookbook version. (@webframp)
 
 ## [1.2.0] - 2020-10-17
