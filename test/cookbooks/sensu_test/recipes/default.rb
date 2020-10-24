@@ -364,3 +364,37 @@ sensu_secret 'env-secret-default' do
   id 'CONSUL_TOKEN'
   secrets_provider 'env'
 end
+
+sensu_etcd_replicator 'insecure_role_replicator' do
+  insecure true
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_binding_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'RoleBinding'
+end
+
+sensu_etcd_replicator 'cluster_role_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'ClusterRole'
+end
+
+sensu_etcd_replicator 'cluster_role_binding_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'ClusterRoleBinding'
+end
