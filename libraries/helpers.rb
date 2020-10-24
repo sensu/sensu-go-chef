@@ -214,11 +214,15 @@ module SensuCookbook
 
     def active_directory_from_resource
       spec = {}
-      spec['servers'] = new_resource.ad_servers
+      spec['servers'] = new_resource.auth_servers
       spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
       spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
       base_resource(new_resource, spec, 'authentication/v2')
     end
+
+    # Spec for this is nearly identical to AD config spec but with a different type
+    # https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#ldap-configuration-examples
+    alias_method :auth_ldap_from_resource, :active_directory_from_resource
 
     def auth_oidc_from_resource
       spec = {}

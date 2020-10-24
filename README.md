@@ -651,6 +651,37 @@ sensu_auth_oidc 'fake_okta' do
 end
 ```
 
+### sensu_auth_ldap
+
+An ldap configuration to be applied to Sensu Go (commercial feature).
+
+#### Properties
+
+* `groups_prefix` Prefix for groups to include.
+* `username_prefix` Prefix for users to include.
+* `servers` **required** An array of ldap servers to connect to, including all of their properties as hashes. See [LDAP authentication](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication)
+
+#### Examples
+
+```rb
+sensu_auth_ldap 'openldap' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+      'attribute': 'member'
+      'object_class': 'groupOfNames'
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+      'attribute': 'uid',
+      'name_attribute': 'cn',
+      'object_class': 'person'
+    },
+  }]
+end
+```
+
 ### sensu_secret
 
 Create a secret that Sensu can grab from a secret provider so that sensitive information is not exposed (commercial feature).

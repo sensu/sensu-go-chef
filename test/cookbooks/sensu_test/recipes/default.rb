@@ -310,6 +310,30 @@ sensu_auth_oidc 'fake_okta' do
   server 'https://oidc.example.com:9031'
 end
 
+sensu_auth_ldap 'example-auth-ldap' do
+  auth_servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end
+
+sensu_auth_ldap 'example-auth-ldap-alias' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end
+
 sensu_secrets_provider 'vault' do
   provider_type 'VaultProvider'
   address 'https://vaultserver.example.com:8200'

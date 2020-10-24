@@ -234,6 +234,14 @@ describe json('/etc/sensu/auth_oidc/fake_okta.json') do
   its(%w(spec username_claim)) { should eq 'email' }
 end
 
+%w(example-auth-ldap example-auth-ldap-alias).each do |ldap_name|
+  describe json("/etc/sensu/auth_ldap/#{ldap_name}.json") do
+    its(%w(type)) { should eq 'ldap' }
+    its(%w(api_version)) { should eq 'authentication/v2' }
+    its(%w(metadata name)) { should eq ldap_name }
+  end
+end
+
 describe json('/etc/sensu/secrets_providers/vault.json') do
   its(%w(type)) { should eq 'VaultProvider' }
   its(%w(metadata name)) { should eq 'vault' }
