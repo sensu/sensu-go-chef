@@ -1,13 +1,15 @@
 # sensu-go
+
+[![CI State](https://github.com/sensu/sensu-go-chef/workflows/ci/badge.svg)](https://github.com/sensu/sensu-go-chef/actions?query=workflow%3Aci)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/sensu/sensu-go-chef)](https://ci.appveyor.com/project/sensu/sensu-go-chef)
 [![Build Status](https://travis-ci.org/sensu/sensu-go-chef.svg?branch=master)](https://travis-ci.org/sensu/sensu-go-chef)
 [![Cookbook Version](https://img.shields.io/cookbook/v/sensu-go.svg)](https://supermarket.chef.io/cookbooks/sensu-go)
-[![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/badge)
-
+[![Community Slack](https://slack.sensu.io/badge.svg)](https://slack.sensu.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 **[Under Construction]** Chef Cookbook for The Sensu Go project
 
-### Community
+## Community
 
 Sensu is discussed in many places but typically the best place to get adhoc general help is through or community slack in `#chef` channel.
 
@@ -22,6 +24,7 @@ See the [sensu](https://supermarket.chef.io/cookbooks/sensu) cookbook if you wis
 * Network accessible package repositories.
 
 ## Platform Support
+
 The following platforms have been tested with Test Kitchen. It will most likely work on other platforms as well.
 
 | Platform       | Supported Version |
@@ -107,6 +110,7 @@ end
 For more details look at the [TESTING.md](./TESTING.md).
 
 ## Resource Overview
+
 These resources primarily work by writing the Sensu 5.x object definitions to a local path and then using the sensuctl command line to reconfigure the definitions known to the sensu backend.
 
 * [sensu_backend](#sensu_backend): Install and configure the Sensu backend
@@ -132,6 +136,7 @@ These resources primarily work by writing the Sensu 5.x object definitions to a 
 ## Resource Details
 
 ### Common properties
+
 Sensu resources that support metadata attributes share these common properties:
 
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
@@ -141,9 +146,11 @@ Sensu resources that support metadata attributes share these common properties:
 `name` metadata will be set automatically from the resource name
 
 ### sensu_backend
+
 The sensu backend resource can configure the core sensu backend service.
 
 #### Properties
+
 * `version` which version to install, default: *latest*
 * `repo` which repo to pull package from, default: *sensu/stable*. If using private yum or apt repository, this is the baseurl/uri.
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
@@ -154,20 +161,24 @@ The sensu backend resource can configure the core sensu backend service.
 * `password` the password to initialize the backend with
 
 #### Examples
+
 ```rb
 sensu_backend 'default'
 ```
 
 For using packages built from source:
+
 ```
 sensu_backend 'default' do
   distribution 'source'
   repo 'https://my-custom-repo.com/yum/$releasever/$basearch/'
 end
 ```
+
 Optionally pass configuration values for the backend:
 
-**(insecure example, don't really do this)**
+##### (insecure example, don't really do this)
+
 ```rb
 sensu_backend 'default' do
   repo 'sensu/stable'
@@ -176,21 +187,26 @@ sensu_backend 'default' do
           'insecure-skip-tls-verify' => true})
 end
 ```
+
 ### sensu_agent
+
 The sensu agent resource will install and configure the agent. As of Sensu Go 6.0.0, it is no longer possible to update an existing agent configuration with this resource, and an agent entity should be made via [sensu_entity](#sensu_entity).
 **NOTE:** windows agent install is pinned to version 5.10 until available in a consumable package format (likely chocolately)
+
 #### Properties
+
 * `version` which version to install, default: *latest*
 * `repo` which repo to pull package from, default: *sensu/stable*
 * `config_home` where to store the generated object definitions, default: */etc/sensu*
 * `config` a hash of configuration
 
 #### Examples
+
 ```rb
 sensu_agent 'default'
 ```
 
-**(insecure example, don't really do this)**
+##### (insecure example, don't really do this)
 
 ```rb
 sensu_agent 'default' do
@@ -212,17 +228,23 @@ end
 ```
 
 ### sensu_ctl
+
 Installs and configures the sensuctl cli
+
 #### Properties
+
 * `version` which version to install, default: *latest*
 * `repo` which repo to pull package from, default: *sensu/nightly*
 * `username` username for connecting to the sensu backend
 * `password` password for connecting to the sensu backend
 * `backend_url` url for the sensu backend, default: `http://127.0.0.1:8080`
+
 #### Examples
+
 ```rb
 sensu_ctl 'default'
 ```
+
 ```rb
 sensu_ctl 'default' do
   backend_url 'https://sensu.startup.horse'
@@ -230,12 +252,15 @@ end
 ```
 
 ### sensu_check
+
 The sensu_check resource is used to define check objects.
+
 #### Properties
+
 * `config_home` default: */etc/sensu*
 * `check_hooks` an array of hook name to run in response to the check
 * `command` **required** the check command to execute
-* `cron` a schedule for the check, in cron format or a [predefined schedule](https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules)
+* `cron` a schedule for the check, in cron format or a [predefined schedule](https://pkg.go.dev/github.com/robfig/cron#hdr-Predefined_schedules)
 * `handlers` an array of handlers to run in response to the check, default: *[]*
 * `high_flap_threshold` The flap detection high threshold, in percent
 * `interval` The frequency in seconds the check is executed.
@@ -255,6 +280,7 @@ The sensu_check resource is used to define check objects.
 * `output_metric_handlers` (optional) an array of handlers for output metrics from this check
 
 #### Examples
+
 ```rb
 sensu_check 'cron' do
   command '/bin/true'
@@ -286,7 +312,9 @@ end
 ```
 
 ### sensu_handler
+
 #### Properties
+
 * `command` the command to run *only allowd if type is pipe*
 * `env_vars` an array of environment variables to use with command execution *only allowed if type is pipe*
 * `filters` an array of Sensu event filter names to use
@@ -300,6 +328,7 @@ end
 * `type` **required** handler type, one of *pipe, tcp, udp* or *set*
 
 #### Examples
+
 ```rb
 sensu_handler 'tcp_handler' do
   type 'tcp'
@@ -309,15 +338,20 @@ sensu_handler 'tcp_handler' do
   timeout 30
 end
 ```
+
 ### sensu_hook
+
 Used to define hooks for sensu checks
+
 #### Properties
+
 * `command` **required** command to be executed
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `timeout` duration timeout in seconds (hard stop)
 * `stdin`  If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the hook process to read and close STDIN
 
 #### Examples
+
 ```rb
 sensu_hook 'restart_nginx' do
   command 'sudo systemctl start nginx'
@@ -335,14 +369,18 @@ end
 ```
 
 ### sensu_filter
+
 Used to define filters for sensu checks
+
 #### Properties
+
 * `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
 * `expressions` **required** filter expressions to be compared with event data.
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `when` the [when definition scope](https://docs.sensu.io/sensu-go/latest/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
 
 #### Examples
+
 ```rb
 sensu_filter 'production_filter' do
   filter_action 'allow'
@@ -362,14 +400,19 @@ end
 ```
 
 ### sensu_mutator
+
 A handler can specify a mutator to transform event data. This resource can define named resources to be used by handlers.
+
 #### Properties
+
 * `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `secrets` an array of hashes of name/secret pairs to use with command execution
 * `timeout` the execution duration timeout in seconds
+
 #### Examples
+
 The following defines a filter that uses a Sensu plugin called `example_mutator.rb` to modify event data prior to handling the event.
 
 ```rb
@@ -378,9 +421,13 @@ sensu_mutator 'example-mutator' do
   timeout 60
 end
 ```
+
 ### sensu_asset
+
 At runtime the agent can sequentially fetch assets and store them in its local cache but these must first be defined by name for the sensu backend.
+
 #### Properties
+
 * `filters` a set of filter criteria used by the agent to determine of the asset should be installed.
 * `sha512` **required** the checksum of the asset.
 * `url` **required** the URL location of the asset.
@@ -389,6 +436,7 @@ At runtime the agent can sequentially fetch assets and store them in its local c
 * `headers` Optional HTTP headers to apply to dynamic runtime asset retrieval
 
 #### Examples
+
 ```rb
 sensu_asset 'asset_example' do
   url 'http://example.com/asset/example.tar'
@@ -400,8 +448,11 @@ end
 ```
 
 ### sensu_namespace
+
 A Namespace partitions resources within Sensu, this replaces organizations/environments. The resource name is the namespace name.
+
 #### Examples
+
 ```rb
 sensu_namespace 'example_namespace' do
   action :create
@@ -409,9 +460,11 @@ end
 ```
 
 ### sensu_entity
+
 An entity is a representation of anything that needs to be monitored. From Sensu Go 6.0.0 onward, updates of an existing agent entity's subscriptions, labels, annotations, and attributes should be done via this resource, as updating via `sensu_agent` will be ignored.
 
 #### Properties
+
 * `entity_class` **required** the entity type, should be either `agent` or `proxy`.
 * `deregister` Whether or not the entity should be removed from Sensu once the Sensu agent process's keepalive dies. Not needed for proxy entities.
 * `deregistration` Hash of handlers for use when the entity is deregistered. Not needed for proxy entities.
@@ -423,7 +476,9 @@ An entity is a representation of anything that needs to be monitored. From Sensu
 * `user` Sensu RBAC username used by the entity.
 
 #### Examples
+
 This example assumes that you've designed your proxy check to look for subscriptions (e.g., "entity.subscriptions.indexOf('hypervisor') >= 0" for the `proxy_requests`' `entity_attributes`).
+
 ```rb
 sensu_entity 'example-hypervisor-entity' do
   entity_class 'proxy'
@@ -449,6 +504,7 @@ sensu_entity 'example-hypervisor-entity' do
   )
 end
 ```
+
 This example provides a proxy check for the label where `proxy_requests` `entity_attributes` matches `"entity.labels.proxy_type == 'website'"`. You must define both the entity and the check in your chef recipe.
 
 Define the entity resource:
@@ -483,15 +539,19 @@ Note that this check uses [token substitution](https://docs.sensu.io/sensu-go/la
 Consult the [proxy check](https://docs.sensu.io/sensu-go/latest/observability-pipeline/observe-schedule/checks/#proxy-checks) section of the checks reference documentation for further details.
 
 ### sensu_role
+
 The combination of Roles and RoleBindings grant users and groups permissions to resources within a namespace. Roles describe which resources and verbs a subject has access to.
 
 #### Properties
+
 * `rules` **required** an array of hashes, describing permissions granted by the role. See [Role and Cluster Role Rule attribute specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#rule-attributes) for details.
 
 ### sensu_role_binding
+
 The combination of Roles and RoleBindings grant users and groups permissions to resources within a namespace. RoleBindings describe the association of a role with one or more subjects.
 
 #### Properties
+
 * `role_name` **required** the name of the role
 * `role_type` **required** the role type, either `Role` or `ClusterRole`
 * `subjects` **required** an array of hashes, each describing the `name` and `type` of a subject which is granted the permissions described by the named role.
@@ -499,20 +559,25 @@ The combination of Roles and RoleBindings grant users and groups permissions to 
 See [Role binding and Cluster Role binding specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-binding-and-cluster-role-binding-specification) for additional details.
 
 ### sensu_cluster_role
+
 The combination of ClusterRoles and ClusterRoleBindings grant users and groups permissions to resources across all namespaces. ClusterRoles describe which resources and verbs a subject has access to.
 
 #### Properties
+
 * `rules` **required** an array of hashes, describing permissions granted by the role. See [Role and Cluster Role Rule attribute specification](https://docs.sensu.io/sensu-go/latest/reference/rbac/#rule-attributes) for details.
 
 ### sensu_cluster_role_binding
+
 The combination of ClusterRoles and ClusterRoleBindings grant users and groups permissions to resources within a namespace. ClusterRoleBindings describe the association of a role with one or more subjects.
 
 #### Properties
+
 * `role_name` **required** the name of the role
 * `role_type` **required** the role type, either `Role` or `ClusterRole`
 * `subjects` **required** an array of hashes, each describing the `name` and `type` of a subject which is granted the permissions described by the named role.
 
 ### sensu_postgres_config
+
 Configure Sensu to store events in a [PostgreSQL](https://www.postgresql.org/) database.
 
 #### Properties
@@ -523,6 +588,7 @@ Configure Sensu to store events in a [PostgreSQL](https://www.postgresql.org/) d
 See [PostgreSQL docs](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING) for more information about connection strings.
 
 #### Examples
+
 ```rb
 sensu_postgres_config 'default' do
     dsn "postgresql://sensu:pgtesting123@127.0.0.1:5432/sensu_events?sslmode=disable"
@@ -531,14 +597,17 @@ end
 ```
 
 ### sensu_active_directory
+
 An active directory configuration to be applied to Sensu Go (commercial feature).
 
 #### Properties
+
 * `groups_prefix` Prefix for groups to include.
 * `username_prefix` Prefix for users to include.
 * `servers` **required** An array of active directory servers to connect to, including all of their properties.
 
 #### Examples
+
 ```rb
 sensu_active_directory 'active_directory' do
   servers [{
@@ -554,6 +623,7 @@ end
 ```
 
 ### sensu_auth_oidc
+
 An OIDC  configuration applied to Sensu Go (commercial feature). Configuring OIDC is beyond the scope of this document, consult the sensu documentation for [OpenID Connect authentication](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#openid-connect-10-protocol-oidc-authentication) and for [Registering an OIDC application](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#register-an-oidc-application)
 
 * `additional_scopes` Scopes to include in the claims, in addition to the default `openid` scope.
@@ -569,6 +639,7 @@ An OIDC  configuration applied to Sensu Go (commercial feature). Configuring OID
 * `resource_type`
 
 #### Examples
+
 ``` rb
 sensu_auth_oidc 'fake_okta' do
   additional_scopes ["groups", "email"]
@@ -581,14 +652,17 @@ end
 ```
 
 ### sensu_secret
+
 Create a secret that Sensu can grab from a secret provider so that sensitive information is not exposed (commercial feature).
 
 #### Properties
+
 * `id` **required** The key to use to retrive the secret. For the Env secrets provider, this is the environment variable. For the Vault secrets provider, this is the path and key in the form of `secret/path#key`. Currently, the Vault secrets provider does not support any base engine paths other than "secret/" for v2 K/V secrets engine.
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `secrets_provider` **required** Name of the provider, all in lowercase, ex: `'env'`, `'vault'`
 
 #### Examples
+
 Environment secret referencing the environment variable `CONSUL_TOKEN` on the backend server:
 
 ```rb
@@ -599,6 +673,7 @@ end
 ```
 
 Vault secret referencing the key `token` at the path `secret/consul`:
+
 ```rb
 sensu_secret 'sensu-consul-token' do
   id 'secret/consul#token'
@@ -607,11 +682,13 @@ end
 ```
 
 ### sensu_secrets_provider
+
 Create a secret provider for Sensu to connect to for secrets (commercial feature). Currently supports only Vault integration or Sensu Go's built-in secrets provider.
 
 Either a token or a TLS hash must be provided.
 
 #### Properties
+
 * `address` **required** Vault server address.
 * `max_retries` Maximum number of times to retry connecting to the Vault provider.
 * `provider_type` Secret provider to use. Default: `'Env'`
@@ -622,14 +699,15 @@ Either a token or a TLS hash must be provided.
 * `version` Version of the [Vault KV secrets engine](https://www.vaultproject.io/docs/secrets/kv) you're trying to access. Default: `'v2'`
 
 #### Examples
+
 Minimal with token:
 
 ```rb
 sensu_secrets_provider 'vault' do
   address 'https://vaultserver.example.com:8200'
+end
   provider_type 'VaultProvider'
   token 'yourVaultToken'
-end
 ```
 
 Complete with TLS:
@@ -657,10 +735,10 @@ end
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).
 
-- Author:: Sensu <support@sensuapp.com>
+* Author:: Sensu <support@sensuapp.com>
 
 ```text
-Copyright (c) 2018 Sensu
+Copyright (c) 2020 Sensu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

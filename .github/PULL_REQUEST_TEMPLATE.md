@@ -10,8 +10,6 @@
 
 - [ ] Cookstyle (rubocop) passes
 
-- [ ] Foodcritic passes
-
 - [ ] Rspec (unit tests) passes
 
 - [ ] Inspec (integration tests) passes
