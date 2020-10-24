@@ -85,7 +85,7 @@ action :install do
 
     # render template at c:\Programdata\Sensu\config\agent.yml for windows
     file ::File.join('c:/ProgramData/Sensu/config/', 'agent.yml') do
-      content(JSON.parse(new_resource.config.to_json).to_yaml.to_s)
+      content(YAML.dump(JSON.parse(new_resource.config.to_json)).to_s)
       notifies :restart, 'service[SensuAgent]', :delayed
     end
 
