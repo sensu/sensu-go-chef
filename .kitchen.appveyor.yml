@@ -15,7 +15,7 @@ provisioner:
 platforms:
   - name: windows-2012r2
     driver:
-      box: tas50/windows_2012r2  
+      box: tas50/windows_2012r2
   - name: windows-2016
     driver:
       box: tas50/windows_2016

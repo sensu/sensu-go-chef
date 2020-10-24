@@ -1,8 +1,10 @@
+---
 driver:
   name: dokken
   chef_version: latest
   chef_license: accept-no-persist
-  privileged: true # because Docker and SystemD/Upstart
+  # because Docker and SystemD/Upstart
+  privileged: true
   volumes:
     - /sys/fs/cgroup:/sys/fs/cgroup
 
@@ -18,46 +20,47 @@ verifier:
   sudo: false
 
 platforms:
-- name: amazonlinux
-  driver:
-    image: dokken/amazonlinux
-    pid_one_command: /sbin/init
+  - name: amazonlinux
+    driver:
+      image: dokken/amazonlinux
+      pid_one_command: /sbin/init
 
-- name: amazonlinux-2
-  driver:
-    image: dokken/amazonlinux-2
-    pid_one_command: /usr/lib/systemd/systemd
+  - name: amazonlinux-2
+    driver:
+      image: dokken/amazonlinux-2
+      pid_one_command: /usr/lib/systemd/systemd
 
-- name: centos-6
-  driver:
-    image: dokken/centos-6
-    platform: rhel
-    pid_one_command: /sbin/init
+  - name: centos-6
+    driver:
+      image: dokken/centos-6
+      platform: rhel
+      pid_one_command: /sbin/init
 
-- name: centos-7
-  driver:
-    image: dokken/centos-7
-    platform: rhel
-    pid_one_command: /usr/lib/systemd/systemd
+  - name: centos-7
+    driver:
+      image: dokken/centos-7
+      platform: rhel
+      pid_one_command: /usr/lib/systemd/systemd
 
-- name: ubuntu-16.04
-  driver:
-    image: dokken/ubuntu-16.04
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+  - name: ubuntu-16.04
+    driver:
+      image: dokken/ubuntu-16.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
 
-- name: ubuntu-18.04
-  driver:
-    image: dokken/ubuntu-18.04
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+  - name: ubuntu-18.04
+    driver:
+      image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
 
-- name: ubuntu-20.04
-  driver:
-    image: dokken/ubuntu-20.04
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
 # Use test suites defined in base .kitchen.yml
