@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: active_directory
+# Resource:: etcd_replicator
 #
 # Copyright:: 2020 Sensu, Inc.
 #
@@ -26,21 +26,51 @@
 include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
-resource_name :sensu_active_directory
-provides :sensu_active_directory
+resource_name :sensu_etcd_replicator
+provides :sensu_etcd_replicator
 
 action_class do
   include SensuCookbook::Helpers
+
+  def missing_secure_transport_property(name)
+    !new_resource.insecure && name.nil?
+  end
+
+  def check_resource_semantics!
+    error_msg = <<-EOH
+\n\nFor the resource: #{new_resource.name} the property 'insecure' is set to 'false'.
+This is the default and enables transport security for replication.
+Transport security requires both 'cert' and 'key' properties of this resource to be set to valid local paths.
+Please set these values.
+EOH
+
+    if missing_secure_transport_property(new_resource.cert)
+      raise error_msg
+    end
+
+    if missing_secure_transport_property(new_resource.key)
+      raise error_msg
+    end
+  end
 end
 
-property :auth_servers, Array, required: true
-property :groups_prefix, String
-property :username_prefix, String
-property :resource_type, String, default: 'ad'
-alias_method :servers, :auth_servers
+# Set sane platform property default so users generally should not need it
+default_ca_cert = value_for_platform_family(
+  %w(rhel fedora amazon) => '/etc/ssl/certs/ca-bundle.crt',
+  'debian' => '/etc/ssl/certs/ca-certificates.crt'
+)
 
-# maintain backward compat with released cookbook versions for now, but warn users
-deprecated_property_alias 'ad_servers', 'servers', 'ad_servers property was renamed to servers in v1.3.0 release of this cookbook. Please update recipes to use the new property name.'
+# Properties correspond to upstream spec attributes
+# https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/etcdreplicators/#spec-attributes
+property :ca_cert, String, default: default_ca_cert
+property :cert, String
+property :key, String
+property :insecure, [true, false], default: false
+property :url, String, required: true
+property :api_version, String, default: 'core/v2'
+property :resource, String, required: true
+property :namespace, String
+property :replication_interval_seconds, Integer, default: 30
 
 action :create do
   directory object_dir(false) do
@@ -49,7 +79,7 @@ action :create do
   end
 
   file object_file(false) do
-    content JSON.generate(active_directory_from_resource)
+    content JSON.generate(etcd_replicator_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file(false)}]"
   end
 

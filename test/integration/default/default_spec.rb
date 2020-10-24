@@ -234,6 +234,14 @@ describe json('/etc/sensu/auth_oidc/fake_okta.json') do
   its(%w(spec username_claim)) { should eq 'email' }
 end
 
+%w(example-auth-ldap example-auth-ldap-alias).each do |ldap_name|
+  describe json("/etc/sensu/auth_ldap/#{ldap_name}.json") do
+    its(%w(type)) { should eq 'ldap' }
+    its(%w(api_version)) { should eq 'authentication/v2' }
+    its(%w(metadata name)) { should eq ldap_name }
+  end
+end
+
 describe json('/etc/sensu/secrets_providers/vault.json') do
   its(%w(type)) { should eq 'VaultProvider' }
   its(%w(metadata name)) { should eq 'vault' }
@@ -267,4 +275,31 @@ describe json('/etc/sensu/secrets/env-secret-default.json') do
   its(%w(metadata namespace)) { should eq 'default' }
   its(%w(spec id)) { should eq 'CONSUL_TOKEN' }
   its(%w(spec provider)) { should eq 'env' }
+end
+
+%w(cluster_role_binding_replicator
+  cluster_role_replicator
+  insecure_role_replicator
+  role_binding_replicator
+  role_replicator).each do |replicator|
+  describe json("/etc/sensu/etcd_replicator/#{replicator}.json") do
+    its(%w(type)) { should eq 'EtcdReplicator' }
+    its(%w(api_version)) { should eq 'federation/v1' }
+    its(%w(metadata created_by)) { should eq 'chef-client' }
+    its(%w(spec url)) { should eq 'http://127.0.0.1:2379' }
+    its(%w(spec resource)) { should be_in 'Role RoleBinding ClusterRole ClusterRoleBinding' }
+  end
+end
+
+%w(cluster_role_binding_replicator
+  cluster_role_replicator
+  role_binding_replicator
+  role_replicator).each do |replicator|
+  describe json("/etc/sensu/etcd_replicator/#{replicator}.json") do
+    its(%w(spec insecure)) { should eq false }
+  end
+end
+
+describe json('/etc/sensu/etcd_replicator/insecure_role_replicator.json') do
+  its(%w(spec insecure)) { should eq true }
 end

@@ -214,11 +214,15 @@ module SensuCookbook
 
     def active_directory_from_resource
       spec = {}
-      spec['servers'] = new_resource.ad_servers
+      spec['servers'] = new_resource.auth_servers
       spec['groups_prefix'] = new_resource.groups_prefix if new_resource.groups_prefix
       spec['username_prefix'] = new_resource.username_prefix if new_resource.groups_prefix
       base_resource(new_resource, spec, 'authentication/v2')
     end
+
+    # Spec for this is nearly identical to AD config spec but with a different type
+    # https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#ldap-configuration-examples
+    alias_method :auth_ldap_from_resource, :active_directory_from_resource
 
     def auth_oidc_from_resource
       spec = {}
@@ -254,6 +258,25 @@ module SensuCookbook
       spec['client']['token'] = new_resource.token if new_resource.token
       spec['client']['version'] = new_resource.version
       base_resource(new_resource, spec, 'secrets/v1')
+    end
+
+    def etcd_replicator_from_resource
+      spec = {}
+      unless new_resource.insecure
+        # Only required if insecure: false, meaning disabled transport security
+        spec['ca_cert'] = new_resource.ca_cert
+        spec['cert'] = new_resource.cert
+        spec['key'] = new_resource.cert
+      end
+      spec['insecure'] = new_resource.insecure
+      spec['url'] = new_resource.url
+      spec['api_version'] = new_resource.api_version
+      spec['resource'] = new_resource.resource
+      spec['namespace'] = new_resource.namespace if new_resource.namespace
+      spec['replication_interval_seconds'] = new_resource.replication_interval_seconds
+      replicator = base_resource(new_resource, spec, 'federation/v1')
+      replicator['metadata']['created_by'] = 'chef-client'
+      replicator
     end
 
     def latest_version?(version)

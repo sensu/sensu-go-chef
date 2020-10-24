@@ -310,6 +310,30 @@ sensu_auth_oidc 'fake_okta' do
   server 'https://oidc.example.com:9031'
 end
 
+sensu_auth_ldap 'example-auth-ldap' do
+  auth_servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end
+
+sensu_auth_ldap 'example-auth-ldap-alias' do
+  servers [{
+    'host': '127.0.0.1',
+    'group_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+    'user_search': {
+      'base_dn': 'dc=acme,dc=org',
+    },
+  }]
+end
+
 sensu_secrets_provider 'vault' do
   provider_type 'VaultProvider'
   address 'https://vaultserver.example.com:8200'
@@ -339,4 +363,38 @@ sensu_secret 'env-secret-default' do
   namespace 'default'
   id 'CONSUL_TOKEN'
   secrets_provider 'env'
+end
+
+sensu_etcd_replicator 'insecure_role_replicator' do
+  insecure true
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'Role'
+end
+
+sensu_etcd_replicator 'role_binding_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'RoleBinding'
+end
+
+sensu_etcd_replicator 'cluster_role_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'ClusterRole'
+end
+
+sensu_etcd_replicator 'cluster_role_binding_replicator' do
+  cert '/etc/ssl/fake.pem'
+  key '/etc/ssl/fake.key'
+  url 'http://127.0.0.1:2379'
+  resource 'ClusterRoleBinding'
 end

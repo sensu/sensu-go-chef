@@ -1,6 +1,6 @@
 #
 # Cookbook:: sensu-go
-# Resource:: active_directory
+# Resource:: auth_ldap
 #
 # Copyright:: 2020 Sensu, Inc.
 #
@@ -26,21 +26,24 @@
 include SensuCookbook::SensuMetadataProperties
 include SensuCookbook::SensuCommonProperties
 
-resource_name :sensu_active_directory
-provides :sensu_active_directory
+resource_name :sensu_auth_ldap
+provides :sensu_auth_ldap
 
 action_class do
   include SensuCookbook::Helpers
 end
 
-property :auth_servers, Array, required: true
+property :auth_servers, Array, required: true, callbacks: {
+           'should be an array of hashes' => lambda do |arry|
+             arry.all? do |e|
+               e.respond_to?(:keys)
+             end
+           end,
+         }
 property :groups_prefix, String
 property :username_prefix, String
-property :resource_type, String, default: 'ad'
+property :resource_type, String, default: 'ldap'
 alias_method :servers, :auth_servers
-
-# maintain backward compat with released cookbook versions for now, but warn users
-deprecated_property_alias 'ad_servers', 'servers', 'ad_servers property was renamed to servers in v1.3.0 release of this cookbook. Please update recipes to use the new property name.'
 
 action :create do
   directory object_dir(false) do
@@ -49,7 +52,7 @@ action :create do
   end
 
   file object_file(false) do
-    content JSON.generate(active_directory_from_resource)
+    content JSON.generate(auth_ldap_from_resource)
     notifies :run, "execute[sensuctl create -f #{object_file(false)}]"
   end
 
