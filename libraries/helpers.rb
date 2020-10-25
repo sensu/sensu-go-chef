@@ -279,6 +279,15 @@ module SensuCookbook
       replicator
     end
 
+    def search_from_resource
+      spec = {}
+      spec['parameters'] = new_resource.parameters
+      spec['resource'] = new_resource.resource
+      search = base_resource(new_resource, spec, 'searches/v1')
+      search['metadata']['namespace'] = new_resource.namespace
+      search
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

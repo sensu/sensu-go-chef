@@ -802,6 +802,29 @@ sensu_etcd_replicator 'role_binding_replicator' do
 end
 ```
 
+### sensu_search
+
+Create a save search that can be used in the Sensu web interface (commercial feature).
+
+#### Properties
+
+* `namespace` namespace for the save search
+* `parameters` **required** parameters the search will apply
+* `resource`  **required** fully qualified name of the resource
+
+#### Examples
+
+``` rb
+sensu_search 'check-config' do
+  parameters [
+      "published:true",
+      "subscription:linux",
+      "labelSelector: region == \"us-west-1\""
+  ]
+  resource 'core.v2/CheckConfig'
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

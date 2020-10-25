@@ -398,3 +398,12 @@ sensu_etcd_replicator 'cluster_role_binding_replicator' do
   url 'http://127.0.0.1:2379'
   resource 'ClusterRoleBinding'
 end
+
+sensu_search 'check-config' do
+  parameters [
+      'published:true',
+      'subscription:linux',
+      'labelSelector: region == \"us-west-1\"',
+  ]
+  resource 'core.v2/CheckConfig'
+end

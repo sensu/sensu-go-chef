@@ -16,6 +16,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - `sensu_auth_ldap` resource for ldap integration. (@webframp)
 - `sensu_auth_oidc` resource added (@webframp)
 - `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
+- `sensu_search` resource added (@webframp)
 
 ### Changed
 
