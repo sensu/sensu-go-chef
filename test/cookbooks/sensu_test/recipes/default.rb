@@ -407,3 +407,16 @@ sensu_search 'check-config' do
   ]
   resource 'core.v2/CheckConfig'
 end
+
+sensu_global_config 'custom-web-ui' do
+  default_preferences(page_size: 50,
+                      theme: 'deuteranopia')
+  link_policy(allow_list: true,
+              urls: [
+                'https://example.com',
+                'steamapp://34234234',
+                '//google.com',
+                '//*.google.com',
+                '//bob.local',
+              ])
+end
