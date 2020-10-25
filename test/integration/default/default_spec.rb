@@ -318,3 +318,7 @@ describe json('/etc/sensu/global_config/custom-web-ui.json') do
   its(%w(spec default_preferences theme)) { should eq 'deuteranopia' }
   its(%w(spec link_policy allow_list)) { should eq true }
 end
+
+describe json('/etc/sensu/tessen_config/default.json') do
+  its(%w(spec opt_out)) { should eq true }
+end

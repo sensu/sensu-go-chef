@@ -852,6 +852,24 @@ sensu_global_config 'custom-web-ui' do
 end
 ```
 
+### sensu_tessen_config
+
+Tessen sends anonymized data about Sensu instances to Sensu Inc., including the version, cluster size, number of events processed, and number of resources created. This resource allows users to control their preference for cluster analytics collection.
+
+This does not affect licensed Sensu instances since Tessen is enabled by default and required in those cases.
+
+#### Properties
+
+* `opt_out` Set to `true` to opt out of default analytics collection
+
+### Examples
+
+``` rb
+sensu_tessen_config 'default' do
+  opt_out true
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

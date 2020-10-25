@@ -18,6 +18,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
 - `sensu_search` resource added (@webframp)
 - `sensu_global_config` resource to manage web ui configuration (@webframp)
+- `sensu_tessen_config` resource to manage tessen analytics preference (@webframp)
 
 ### Changed
 
