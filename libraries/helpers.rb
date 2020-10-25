@@ -298,6 +298,12 @@ module SensuCookbook
       config
     end
 
+    def tessen_config_from_resource
+      spec = {}
+      spec['opt_out'] = new_resource.opt_out
+      base_resource(new_resource, spec, 'core/v2')
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

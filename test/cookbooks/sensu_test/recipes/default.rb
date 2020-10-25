@@ -420,3 +420,7 @@ sensu_global_config 'custom-web-ui' do
                 '//bob.local',
               ])
 end
+
+sensu_tessen_config 'default' do
+  opt_out true
+end
