@@ -288,6 +288,16 @@ module SensuCookbook
       search
     end
 
+    def global_config_from_resource
+      spec = {}
+      spec['always_show_local_cluster'] = new_resource.always_show_local_cluster
+      spec['default_preferences'] = new_resource.default_preferences
+      spec['link_policy'] = new_resource.link_policy
+      config = base_resource(new_resource, spec, 'web/v1')
+      config['metadata']['created_by'] = 'chef-client'
+      config
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end

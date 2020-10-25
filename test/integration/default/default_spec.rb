@@ -310,3 +310,11 @@ describe json('/etc/sensu/search/check-config.json') do
   its(%w(metadata namespace)) { should eq 'default' }
   its(%w(spec resource)) { should eq 'core.v2/CheckConfig' }
 end
+
+describe json('/etc/sensu/global_config/custom-web-ui.json') do
+  its(%w(type)) { should eq 'GlobalConfig' }
+  its(%w(api_version)) { should eq 'web/v1' }
+  its(%w(metadata created_by)) { should eq 'chef-client' }
+  its(%w(spec default_preferences theme)) { should eq 'deuteranopia' }
+  its(%w(spec link_policy allow_list)) { should eq true }
+end

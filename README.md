@@ -825,6 +825,33 @@ sensu_search 'check-config' do
 end
 ```
 
+### sensu_global_config
+
+Web UI configuration allows you to define certain display options for the Sensu web UI, such as which web UI theme to use, the number of items to list on each page, and which URLs and linked images to expand. You can define a single custom web UI configuration to federate to all, some, or only one of your clusters (commercial feature).
+
+#### Properties
+
+* `always_show_local_cluster` Display the current cluster in federated environments
+* `default_preferences` Global defaults for page size and theme
+* `link_policy` Policy for what domains are valid and invalid targets
+
+#### Examples
+
+``` rb
+sensu_global_config 'custom-web-ui' do
+  default_preferences(page_size: 50,
+                      theme: "deuteranopia")
+  link_policy(allow_list: true,
+              urls: [
+                "https://example.com",
+                "steamapp://34234234",
+                "//google.com",
+                "//*.google.com",
+                "//bob.local"
+              ])
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).
