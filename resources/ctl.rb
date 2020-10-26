@@ -72,11 +72,11 @@ action :install do
         not_if "Test-Path c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
       end
 
-    archive_file 'Extract Sensuctl' do
-      path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
-      destination sensuctl_bin
-      overwrite true
-    end
+      archive_file 'Extract Sensuctl' do
+        path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+        destination sensuctl_bin
+        overwrite true
+      end
 
       windows_path sensuctl_bin
 
