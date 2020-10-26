@@ -15,23 +15,14 @@ sensu_ctl 'default' do
 end
 
 sensu_user 'doofus' do
-  password 'doofus1234'
-  groups %w(view admin)
-end
-
-sensu_user 'doofus' do
-  action :disable
+  password_hash '$2y$12$OrEQ61blxyTFi3PJHeJ94ej/Z857eSAnAdlSD4Kn7ywItTLrzTqVy'
+  groups %w(view admin managers)
+  disabled true
 end
 
 sensu_user 'reinstated' do
-  password 'a_smart_one'
+  password_hash '$2y$12$yga83H/KqKFKDYnLogQ6CeN3xrFmhVwMdVkh.hRPX/BhF2NJfYq8O'
   groups %w(view)
-  action [:create, :disable, :reinstate]
-end
-
-sensu_user 'doofus' do
-  groups %w(view admin managers)
-  action :modify
 end
 
 sensu_namespace 'test-org' do

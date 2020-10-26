@@ -304,6 +304,20 @@ module SensuCookbook
       base_resource(new_resource, spec, 'core/v2')
     end
 
+    # Implemented without using base_resource method since labels aren't supported
+    def user_from_resource
+      user = Mash.new
+      user['type'] = 'User'
+      user['api_version'] = 'core/v2'
+      user['metadata'] = {}
+      user['spec'] = {}
+      user['spec']['username'] = new_resource.username
+      user['spec']['password_hash'] = new_resource.password_hash
+      user['spec']['disabled'] = new_resource.disabled if new_resource.disabled
+      user['spec']['groups'] = new_resource.groups if new_resource.groups
+      user
+    end
+
     def latest_version?(version)
       version == 'latest' || version == :latest
     end
