@@ -870,6 +870,34 @@ sensu_tessen_config 'default' do
 end
 ```
 
+### sensu_user
+
+Manage non SSO sensu users. This resource requires a bcrypt password hash, you can use [`sensuctl user hash-password`](https://docs.sensu.io/sensu-go/latest/sensuctl/#generate-a-password-hash) to generate one.
+
+#### Properties
+
+* `username` String, username to manage.
+* `password_hash` **required**, String.
+* `groups` Array of [RBAC groups](https://docs.sensu.io/sensu-go/latest/operations/control-access/rbac/#groups) for the user
+* `disabled` enable or disable a user
+
+#### Examples
+
+``` rb
+# Disable someone who had their password exposed
+sensu_user 'doofus' do
+  password_hash '$2y$12$OrEQ61blxyTFi3PJHeJ94ej/Z857eSAnAdlSD4Kn7ywItTLrzTqVy'
+  groups %w(view admin managers)
+  disabled true
+end
+
+# Add a user with only view rights.
+sensu_user 'reinstated' do
+  password_hash '$2y$12$yga83H/KqKFKDYnLogQ6CeN3xrFmhVwMdVkh.hRPX/BhF2NJfYq8O'
+  groups %w(view)
+end
+```
+
 ## License & Authors
 
 If you would like to see the detailed LICENSE click [here](./LICENSE).

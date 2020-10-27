@@ -19,6 +19,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - `sensu_search` resource added (@webframp)
 - `sensu_global_config` resource to manage web ui configuration (@webframp)
 - `sensu_tessen_config` resource to manage tessen analytics preference (@webframp)
+- `sensu_user` resource to manage non SSO users (@webframp)
 
 ### Changed
 
