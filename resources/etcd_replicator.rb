@@ -57,7 +57,8 @@ end
 # Set sane platform property default so users generally should not need it
 default_ca_cert = value_for_platform_family(
   %w(rhel fedora amazon) => '/etc/ssl/certs/ca-bundle.crt',
-  'debian' => '/etc/ssl/certs/ca-certificates.crt'
+  'debian' => '/etc/ssl/certs/ca-certificates.crt',
+  'windows' => ''
 )
 
 # Properties correspond to upstream spec attributes
