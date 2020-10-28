@@ -70,12 +70,14 @@ action :install do
       powershell_script 'Download Sensuctl' do
         code "Invoke-WebRequest https://s3-us-west-2.amazonaws.com/sensu.io/sensu-go/#{node['sensu-go']['ctl_version']}/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz  -OutFile c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
         not_if "Test-Path c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
+        notifies :extract, 'archive_file[Extract Sensuctl]'
       end
 
       archive_file 'Extract Sensuctl' do
         path "c:/sensutemp/sensu-go_#{node['sensu-go']['ctl_version']}_windows_amd64.tar.gz"
         destination sensuctl_bin
         overwrite true
+        action :nothing
       end
 
       windows_path sensuctl_bin

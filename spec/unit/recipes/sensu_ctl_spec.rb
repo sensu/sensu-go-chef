@@ -76,8 +76,13 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'extracts an archive' do
-      expect(chef_run).to extract_archive_file('Extract Sensuctl')
+    it 'does nothing for an archive' do
+      expect(chef_run).to nothing_archive_file('Extract Sensuctl')
+    end
+
+    it 'notifies to extract the archive' do
+      ps_resource = chef_run.powershell_script('Download Sensuctl')
+      expect(ps_resource).to notify('archive_file[Extract Sensuctl]')
     end
 
     it 'adds `c:\Program Files\Sensu\sensu-cli\bin\sensuctl` to windows path' do
