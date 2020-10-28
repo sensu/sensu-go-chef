@@ -27,4 +27,3 @@ issues_url 'https://github.com/sensu/sensu-go-chef/issues'
 source_url 'https://github.com/sensu/sensu-go-chef'
 
 depends 'packagecloud'
-depends 'seven_zip'
