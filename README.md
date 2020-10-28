@@ -130,8 +130,15 @@ These resources primarily work by writing the Sensu 5.x object definitions to a 
 * [sensu_cluster_role_binding](#sensu_cluster_role_binding): Configure Sensu RBAC [cluster role bindings](https://docs.sensu.io/sensu-go/latest/reference/rbac/#role-bindings-and-cluster-role-bindings)
 * [sensu_postgres_config](#sensu_postgres_config): Configure Sensu to use [a Postgres DB](https://docs.sensu.io/sensu-go/latest/guides/scale-event-storage/#configure-postgres) for event storage
 * [sensu_active_directory](#sensu_active_directory): Configure Sensu to use [Active Directory authentication](https://docs.sensu.io/sensu-go/latest/installation/auth/#ad-authentication)
+* [sensu_auth_ldap](#sensu_auth_ldap): Configure Sensu to use [LDAP Authentication](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#lightweight-directory-access-protocol-ldap-authentication)
+* [sensu_auth_oidc](#sensu_auth_oidc): Configure Sensu to use [OIDC Authentication](https://docs.sensu.io/sensu-go/latest/operations/control-access/auth/#openid-connect-10-protocol-oidc-authentication)
 * [sensu_secret](#sensu_secret): Configure Sensu [secrets](https://docs.sensu.io/sensu-go/latest/reference/secrets/)
 * [sensu_secrets_provider](#sensu_secrets_provider): Configure Sensu [secrets providers](https://docs.sensu.io/sensu-go/latest/reference/secrets-providers/)
+* [sensu_etcd_replicator](#sensu_etcd_replicator): Configure Sensu [etcd replication](https://docs.sensu.io/sensu-go/latest/operations/deploy-sensu/etcdreplicators/)
+* [sensu_search](#sensu_search): Configure Sensu [saved searches](https://docs.sensu.io/sensu-go/latest/web-ui/searches-reference/)
+* [sensu_global_config](#sensu_global_config): Configure Sensu [global Web UI settings](https://docs.sensu.io/sensu-go/latest/web-ui/webconfig-reference/)
+* [sensu_tessen_config](#sensu_tessen_config): Configure Sensu [analytics preferences](https://docs.sensu.io/sensu-go/latest/operations/monitor-sensu/tessen/)
+* [sensu_user](#sensu_user): Configure Sensu [non SSO managed RBAC users](https://docs.sensu.io/sensu-go/latest/operations/control-access/rbac/#users)
 
 ## Resource Details
 

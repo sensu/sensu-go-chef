@@ -3,7 +3,7 @@ maintainer 'Sensu Community'
 maintainer_email 'support@sensuapp.com'
 license 'MIT'
 description 'Installs/Configures Sensu Go'
-version '1.2.0'
+version '1.3.0'
 
 chef_version '>= 15.0'
 
