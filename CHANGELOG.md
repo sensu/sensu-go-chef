@@ -9,12 +9,12 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ### Fixed
 
 - Fixed outfile for sensuctl install for Windows, as well as preventing unnecessary downloads for install. Fixed configure action for Windows that was unable to parse array. (@kovukono)
+- Fixed `sensu_ctl` resource to only extract downloads on new versions, not every chef run (@webframp)
 
 ### Added
 
 - `sensu_auth_oidc` resource added (@webframp)
 - `sensu_auth_ldap` resource for ldap integration. (@webframp)
-- `sensu_auth_oidc` resource added (@webframp)
 - `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
 - `sensu_search` resource added (@webframp)
 - `sensu_global_config` resource to manage web ui configuration (@webframp)
@@ -24,6 +24,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ### Changed
 
 - Rename `:ad_servers` property of `sensu_active_diretory` resource to `:auth_servers`. For consistency with `sensu_auth_ldap` resource this property was renamed and will be removed in a future cookbook version. (@webframp)
+- Refactored `sensu_ctl` to use builtin (Chef 15+) `archive_file` resource and remove 3rd party `seven_zip` cookbook dependency. (@webframp)
 
 ## [1.2.0] - 2020-10-17
 
