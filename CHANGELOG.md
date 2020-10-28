@@ -6,6 +6,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-10-28
+
 ### Fixed
 
 - Fixed outfile for sensuctl install for Windows, as well as preventing unnecessary downloads for install. Fixed configure action for Windows that was unable to parse array. (@kovukono)
@@ -165,7 +167,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu/sensu-go-chef/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...1.0.0
