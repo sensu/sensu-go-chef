@@ -6,23 +6,27 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+## [1.3.0] - 2020-10-28
+
 ### Fixed
 
 - Fixed outfile for sensuctl install for Windows, as well as preventing unnecessary downloads for install. Fixed configure action for Windows that was unable to parse array. (@kovukono)
+- Fixed `sensu_ctl` resource to only extract downloads on new versions, not every chef run (@webframp)
 
 ### Added
 
 - `sensu_auth_oidc` resource added (@webframp)
 - `sensu_auth_ldap` resource for ldap integration. (@webframp)
-- `sensu_auth_oidc` resource added (@webframp)
 - `sensu_etcd_replicator` resource for managing cluster RBAC federation (@webframp)
 - `sensu_search` resource added (@webframp)
 - `sensu_global_config` resource to manage web ui configuration (@webframp)
 - `sensu_tessen_config` resource to manage tessen analytics preference (@webframp)
+- `sensu_user` resource to manage non SSO users (@webframp)
 
 ### Changed
 
 - Rename `:ad_servers` property of `sensu_active_diretory` resource to `:auth_servers`. For consistency with `sensu_auth_ldap` resource this property was renamed and will be removed in a future cookbook version. (@webframp)
+- Refactored `sensu_ctl` to use builtin (Chef 15+) `archive_file` resource and remove 3rd party `seven_zip` cookbook dependency. (@webframp)
 
 ## [1.2.0] - 2020-10-17
 
@@ -164,7 +168,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.3.0...HEAD
+[1.3.0]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu/sensu-go-chef/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/sensu/sensu-go-chef/compare/0.3.0...1.0.0

@@ -40,6 +40,20 @@ describe command('sensuctl user list') do
   its('exit_status') { should eq 0 }
 end
 
+describe json(command: 'sensuctl user list --format json') do
+  # Referrencing returned elements of the array by index feels fragile
+  its([0, 'username']) { should cmp 'admin' }
+  its([0, 'disabled']) { should cmp 'false' }
+  its([1, 'username']) { should cmp 'agent' }
+  its([2, 'username']) { should cmp 'doofus' }
+  its([2, 'groups']) { should include 'admin' }
+  its([2, 'groups']) { should include 'managers' }
+  its([2, 'disabled']) { should cmp 'true' }
+  its([3, 'username']) { should cmp 'reinstated' }
+  its([3, 'groups']) { should include 'view' }
+  its([3, 'disabled']) { should cmp 'false' }
+end
+
 describe json('/etc/sensu/checks/cron.json') do
   its(%w(type)) { should eq 'Check' }
   its(%w(metadata name)) { should eq 'cron' }
