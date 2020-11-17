@@ -36,7 +36,6 @@ property :config, Hash, default: { "name": node['hostname'],
                                    "backend-url": ['ws://127.0.0.1:8081'],
                                  }
 action :install do
-  # Linux installation - source package
   if platform?('windows')
     include_recipe 'chocolatey'
     chocolatey_package 'sensu-agent' do
@@ -61,6 +60,7 @@ action :install do
     windows_service 'SensuAgent' do
       action [:enable, :start]
     end
+  # Linux installation - source package
   else
     packagecloud_repo new_resource.repo do
       type value_for_platform_family(
