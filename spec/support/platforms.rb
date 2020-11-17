@@ -13,6 +13,9 @@ RSpec.shared_context 'common_stubs' do
       allow(provider).to receive_shell_out('sensuctl user list')
       allow(provider).to receive_shell_out('sensuctl version').and_return(double(run_command: nil, error!: nil, stdout: 'sensuctl version 0.0.0', stderr: '', exitstatus: 0, live_stream: '')) # Windows check if Sensuctl is installed
     end
+    stubs_for_resource('powershell_script[Install Chocolatey]') do |resource|
+      allow(resource).to receive_shell_out("powershell.exe -NoLogo -NonInteractive -NoProfile -ExecutionPolicy Unrestricted -InputFormat None -Command \"[System.Environment]::GetEnvironmentVariable('ChocolateyInstall', 'MACHINE')\"")
+    end
     stub_command("Test-Path c:/sensutemp/sensu-go_6.1.0_windows_amd64.tar.gz").and_return(true) # rubocop:disable Style/StringLiterals
   end
 end
