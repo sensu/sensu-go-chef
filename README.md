@@ -45,6 +45,7 @@ The following platforms have been tested with Test Kitchen. It will most likely 
 ## Cookbook Dependencies
 
 * [packagecloud](https://supermarket.chef.io/cookbooks/packagecloud)
+* [chocolatey](https://supermarket.chef.io/cookbooks/chocolatey/)
 
 ## Usage
 

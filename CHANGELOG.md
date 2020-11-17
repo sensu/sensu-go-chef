@@ -16,6 +16,10 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
+### Changed
+
+- Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. (@kovukono)
+
 ## [1.3.0] - 2020-10-28
 
 ### Fixed

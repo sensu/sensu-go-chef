@@ -292,10 +292,10 @@ describe json('/etc/sensu/secrets/env-secret-default.json') do
 end
 
 %w(cluster_role_binding_replicator
-  cluster_role_replicator
-  insecure_role_replicator
-  role_binding_replicator
-  role_replicator).each do |replicator|
+   cluster_role_replicator
+   insecure_role_replicator
+   role_binding_replicator
+   role_replicator).each do |replicator|
   describe json("/etc/sensu/etcd_replicator/#{replicator}.json") do
     its(%w(type)) { should eq 'EtcdReplicator' }
     its(%w(api_version)) { should eq 'federation/v1' }
@@ -306,9 +306,9 @@ end
 end
 
 %w(cluster_role_binding_replicator
-  cluster_role_replicator
-  role_binding_replicator
-  role_replicator).each do |replicator|
+   cluster_role_replicator
+   role_binding_replicator
+   role_replicator).each do |replicator|
   describe json("/etc/sensu/etcd_replicator/#{replicator}.json") do
     its(%w(spec insecure)) { should eq false }
   end

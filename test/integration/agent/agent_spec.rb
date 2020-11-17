@@ -33,7 +33,7 @@ if os.linux?
 end
 
 if os.windows?
-  describe package('sensu agent') do
+  describe chocolatey_package('sensu-agent') do
     it { should be_installed }
   end
 

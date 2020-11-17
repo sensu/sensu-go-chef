@@ -35,8 +35,8 @@ if os.windows?
     its('stdout') { should include 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' }
   end
 
-  describe file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe') do
-    it { should exist }
+  describe chocolatey_package('sensu-cli') do
+    it { should be_installed }
   end
 
   describe command('sensuctl entity list') do
