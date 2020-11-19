@@ -94,9 +94,17 @@ end
 action :configure do
   if shell_out('sensuctl user list').error?
     converge_by 'Reconfiguring sensuctl' do
-      execute 'configure sensuctl' do
-        command sensuctl_configure_cmd
-        sensitive true unless new_resource.debug
+      unless platform?('windows')
+        execute 'configure sensuctl' do
+          command sensuctl_configure_cmd
+          sensitive true unless new_resource.debug
+        end
+      end
+      if platform?('windows')
+        powershell_script 'configure sensuctl' do
+          code sensuctl_configure_cmd
+          sensitive true unless new_resource.debug
+        end
       end
     end
   end
