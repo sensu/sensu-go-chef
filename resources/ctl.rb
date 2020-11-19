@@ -78,12 +78,13 @@ action :install do
         destination sensuctl_bin
         overwrite true
         action :nothing
+        notifies :delete, 'directory[c:\sensutemp]'
       end
 
       windows_path sensuctl_bin
 
       directory 'c:\sensutemp' do
-        action :delete
+        action :nothing
         recursive true
       end
     end
