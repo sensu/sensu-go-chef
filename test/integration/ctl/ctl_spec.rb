@@ -35,7 +35,7 @@ if os.windows?
   end
 end
 
-describe command('sensuctl user list') do
-  its('stdout') { should match /Username/ }
+describe command('sensuctl entity list') do
+  its('stdout') { should match /backend/ }
   its('exit_status') { should eq 0 }
 end
