@@ -31,8 +31,8 @@ if os.linux?
 end
 
 if os.windows?
-  describe command('cmd.exe /c "echo %PATH%"') do
-    its('stdout') { should include 'c:\Program Files\Sensu\sensu-cli\bin\sensuctl' }
+  describe os_env('PATH', 'system') do
+    its('split') { should include 'C:\Program Files\Sensu\sensu-cli\\\\bin' }
   end
 
   describe chocolatey_package('sensu-cli') do
