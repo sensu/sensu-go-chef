@@ -16,9 +16,9 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
-### Changed
+### Breaking
 
-- Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. (@kovukono)
+- Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. Previously, this installed version 6.1.0 for Windows. This will now install the latest version if the `version` attribute is not set for `sensu_agent`. This may also cause issues with existing installations, as the Chocolatey package manager cannot see the existing installation. (@kovukono)
 
 ## [1.3.0] - 2020-10-28
 
