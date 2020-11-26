@@ -25,7 +25,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 - Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. (@kovukono)
 - `sensu_agent` and `sensu_ctl` for Windows now receive their version from the `version` attribute of the resource instead of `node['sensu-go']['msi_version']` and `node['sensu-go']['ctl_version']`. (@kovukono)
-- Added `migrate` resource to `sencu_ctl` to remove old Windows installation from this cookbook.
+- Added `cleanup_legacy_cookbook_install` resource to `sencu_ctl` to remove old Windows installation from this cookbook.
 
 ## [1.3.0] - 2020-10-28
 

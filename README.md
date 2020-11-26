@@ -263,7 +263,7 @@ Migrating on Windows from version 1.3.0 or earlier of this cookbook to a later v
 
 ```rb
 sensuctl 'default' do
-  action [:migrate, :install]
+  action [:cleanup_legacy_cookbook_install, :install]
   version '6.1.0.3465'
 end
 ```

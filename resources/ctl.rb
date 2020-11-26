@@ -82,7 +82,7 @@ action :configure do
 end
 
 # This removes the folder we were previously putting the binary into.
-action :migrate do
+action :cleanup_legacy_cookbook_install do
   if platform?('windows')
     windows_path sensuctl_bin do
       action :remove
