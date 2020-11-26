@@ -259,6 +259,15 @@ sensu_ctl 'default' do
 end
 ```
 
+Migrating on Windows from version 1.3.0 or earlier of this cookbook to a later version.
+
+```rb
+sensuctl 'default' do
+  action [:migrate, :install]
+  version '6.1.0.3465'
+end
+```
+
 ### sensu_check
 
 The sensu_check resource is used to define check objects.

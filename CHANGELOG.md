@@ -16,9 +16,16 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
-### Breaking
+### Breaking Changes
 
-- Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. Previously, this installed version 6.1.0 for Windows. This will now install the latest version if the `version` attribute is not set for `sensu_agent`. This may also cause issues with existing installations, as the Chocolatey package manager cannot see the existing installation. (@kovukono)
+- (Windows) New installation method will install the latest version of sensu-agent and sensuctl if not specified. To keep the previously installed version, specify `version '6.1.0.3465'` for `sensu_agent` and `sensu_ctl`. (@kovukono)
+- (Windows) New installation method will cause a duplicate sensuctl executable due to a difference in install location between the Chocolatey package and the previously defined extraction location for the cookbook. This can be fixed by removing the folder `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`, or by using the `:migrate` action for `sensu_ctl`.
+
+### Changed
+
+- Moved to Chocolatey to manage sensuctl and sensu-agent on Windows. (@kovukono)
+- `sensu_agent` and `sensu_ctl` for Windows now receive their version from the `version` attribute of the resource instead of `node['sensu-go']['msi_version']` and `node['sensu-go']['ctl_version']`. (@kovukono)
+- Added `migrate` resource to `sencu_ctl` to remove old Windows installation from this cookbook.
 
 ## [1.3.0] - 2020-10-28
 

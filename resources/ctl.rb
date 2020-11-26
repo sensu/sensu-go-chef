@@ -81,6 +81,20 @@ action :configure do
   end
 end
 
+# This removes the folder we were previously putting the binary into.
+action :migrate do
+  if platform?('windows')
+    windows_path sensuctl_bin do
+      action :remove
+    end
+
+    directory sensuctl_bin do
+      action :delete
+      recursive true
+    end
+  end
+end
+
 action :uninstall do
   if platform?('windows')
     chocolatey_package 'sensu-cli' do
