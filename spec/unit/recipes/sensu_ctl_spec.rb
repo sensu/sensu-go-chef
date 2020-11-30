@@ -78,6 +78,8 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
 
     it 'does nothing for an archive' do
       expect(chef_run).to nothing_archive_file('Extract Sensuctl')
+      archive_file_resource = chef_run.archive_file('Extract Sensuctl')
+      expect(archive_file_resource).to notify('directory[c:\sensutemp]')
     end
 
     it 'notifies to extract the archive' do
@@ -90,7 +92,7 @@ RSpec.shared_examples 'sensu_ctl_win' do |platform, version|
     end
 
     it 'deletes the temporary directory `c:\sensutemp`' do
-      expect(chef_run).to delete_directory('c:\sensutemp')
+      expect(chef_run).to nothing_directory('c:\sensutemp')
     end
 
     it 'configures the sensu cli' do

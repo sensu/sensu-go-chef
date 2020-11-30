@@ -4,7 +4,6 @@ gem 'berkshelf'
 gem 'chef-sugar'
 
 group :development do
-  gem 'foodcritic'
   gem 'chefspec'
   gem 'cookstyle', '~> 4.0'
   gem 'guard'

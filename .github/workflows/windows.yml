@@ -1,0 +1,71 @@
+---
+name: windows
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  windows_agent:
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      - name: Create directory
+        run: mkdir D:\a\berks-cookbooks\
+      - name: Create Link
+        run: cmd /c mklink /d  D:\a\cookbooks\ D:\a\berks-cookbooks\
+      - name: Vendor Cookbooks
+        working-directory: D:\a\
+        run: berks vendor -b D:\a\sensu-go-chef\sensu-go-chef\Berksfile
+      - name: Chef Zero
+        working-directory: D:\a\cookbooks\sensu-go\
+        env:
+          CHEF_LICENSE: accept-no-persist
+        run: chef-client -z -o sensu_test::agent
+      - name: Verify
+        run: >
+          chef exec inspec
+          exec
+          D:\a\sensu-go-chef\sensu-go-chef\test\integration\agent\agent_spec.rb
+        env:
+          CHEF_LICENSE: accept-no-persist
+  windows_ctl:
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Install Chef
+        uses: actionshub/chef-install@master
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      - name: Create directory
+        run: mkdir D:\a\berks-cookbooks\
+      - name: Create Link
+        run: cmd /c mklink /d  D:\a\cookbooks\ D:\a\berks-cookbooks\
+      - name: Vendor Cookbooks
+        working-directory: D:\a\
+        run: berks vendor -b D:\a\sensu-go-chef\sensu-go-chef\Berksfile
+      - name: Chef Zero
+        working-directory: D:\a\cookbooks\sensu-go\
+        env:
+          CHEF_LICENSE: accept-no-persist
+        run: chef-client -z -o sensu_test::ctl
+      - name: GitHub Windows Path (Deprecated Add-Path)
+        run: >
+          echo "c:\Program Files\Sensu\sensu-cli\bin\sensuctl"
+          | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      - name: Verify
+        run: >
+          chef exec inspec
+          exec D:\a\sensu-go-chef\sensu-go-chef\test\integration\ctl\ctl_spec.rb
+        env:
+          CHEF_LICENSE: accept-no-persist
