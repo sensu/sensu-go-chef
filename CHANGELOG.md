@@ -6,6 +6,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+- Updated Contributing to document maintainers processes (@derekgroh)
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
 ## [1.3.0] - 2020-10-28
