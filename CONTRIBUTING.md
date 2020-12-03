@@ -18,7 +18,7 @@ Maintainers are GitHub Members who help review Pull Request and help organize an
 
 ### Pre Conditions
 
-1. Shown consistent and quality contributions to multiple repositories in the Sensu ecosystem.
+1. Shown consistent and quality contributions to this repository as well as active engagement in the Sensu ecosystem.
 1. MFA enabled on your Github account
 
 ### Process
