@@ -19,7 +19,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ### Breaking Changes
 
 - (Windows) New installation method will install the latest version of sensu-agent and sensuctl if not specified. To keep the previously installed version, specify `version '6.1.0.3465'` for `sensu_agent` and `sensu_ctl`. (@kovukono)
-- (Windows) New installation method will cause a duplicate sensuctl executable due to a difference in install location between the Chocolatey package and the previously defined extraction location for the cookbook. This can be fixed by removing the folder `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`, or by using the `:migrate` action for `sensu_ctl`.
+- (Windows) New installation method will cause a duplicate sensuctl executable due to a difference in install location between the Chocolatey package and the previously defined extraction location for the cookbook. This can be fixed by removing the folder `c:\Program Files\Sensu\sensu-cli\bin\sensuctl`, or by using the `:cleanup_legacy_cookbook_install` action for `sensu_ctl`.
 
 ### Changed
 
