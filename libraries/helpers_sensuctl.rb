@@ -22,7 +22,7 @@ module SensuCookbook
         if node['platform'] != 'windows'
           [sensuctl_bin, 'configure', sensuctl_configure_opts].flatten
         else
-          ['sensuctl.exe', 'configure', sensuctl_configure_opts].flatten.join(' ')
+          ["& '#{sensuctl_bin}'", 'configure', sensuctl_configure_opts].flatten.join(' ')
         end
       end
 
