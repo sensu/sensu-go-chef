@@ -55,6 +55,10 @@ action :install do
       end
     end
 
+    systemd_unit 'sensu-agent' do
+      action :nothing
+    end
+
     # render template at /etc/sensu/agent.yml for linux
     file ::File.join(new_resource.config_home, 'agent.yml') do
       content(YAML.dump(JSON.parse(new_resource.config.to_json)).to_s)
