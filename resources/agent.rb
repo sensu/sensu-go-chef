@@ -52,6 +52,7 @@ action :install do
       else
         version new_resource.version
         action :install
+        notifies :reload, 'systemd_unit[sensu-agent]', :immediately
       end
     end
 
