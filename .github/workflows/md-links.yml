@@ -6,7 +6,6 @@ name: md-links
   push:
     branches:
       - master
-      - feature/systemd-unit
 
 jobs:
   md-links:
