@@ -103,7 +103,7 @@ end
 
 RSpec.describe 'sensu_test::ctl' do
   nix_platforms = {
-    'ubuntu' => ['16.04', '18.04', '20.04'],
+    'ubuntu' => ['18.04', '20.04'],
     'centos' => '7.6',
   }
   win_platforms = {
