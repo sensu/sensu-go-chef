@@ -6,7 +6,6 @@ name: ci
   push:
     branches:
       - master
-      - feature/systemd-unit
 
 jobs:
   delivery:
@@ -74,7 +73,6 @@ jobs:
           - 'windows-2019'
         suite:
           - 'agent'
-          - 'ctl'
       fail-fast: false
 
     steps:
