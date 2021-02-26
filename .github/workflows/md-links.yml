@@ -4,7 +4,9 @@ name: md-links
 "on":
   pull_request:
   push:
-    branches: [master]
+    branches:
+      - master
+      - feature/systemd-unit
 
 jobs:
   md-links:
