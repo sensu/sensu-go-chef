@@ -49,6 +49,7 @@ action :install do
     package 'sensu-go-agent' do
       if latest_version?(new_resource.version)
         action :upgrade
+        notifies :reload, 'systemd_unit[sensu-agent]', :immediately
       else
         version new_resource.version
         action :install
