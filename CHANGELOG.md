@@ -9,9 +9,11 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 ## [1.4.0] - 2020-03-10
 
 ### Fixed
+
 - Added empty systemd unit file to auto reload the unit configuration before we restart (@ValkyrieOps) - #131
 
 ### Added
+
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
 ## [1.3.0] - 2020-10-28
