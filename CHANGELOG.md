@@ -6,7 +6,14 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
-- Added empty systemd unit file (@ValkyrieOps) - #131
+## [1.4.0] - 2020-03-10
+
+### Fixed
+
+- Added empty systemd unit file to auto reload the unit configuration before we restart (@ValkyrieOps) - #131
+
+### Added
+
 - Introduced CI/CD testing for windows for agent and ctl (@derekgroh)
 
 ## [1.3.0] - 2020-10-28
@@ -171,7 +178,8 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 - using a version of `'latest'` for backend and agent providers will now upgrade to the test version
 
 <!-- prettier-ignore -->
-[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/sensu/sensu-go-chef/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/sensu/sensu-go-chef/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/sensu/sensu-go-chef/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/sensu/sensu-go-chef/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/sensu/sensu-go-chef/compare/1.0.0...1.1.0
