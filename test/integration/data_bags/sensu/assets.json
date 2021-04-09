@@ -9,7 +9,9 @@
   "sensu-plugins-docker": {
     "url": "https://github.com/sensu-plugins/sensu-plugins-docker/archive/3.0.0.tar.gz",
     "checksum": "96f71be5824ae50db8992ffdd1a94076170457cd9ca4f8563d739ffb07d65aca06c1d2ff5590b10f73089b300a74a3c5c255dcd9a4649487aa81a29e4f81c85c",
-    "namespace": "default"
+    "namespace": "default",
+    "secrets": [{"name": "ENV-SECRET-DEFAULT", "secret": "env-secret-default" }],
+    "headers": { "Authorization": "Basic $ENV-SECRET-DEFAULT" }
   },
   "sensu-plugins-postgres": {
     "url": "https://github.com/sensu-plugins/sensu-plugins-postgres/archive/1.4.6.tar.gz",

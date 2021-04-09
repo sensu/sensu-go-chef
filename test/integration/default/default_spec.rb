@@ -117,6 +117,15 @@ describe json('/etc/sensu/assets/sensu-plugins-disk-checks.json') do
   its(%w(spec url)) { should match URI::DEFAULT_PARSER.make_regexp }
 end
 
+describe json('/etc/sensu/assets/sensu-plugins-docker.json') do
+  require 'uri'
+  its(%w(type)) { should eq 'Asset' }
+  its(%w(metadata name)) { should eq 'sensu-plugins-docker' }
+  its(%w(spec headers X-Forwarded-For)) { should eq "'Authorization': 'Basic $ENV-SECRET-DEFAULT'" }
+  its(%w(spec secrets name)) { should eq 'ENV-SECRET-DEFAULT' }
+  its(%w(spec secrets secret)) { should eq 'env-secret-default' }
+end
+
 describe json('/etc/sensu/handlers/slack.json') do
   its(%w(type)) { should eq 'Handler' }
   its(%w(metadata name)) { should eq 'slack' }
