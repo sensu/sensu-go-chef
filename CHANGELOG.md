@@ -8,7 +8,7 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ### Added
 
- - Add `secrets` property support to `sensu_asset` resource. (@joe-armstrong)
+- Add `secrets` property support to `sensu_asset` resource. (@joe-armstrong)
 
 ## [1.4.0] - 2020-03-10
 
