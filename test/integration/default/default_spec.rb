@@ -121,7 +121,7 @@ describe json('/etc/sensu/assets/sensu-plugins-docker.json') do
   require 'uri'
   its(%w(type)) { should eq 'Asset' }
   its(%w(metadata name)) { should eq 'sensu-plugins-docker' }
-  its(%w(spec headers)) { should eq '{"Authorization":"Basic $ENV-SECRET-DEFAULT"}' }
+  its(%w(spec headers)) { should eq '{"Authorization"=>"Basic $ENV-SECRET-DEFAULT"}' }
   its(['spec', 'secrets', 0, 'name']) { should eq 'ENV-SECRET-DEFAULT' }
   its(['spec', 'secrets', 0, 'secret']) { should eq 'env-secret-default' }
 end

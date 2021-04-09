@@ -70,6 +70,7 @@ assets.each do |name, property|
     sha512 property['checksum']
     namespace property['namespace']
     headers property['headers'] if property['headers']
+    secrets property['secrets'] if property['secrets']
   end
 end
 
