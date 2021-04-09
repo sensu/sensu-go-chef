@@ -441,6 +441,7 @@ At runtime the agent can sequentially fetch assets and store them in its local c
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
 * `builds` List, defines multiple artifacts that provide the named asset.
 * `headers` Optional HTTP headers to apply to dynamic runtime asset retrieval
+* `secrets` Optional Secrets to apply to dynamic runtime asset retrieval. Can be use to inject secrets into authorization headers.
 
 #### Examples
 

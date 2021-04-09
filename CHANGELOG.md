@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 This CHANGELOG follows the format located [here](https://github.com/sensu-plugins/community/blob/master/HOW_WE_CHANGELOG.md)
 
 ## [Unreleased]
+### Added
+ - Add `secrets` property support to `sensu_asset` resource. (@joe-armstrong)
 
 ## [1.4.0] - 2020-03-10
 
