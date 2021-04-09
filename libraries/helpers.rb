@@ -79,6 +79,7 @@ module SensuCookbook
         spec['builds'] = new_resource.builds
       end
       spec['headers'] = new_resource.headers if new_resource.headers
+      spec['secrets'] = new_resource.secrets if new_resource.secrets
       a = base_resource(new_resource, spec)
       a['metadata']['namespace'] = new_resource.namespace
       a
