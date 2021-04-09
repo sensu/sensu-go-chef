@@ -23,6 +23,11 @@ if os.linux?
   describe package('sensu-go-cli') do
     it { should be_installed }
   end
+
+  describe command('sensuctl user list') do
+    its('stdout') { should match /Username/ }
+    its('exit_status') { should eq 0 }
+  end
 end
 
 if os.windows?
@@ -33,9 +38,9 @@ if os.windows?
   describe file('c:\Program Files\Sensu\sensu-cli\bin\sensuctl\sensuctl.exe') do
     it { should exist }
   end
-end
 
-describe command('sensuctl user list') do
-  its('stdout') { should match /Username/ }
-  its('exit_status') { should eq 0 }
+  describe command('sensuctl entity list') do
+    its('stdout') { should match /backend/ }
+    its('exit_status') { should eq 0 }
+  end
 end

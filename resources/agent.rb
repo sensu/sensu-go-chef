@@ -53,6 +53,11 @@ action :install do
         version new_resource.version
         action :install
       end
+      notifies :reload, 'systemd_unit[sensu-agent]', :immediately
+    end
+
+    systemd_unit 'sensu-agent' do
+      action :nothing
     end
 
     # render template at /etc/sensu/agent.yml for linux
