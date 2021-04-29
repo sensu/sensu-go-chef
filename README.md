@@ -45,6 +45,7 @@ The following platforms have been tested with Test Kitchen. It will most likely 
 ## Cookbook Dependencies
 
 * [packagecloud](https://supermarket.chef.io/cookbooks/packagecloud)
+* [chocolatey](https://supermarket.chef.io/cookbooks/chocolatey/)
 
 ## Usage
 
@@ -255,6 +256,15 @@ sensu_ctl 'default'
 ```rb
 sensu_ctl 'default' do
   backend_url 'https://sensu.startup.horse'
+end
+```
+
+Migrating on Windows from version 1.3.0 or earlier of this cookbook to a later version.
+
+```rb
+sensuctl 'default' do
+  action [:cleanup_legacy_cookbook_install, :install]
+  version '6.1.0.3465'
 end
 ```
 

@@ -78,15 +78,7 @@ RSpec.shared_examples 'sensu_agent_win' do |platform, version|
     end
 
     it 'installs package sensu agent' do
-      expect(chef_run).to install_windows_package('sensu-go-agent')
-    end
-
-    it 'adds a path to windows variable' do
-      expect(chef_run).to add_windows_path('c:/Program Files/sensu/sensu-agent/bin')
-    end
-
-    it 'writes the agent config file' do
-      expect(chef_run).to create_file('c:/ProgramData/Sensu/config/agent.yml')
+      expect(chef_run).to install_chocolatey_package('sensu-agent')
     end
 
     it 'runs a powershell script' do
@@ -94,8 +86,8 @@ RSpec.shared_examples 'sensu_agent_win' do |platform, version|
     end
 
     it 'enables and starts sensuagent service' do
-      expect(chef_run).to enable_service('SensuAgent')
-      expect(chef_run).to start_service('SensuAgent')
+      expect(chef_run).to enable_windows_service('SensuAgent')
+      expect(chef_run).to start_windows_service('SensuAgent')
     end
   end
 end
@@ -169,17 +161,12 @@ RSpec.shared_examples 'remove_sensu_agent_win' do |platform, version|
       expect { chef_run }.to_not raise_error
     end
 
-    it 'stops and deletes a service `SensuAgent`' do
+    it 'stops a service `SensuAgent`' do
       expect(chef_run).to stop_windows_service('SensuAgent')
-      expect(chef_run).to delete_windows_service('SensuAgent')
-    end
-
-    it 'deletes a registy key `HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\SensuAgent`' do
-      expect(chef_run).to delete_key_registry_key('HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\SensuAgent')
     end
 
     it 'removes a package `Sensu Agent`' do
-      expect(chef_run).to remove_windows_package('Sensu Agent')
+      expect(chef_run).to remove_chocolatey_package('sensu-agent')
     end
   end
 end
