@@ -307,6 +307,7 @@ sensu_check 'cron' do
   annotations(runbook: 'https://www.xkcd.com/378/')
   publish false
   ttl 100
+  secrets [{ "name": "AGGREGATE_USER_KEY", "secret": 'sensu-aggregate-key'}]
   high_flap_threshold 60
   low_flap_threshold 20
   action :create
