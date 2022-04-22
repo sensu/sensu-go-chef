@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_auth_oidc
 provides :sensu_auth_oidc
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

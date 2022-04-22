@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_handler
 provides :sensu_handler
+unified_mode true
 provides :sensu_go_handler
 
 property :command, String # only allowed if type == pipe

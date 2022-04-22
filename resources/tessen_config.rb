@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_tessen_config
 provides :sensu_tessen_config
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

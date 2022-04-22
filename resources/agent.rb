@@ -25,6 +25,7 @@
 
 resource_name :sensu_agent
 provides :sensu_agent
+unified_mode true
 
 include SensuCookbook::Helpers
 include SensuCookbook::SensuPackageProperties

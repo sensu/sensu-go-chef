@@ -27,6 +27,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_namespace
 provides :sensu_namespace
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

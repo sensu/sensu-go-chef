@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_filter
 provides :sensu_filter
+unified_mode true
 provides :sensu_go_filter
 
 property :filter_action, String, equal_to: %w(allow deny), required: true

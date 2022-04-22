@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_global_config
 provides :sensu_global_config
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

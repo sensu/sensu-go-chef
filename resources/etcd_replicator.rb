@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_etcd_replicator
 provides :sensu_etcd_replicator
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

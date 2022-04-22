@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_check
 provides :sensu_check
+unified_mode true
 provides :sensu_go_check
 
 property :check_hooks, Array

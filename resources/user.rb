@@ -25,6 +25,7 @@
 
 resource_name :sensu_user
 provides :sensu_user
+unified_mode true
 
 include SensuCookbook::Helpers::SensuCtl
 include SensuCookbook::SensuCommonProperties

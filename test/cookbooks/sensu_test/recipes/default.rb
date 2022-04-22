@@ -44,8 +44,8 @@ sensu_check 'cron' do
     {
       'begin' => '2022-04-18T16:00:00-07:00',
       'end' => '2022-04-18T17:00:00-07:00',
-      'repeat' => ['daily']
-    }
+      'repeat' => ['daily'],
+    },
   ]
   action :create
 end
@@ -66,8 +66,8 @@ sensu_check 'cron-test-org' do
     {
       'begin' => '2022-04-18T16:00:00-07:00',
       'end' => '2022-04-18T17:00:00-07:00',
-      'repeat' => ['daily']
-    }
+      'repeat' => ['daily'],
+    },
   ]
   action :create
 end

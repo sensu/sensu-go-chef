@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_cluster_role_binding
 provides :sensu_cluster_role_binding
+unified_mode true
 
 property :role_name, String, required: true
 property :role_type, String, required: true, equal_to: %w(Role ClusterRole)

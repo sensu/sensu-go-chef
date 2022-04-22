@@ -25,6 +25,7 @@
 
 resource_name :sensu_backend
 provides :sensu_backend
+unified_mode true
 
 include SensuCookbook::Helpers
 include SensuCookbook::SensuPackageProperties

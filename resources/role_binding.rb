@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_role_binding
 provides :sensu_role_binding
+unified_mode true
 
 property :namespace, String, default: 'default'
 property :role_name, String, required: true

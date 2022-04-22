@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_postgres_config
 provides :sensu_postgres_config
+unified_mode true
 
 property :dsn, String, required: true
 property :pool_size, Integer
