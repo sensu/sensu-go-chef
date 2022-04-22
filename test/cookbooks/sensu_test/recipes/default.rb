@@ -40,8 +40,13 @@ sensu_check 'cron' do
   ttl 100
   high_flap_threshold 60
   low_flap_threshold 20
-  subdue(days: { all: [{ begin: '12:00 AM', end: '11:59 PM' },
-                       { begin: '11:00 PM', end: '1:00 AM' }] })
+  subdues [
+    {
+      'begin' => '2022-04-18T16:00:00-07:00',
+      'end' => '2022-04-18T17:00:00-07:00',
+      'repeat' => ['daily']
+    }
+  ]
   action :create
 end
 
@@ -57,8 +62,13 @@ sensu_check 'cron-test-org' do
   ttl 100
   high_flap_threshold 60
   low_flap_threshold 20
-  subdue(days: { all: [{ begin: '12:00 AM', end: '11:59 PM' },
-                       { begin: '11:00 PM', end: '1:00 AM' }] })
+  subdues [
+    {
+      'begin' => '2022-04-18T16:00:00-07:00',
+      'end' => '2022-04-18T17:00:00-07:00',
+      'repeat' => ['daily']
+    }
+  ]
   action :create
 end
 

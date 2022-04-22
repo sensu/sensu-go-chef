@@ -64,10 +64,8 @@ describe json('/etc/sensu/checks/cron.json') do
   its(%w(spec subscriptions)) { should include 'production' }
   its(%w(spec handlers)) { should include 'pagerduty' }
   its(%w(spec handlers)) { should include 'email' }
-  its(['spec', 'subdue', 'days', 'all', 0, 'begin']) { should eq '12:00 AM' }
-  its(['spec', 'subdue', 'days', 'all', 0, 'end']) { should eq '11:59 PM' }
-  its(['spec', 'subdue', 'days', 'all', 1, 'begin']) { should eq '11:00 PM' }
-  its(['spec', 'subdue', 'days', 'all', 1, 'end']) { should eq '1:00 AM' }
+  its(%w(spec subdues begin)) {should eq '2022-04-18T16:00:00-07:00'}
+  its(%w(spec subdues end)) {should eq '2022-04-18T17:00:00-07:00'}
 end
 
 describe json('/etc/sensu/checks/cron-test-org.json') do
@@ -80,10 +78,8 @@ describe json('/etc/sensu/checks/cron-test-org.json') do
   its(%w(spec subscriptions)) { should include 'production' }
   its(%w(spec handlers)) { should include 'pagerduty' }
   its(%w(spec handlers)) { should include 'email' }
-  its(['spec', 'subdue', 'days', 'all', 0, 'begin']) { should eq '12:00 AM' }
-  its(['spec', 'subdue', 'days', 'all', 0, 'end']) { should eq '11:59 PM' }
-  its(['spec', 'subdue', 'days', 'all', 1, 'begin']) { should eq '11:00 PM' }
-  its(['spec', 'subdue', 'days', 'all', 1, 'end']) { should eq '1:00 AM' }
+  its(%w(spec subdues begin)) {should eq '2022-04-18T16:00:00-07:00'}
+  its(%w(spec subdues end)) {should eq '2022-04-18T17:00:00-07:00'}
 end
 
 %w(http docker postgres).each do |p|

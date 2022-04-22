@@ -57,7 +57,7 @@ module SensuCookbook
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
       spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['stdin'] = new_resource.stdin
-      spec['subdue'] = new_resource.subdue if new_resource.subdue
+      spec['subdues'] = new_resource.subdues if new_resource.subdues
       spec['subscriptions'] = new_resource.subscriptions
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['ttl'] = new_resource.ttl if new_resource.ttl

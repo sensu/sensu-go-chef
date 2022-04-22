@@ -44,7 +44,7 @@ property :round_robin, [true, false]
 property :runtime_assets, Array
 property :secrets, Array
 property :stdin, [true, false], default: false
-property :subdue, Hash
+property :subdues, Array
 property :subscriptions, Array, required: true
 property :timeout, Integer
 property :ttl, Integer
