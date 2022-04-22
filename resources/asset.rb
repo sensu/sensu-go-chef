@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_asset
 provides :sensu_asset
+unified_mode true
 provides :sensu_go_asset
 
 property :filters, Array

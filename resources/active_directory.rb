@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_active_directory
 provides :sensu_active_directory
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_auth_ldap
 provides :sensu_auth_ldap
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

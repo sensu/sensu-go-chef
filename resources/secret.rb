@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_secret
 provides :sensu_secret
+unified_mode true
 
 action_class do
   include SensuCookbook::Helpers

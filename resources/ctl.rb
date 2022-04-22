@@ -25,6 +25,7 @@
 
 resource_name :sensu_ctl
 provides :sensu_ctl
+unified_mode true
 
 include SensuCookbook::SensuPackageProperties
 

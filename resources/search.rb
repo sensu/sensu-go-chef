@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_search
 provides :sensu_search
+unified_mode true
 
 property :namespace, String, default: 'default'
 property :parameters, Array, required: true, callbacks: {

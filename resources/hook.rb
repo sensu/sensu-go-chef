@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_hook
 provides :sensu_hook
+unified_mode true
 
 property :command, String, required: true
 property :timeout, Integer

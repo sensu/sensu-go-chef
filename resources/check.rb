@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_check
 provides :sensu_check
+unified_mode true
 provides :sensu_go_check
 
 property :check_hooks, Array
@@ -44,7 +45,7 @@ property :round_robin, [true, false]
 property :runtime_assets, Array
 property :secrets, Array
 property :stdin, [true, false], default: false
-property :subdue, Hash
+property :subdues, Array
 property :subscriptions, Array, required: true
 property :timeout, Integer
 property :ttl, Integer

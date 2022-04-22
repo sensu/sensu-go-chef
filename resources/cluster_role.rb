@@ -28,6 +28,7 @@ include SensuCookbook::SensuCommonProperties
 
 resource_name :sensu_cluster_role
 provides :sensu_cluster_role
+unified_mode true
 
 # rubocop:disable Style/TrailingCommaInHashLiteral
 property :rules, Array, required: true, callbacks: {
