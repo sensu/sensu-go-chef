@@ -6,6 +6,10 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+### Added
+
+- Add support for new check subdue functionaltiy
+
 ## [1.4.0] - 2020-03-10
 
 ### Fixed
