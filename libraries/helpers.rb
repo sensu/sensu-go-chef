@@ -20,11 +20,16 @@ module SensuCookbook
       ::File.join(object_dir(plural), new_resource.name) + '.json'
     end
 
-    def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2')
+    def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2', override_name = nil)
       obj = Mash.new
       meta = Mash.new
 
-      meta['name'] = new_resource.name
+      if override_name == nil
+        meta['name'] = new_resource.name
+      else
+        meta['name'] = override_name
+      end
+
       meta['labels'] = new_resource.labels if new_resource.labels
       meta['annotations'] = new_resource.annotations if new_resource.annotations
 
@@ -64,7 +69,7 @@ module SensuCookbook
       spec['output_metric_format'] = new_resource.output_metric_format if new_resource.output_metric_format
       spec['output_metric_handlers'] = new_resource.output_metric_handlers if new_resource.output_metric_handlers
 
-      c = base_resource(new_resource, spec)
+      c = base_resource(new_resource, spec, override_name = new_resource.check_name)
       c['metadata']['namespace'] = new_resource.namespace
       c
     end
@@ -79,8 +84,7 @@ module SensuCookbook
         spec['builds'] = new_resource.builds
       end
       spec['headers'] = new_resource.headers if new_resource.headers
-      a = base_resource(new_resource, spec)
-      a['metadata']['namespace'] = new_resource.namespace
+      a = base_resource(new_resource, spec, override_name = new_resource.asset_name)
       a
     end
 
@@ -97,7 +101,7 @@ module SensuCookbook
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['type'] = new_resource.type
 
-      h = base_resource(new_resource, spec)
+      h = base_resource(new_resource, spec, override_name = new_resource.handler_name)
       h['metadata']['namespace'] = new_resource.namespace
       h
     end
@@ -108,7 +112,7 @@ module SensuCookbook
       spec['timeout'] = new_resource.timeout if new_resource.timeout
       spec['stdin'] = new_resource.stdin if new_resource.stdin
 
-      h = base_resource(new_resource, spec)
+      h = base_resource(new_resource, spec, override_name = new_resource.hook_name)
       h['metadata']['namespace'] = new_resource.namespace
       h
     end
@@ -120,7 +124,7 @@ module SensuCookbook
       spec['when'] = new_resource.when if new_resource.when
       spec['runtime_assets'] = new_resource.runtime_assets if new_resource.runtime_assets
 
-      f = base_resource(new_resource, spec)
+      f = base_resource(new_resource, spec, override_name = new_resource.filter_name)
       f['type'] = 'Event' + type_from_name
       f['metadata']['namespace'] = new_resource.namespace
       f
@@ -133,7 +137,7 @@ module SensuCookbook
       spec['secrets'] = new_resource.secrets if new_resource.secrets
       spec['timeout'] = new_resource.timeout if new_resource.timeout
 
-      m = base_resource(new_resource, spec)
+      m = base_resource(new_resource, spec, override_name = new_resource.mutator_name)
       m['metadata']['namespace'] = new_resource.namespace
       m
     end
@@ -149,7 +153,7 @@ module SensuCookbook
       spec['system'] = new_resource.system if new_resource.system
       spec['user'] = new_resource.user if new_resource.user
 
-      e = base_resource(new_resource, spec)
+      e = base_resource(new_resource, spec, override_name = new_resource.entity_name)
       e['metadata']['namespace'] = new_resource.namespace
       e
     end
@@ -166,7 +170,7 @@ module SensuCookbook
         'rules' => new_resource.rules,
       }
 
-      role = base_resource(new_resource, spec)
+      role = base_resource(new_resource, spec, override_name = new_resource.role_name)
       role['metadata']['namespace'] = new_resource.namespace
       role
     end
@@ -187,7 +191,7 @@ module SensuCookbook
         'subjects' => new_resource.subjects,
       }
 
-      binding = base_resource(new_resource, spec)
+      binding = base_resource(new_resource, spec, override_name = new_resource.role_binding_name)
       binding['metadata']['namespace'] = new_resource.namespace
       binding
     end
@@ -243,7 +247,7 @@ module SensuCookbook
       spec = {}
       spec['id'] = new_resource.id
       spec['provider'] = new_resource.secrets_provider
-      secret = base_resource(new_resource, spec, 'secrets/v1')
+      secret = base_resource(new_resource, spec, 'secrets/v1', override_name = new_resource.secret_name)
       secret['metadata']['namespace'] = new_resource.namespace
       secret
     end
@@ -283,7 +287,7 @@ module SensuCookbook
       spec = {}
       spec['parameters'] = new_resource.parameters
       spec['resource'] = new_resource.resource
-      search = base_resource(new_resource, spec, 'searches/v1')
+      search = base_resource(new_resource, spec, 'searches/v1', override_name = new_resource.search_name)
       search['metadata']['namespace'] = new_resource.namespace
       search
     end

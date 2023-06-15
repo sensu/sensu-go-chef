@@ -51,6 +51,7 @@ property :ttl, Integer
 property :output_metric_format, String
 property :output_metric_handlers, Array
 property :namespace, String, default: 'default'
+property :check_name, String
 
 action_class do
   include SensuCookbook::Helpers

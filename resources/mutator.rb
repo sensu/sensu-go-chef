@@ -35,6 +35,7 @@ property :env_vars, Array
 property :secrets, Array
 property :timeout, Integer
 property :namespace, String, default: 'default'
+property :mutator_name, String
 
 action_class do
   include SensuCookbook::Helpers

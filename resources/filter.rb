@@ -35,6 +35,7 @@ property :expressions, Array, required: true
 property :when, Hash
 property :runtime_assets, Array
 property :namespace, String, default: 'default'
+property :filter_name, String
 
 action_class do
   include SensuCookbook::Helpers

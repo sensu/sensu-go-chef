@@ -30,6 +30,7 @@ resource_name :sensu_role
 provides :sensu_role
 
 property :namespace, String, default: 'default'
+property :role_name, String
 # rubocop:disable Style/TrailingCommaInHashLiteral
 property :rules, Array, required: true, callbacks: {
   'should be an array of hashes' => lambda do |arry|

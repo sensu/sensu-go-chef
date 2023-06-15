@@ -30,6 +30,7 @@ resource_name :sensu_role_binding
 provides :sensu_role_binding
 
 property :namespace, String, default: 'default'
+property :role_binding_name, String
 property :role_name, String, required: true
 property :role_type, String, required: true, equal_to: %w(Role ClusterRole)
 # rubocop:disable Style/TrailingCommaInHashLiteral

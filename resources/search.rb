@@ -30,6 +30,7 @@ resource_name :sensu_search
 provides :sensu_search
 
 property :namespace, String, default: 'default'
+property :search_name, String
 property :parameters, Array, required: true, callbacks: {
   'List can only contain valid sensu search parameters' => lambda do |arry|
     arry.all? do |e|

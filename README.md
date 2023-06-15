@@ -283,6 +283,7 @@ The sensu_check resource is used to define check objects.
 * `interval` The frequency in seconds the check is executed.
 * `low_flap_threshold` The flap detection low threshold, in percent
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `check_name` The name to give the check in Sensu, default: *resource id*
 * `proxy_entity_name` Used to create a proxy entity for an external resource
 * `proxy_requests`  A [Sensu Proxy Request](https://docs.sensu.io/sensu-go/latest/reference/checks/#proxy-requests-attributes), representing Sensu entity attributes to match entities in the registry.
 * `publish` If check requests are published for the check
@@ -338,7 +339,8 @@ end
 * `filters` an array of Sensu event filter names to use
 * `handlers` an array of Sensu event handler names to use for events
 * `mutator` mutator to use to mutate event data for the handler
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this handler belongs to, default: *default*
+* `handler_name` The name to give the handler in Sensu, default: *resource id*
 * `runtime_assets` An array of [Sensu assets](https://docs.sensu.io/sensu-go/latest/reference/assets/) required at runtime for the execution of the `command`
 * `secrets` an array of hashes of name/secret pairs to use with command execution
 * `socket` the socket definition scope, used to configure the TCP/UDP handler socket
@@ -364,7 +366,8 @@ Used to define hooks for sensu checks
 #### Properties
 
 * `command` **required** command to be executed
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this filter belongs to, default: *default*
+* `hook_name` The name to give the hook in Sensu, default: *resource id*
 * `timeout` duration timeout in seconds (hard stop)
 * `stdin`  If the Sensu agent writes JSON serialized Sensu entity and check data to the command process’ STDIN. The command must expect the JSON data via STDIN, read it, and close STDIN. This attribute cannot be used with existing Sensu check plugins, nor Nagios plugins etc, as Sensu agent will wait indefinitely for the hook process to read and close STDIN
 
@@ -394,7 +397,8 @@ Used to define filters for sensu checks
 
 * `filter_action` **required** action to take with the event if the filter statements match. One of: `allow`, `deny`
 * `expressions` **required** filter expressions to be compared with event data.
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this filter belongs to, default: *default*
+* `filter_name` The name to give the filter in Sensu, default: *resource id*
 * `when` the [when definition scope](https://docs.sensu.io/sensu-go/latest/reference/filters/#when-attributes), used to determine when a filter is applied with time windows
 
 #### Examples
@@ -425,7 +429,8 @@ A handler can specify a mutator to transform event data. This resource can defin
 
 * `command` **required** the command to run
 * `env_vars` an array of environment variables to use with command execution
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this mutator belongs to, default: *default*
+* `mutator_name` The name to give the mutator in Sensu, default: *resource id*
 * `secrets` an array of hashes of name/secret pairs to use with command execution
 * `timeout` the execution duration timeout in seconds
 
@@ -450,6 +455,7 @@ At runtime the agent can sequentially fetch assets and store them in its local c
 * `sha512` **required** the checksum of the asset.
 * `url` **required** the URL location of the asset.
 * `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `asset_name` The name to give the asset in Sensu, default: *resource id*
 * `builds` List, defines multiple artifacts that provide the named asset.
 * `headers` Optional HTTP headers to apply to dynamic runtime asset retrieval
 
@@ -486,7 +492,8 @@ An entity is a representation of anything that needs to be monitored. From Sensu
 * `entity_class` **required** the entity type, should be either `agent` or `proxy`.
 * `deregister` Whether or not the entity should be removed from Sensu once the Sensu agent process's keepalive dies. Not needed for proxy entities.
 * `deregistration` Hash of handlers for use when the entity is deregistered. Not needed for proxy entities.
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this entity belongs to, default: *default*
+* `entity_name` The name to give the entity in Sensu, default: *resource id*
 * `redact` List of items to redact from log messages and dashboard. If a value is provided, it overwrites the default list of items to be redacted.
 * `sensu_agent_version` Version of the agent entity running on the machine. Not needed for proxy entities.
 * `subscriptions` An array of subscriptions. If no subscriptions are provided, it defaults to an entity-specific subscription list: `[entity:{ID}]`.
@@ -707,7 +714,8 @@ Create a secret that Sensu can grab from a secret provider so that sensitive inf
 #### Properties
 
 * `id` **required** The key to use to retrive the secret. For the Env secrets provider, this is the environment variable. For the Vault secrets provider, this is the path and key in the form of `secret/path#key`. Currently, the Vault secrets provider does not support any base engine paths other than "secret/" for v2 K/V secrets engine.
-* `namespace` the Sensu RBAC namespace that this check belongs to, default: *default*
+* `namespace` the Sensu RBAC namespace that this secret belongs to, default: *default*
+* `secret_name` The name to give the secret in Sensu, default: *resource id*
 * `secrets_provider` **required** Name of the provider, all in lowercase, ex: `'env'`, `'vault'`
 
 #### Examples
@@ -827,6 +835,7 @@ Create a save search that can be used in the Sensu web interface (commercial fea
 #### Properties
 
 * `namespace` namespace for the save search
+* `search_name` The name to give the search in Sensu, default: *resource id*
 * `parameters` **required** parameters the search will apply
 * `resource`  **required** fully qualified name of the resource
 
