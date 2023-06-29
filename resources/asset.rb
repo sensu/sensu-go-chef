@@ -87,10 +87,10 @@ end
 action :update do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl asset update #{new_resource.name}]"
+    notifies :run, "execute[sensuctl asset update #{new_resource.name} --namespace #{new_resource.namespace}]"
   end
 
-  execute "sensuctl asset update #{new_resource.name}" do
+  execute "sensuctl asset update #{new_resource.name} --namespace #{new_resource.namespace}" do
     command sensuctl_asset_update_cmd
     action :nothing
   end

@@ -64,10 +64,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu role delete #{new_resource.name} --skip-confirm"
+    notifies :run, "execute[sensu role delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm"
   end
 
-  execute "sensuctl role delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl role delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end
