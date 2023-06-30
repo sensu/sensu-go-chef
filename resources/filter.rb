@@ -35,6 +35,7 @@ property :expressions, Array, required: true
 property :when, Hash
 property :runtime_assets, Array
 property :namespace, String, default: 'default'
+property :filter_name, String
 
 action_class do
   include SensuCookbook::Helpers
@@ -59,10 +60,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl filter delete #{new_resource.name} --skip-confirm]"
+    notifies :run, "execute[sensuctl filter delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm]"
   end
 
-  execute "sensuctl filter delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl filter delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

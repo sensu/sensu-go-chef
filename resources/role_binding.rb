@@ -30,6 +30,7 @@ resource_name :sensu_role_binding
 provides :sensu_role_binding
 
 property :namespace, String, default: 'default'
+property :role_binding_name, String
 property :role_name, String, required: true
 property :role_type, String, required: true, equal_to: %w(Role ClusterRole)
 # rubocop:disable Style/TrailingCommaInHashLiteral
@@ -65,10 +66,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu role-binding delete #{new_resource.name} --skip-confirm"
+    notifies :run, "execute[sensu role-binding delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm"
   end
 
-  execute "sensuctl role-binding delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl role-binding delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

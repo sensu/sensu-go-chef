@@ -41,6 +41,7 @@ property :socket, Hash # can only have host: string, port: int
 property :timeout, Integer
 property :type, String, equal_to: %w(pipe tcp udp set), required: true
 property :namespace, String, default: 'default'
+property :handler_name, String
 
 action_class do
   include SensuCookbook::Helpers
@@ -65,10 +66,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl handler delete #{new_resource.name} --skip-confirm]"
+    notifies :run, "execute[sensuctl handler delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm]"
   end
 
-  execute "sensuctl handler delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl handler delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

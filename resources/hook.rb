@@ -33,6 +33,7 @@ property :command, String, required: true
 property :timeout, Integer
 property :stdin, [true, false]
 property :namespace, String, default: 'default'
+property :hook_name, String
 
 action_class do
   include SensuCookbook::Helpers
@@ -57,10 +58,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu hook delete #{new_resource.name} --skip-confirm"
+    notifies :run, "execute[sensu hook delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm"
   end
 
-  execute "sensuctl hook delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl hook delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

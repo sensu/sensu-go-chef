@@ -36,6 +36,7 @@ end
 property :id, String, required: true
 property :secrets_provider, String, required: true
 property :namespace, String, default: 'default'
+property :secret_name, String
 
 action :create do
   directory object_dir do
@@ -56,10 +57,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl secret delete #{new_resource.name} --skip-confirm]"
+    notifies :run, "execute[sensuctl secret delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm]"
   end
 
-  execute "sensuctl secret delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl secret delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

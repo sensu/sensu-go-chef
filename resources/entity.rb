@@ -42,6 +42,7 @@ property :subscriptions, Array
 property :system, Hash
 property :user, String
 property :namespace, String, default: 'default'
+property :entity_name, String
 
 action :create do
   directory object_dir do

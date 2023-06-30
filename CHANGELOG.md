@@ -6,6 +6,10 @@ This CHANGELOG follows the format located [here](https://github.com/sensu-plugin
 
 ## [Unreleased]
 
+### Added
+
+- Added ability to name namespace-sensitive assets in Sensu (@devinlyons)
+
 ## [1.4.0] - 2020-03-10
 
 ### Fixed

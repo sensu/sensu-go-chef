@@ -30,6 +30,7 @@ resource_name :sensu_role
 provides :sensu_role
 
 property :namespace, String, default: 'default'
+property :role_name, String
 # rubocop:disable Style/TrailingCommaInHashLiteral
 property :rules, Array, required: true, callbacks: {
   'should be an array of hashes' => lambda do |arry|
@@ -63,10 +64,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensu role delete #{new_resource.name} --skip-confirm"
+    notifies :run, "execute[sensu role delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm"
   end
 
-  execute "sensuctl role delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl role delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end

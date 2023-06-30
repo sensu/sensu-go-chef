@@ -51,6 +51,7 @@ property :ttl, Integer
 property :output_metric_format, String
 property :output_metric_handlers, Array
 property :namespace, String, default: 'default'
+property :check_name, String
 
 action_class do
   include SensuCookbook::Helpers
@@ -75,10 +76,10 @@ end
 action :delete do
   file object_file do
     action :delete
-    notifies :run, "execute[sensuctl check delete #{new_resource.name} --skip-confirm]"
+    notifies :run, "execute[sensuctl check delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm]"
   end
 
-  execute "sensuctl check delete #{new_resource.name} --skip-confirm" do
+  execute "sensuctl check delete #{new_resource.name} --namespace #{new_resource.namespace} --skip-confirm" do
     action :nothing
   end
 end
