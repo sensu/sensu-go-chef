@@ -9,15 +9,29 @@ module SensuCookbook
     # Pluralize object directory name
     def object_dir(plural = true)
       dirname = new_resource.declared_type.to_s.gsub(/^sensu_/, '')
+
+      base_path = ::File.join(new_resource.config_home, dirname)
       if plural
-        ::File.join(new_resource.config_home, dirname) + 's'
+        base_path += 's'
       else
-        ::File.join(new_resource.config_home, dirname)
+
+      prop_name = dirname + "_name"
+      if !new_resource[prop_name].nil? && !new_resource["namespace"].nil?
+        ::File.join(base_path, new_resource.namespace)
+      else
+        base_path
       end
     end
 
     def object_file(plural = true)
-      ::File.join(object_dir(plural), new_resource.name) + '.json'
+      prop_name = new_resource.declared_type.to_s.gsub(/^sensu_/, '') + '_name'
+      file_name = new_resource.name
+
+      if !new_resource[prop_name].nil? && !new_resource["namespace"].nil?
+        file_name = new_resource[prop_name]
+      end
+
+      ::File.join(object_dir(plural), file_name) + '.json'
     end
 
     def base_resource(new_resource, spec = Mash.new, api_version = 'core/v2', override_name = nil)
